@@ -1,0 +1,61 @@
+/* @tailwind base; */
+/* @tailwind components; */
+@tailwind utilities;
+
+html {
+	@apply bg-neutral-200;
+
+	font-family: "DejaVu Sans", sans-serif;
+}
+
+main {
+	@apply mx-auto max-w-4xl;
+	@apply text-lg;
+
+	@apply flex flex-col gap-4;
+	/* @apply w-full; */
+}
+
+/* article {
+	@apply flex flex-col gap-0;
+} */
+
+h1 {
+	@apply text-3xl;
+}
+
+ul.entries-list {
+	@apply list-none list-outside p-0;
+}
+
+a {
+	@apply no-underline;
+	@apply text-blue-600 hover:text-purple-500;
+}
+
+.code-block {
+	@apply relative;
+}
+
+
+.code-block pre {
+	@apply p-0 m-0;
+}
+
+.code-block .lang-tag {
+	@apply absolute inline right-0 top-0;
+	@apply text-neutral-500 text-sm p-2 uppercase;
+}
+
+.logentry-date {
+	@apply text-neutral-400;
+}
+
+/* aside {
+	@apply min-w-[20em] bg-red-200 flex-grow;
+} */
+
+/* .page_content {
+    @apply mx-auto max-w-4xl;
+    @apply flex;
+} */

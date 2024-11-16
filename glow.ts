@@ -4,6 +4,7 @@ import djot from "npm:@djot/djot";
 import { format, parse } from "npm:date-fns";
 import mustache from "npm:mustache";
 import * as yaml from "jsr:@std/yaml";
+import hljs from "npm:highlight.js";
 
 const main = () => {
     const command = parseCommand(Deno.args);
@@ -22,11 +23,18 @@ const Dirs = {
         log: "out/log",
     },
 };
+const Templates = {
+    log: {
+        layout: "src/templates/log/layout.html",
+        index: "src/templates/log/index.html",
+        entry: "src/templates/log/entry_page.html",
+    },
+};
 
 type Command = "help" | "version" | "log" | "build";
 type SubCommand = string;
 
-const Templates = {
+const LogTemplates = {
     NewLog: `---
 title: 
 public: no
@@ -75,7 +83,10 @@ const executeCommand = (
             executeLogCommand(command.subCommand);
             break;
         case "build":
-            executeBuildCommand();
+            const isDev = Deno.args.includes("--dev");
+            executeBuildCommand({
+                mode: isDev ? "dev" : "prod",
+            });
             break;
         default:
             Deno.exit(1);
@@ -105,7 +116,7 @@ const executeLogCommand = (subCommand: SubCommand) => {
                 const file = `${Dirs.logs}/${fileName}`;
                 Deno.writeFileSync(
                     file,
-                    new TextEncoder().encode(Templates.NewLog),
+                    new TextEncoder().encode(LogTemplates.NewLog),
                 );
 
                 printResult("ok", fileName);
@@ -145,7 +156,32 @@ const collectLogItems = () => {
             .trim();
 
         const parsedContent = djot.parse(djotContent);
-        const renderedContent = djot.renderHTML(parsedContent);
+        const renderedContent = djot.renderHTML(parsedContent, {
+            overrides: {
+                code_block: (node, renderer) => {
+                    let language = node.lang || "";
+
+                    switch (language) {
+                        case "ts":
+                        case "typescript":
+                            language = "typescript";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    const value = hljs.highlight(
+                        node.text.trim(),
+                        { language: language },
+                    ).value;
+
+                    return `<div class="code-block">
+<pre><code class="hljs" data-language="${language}">${value}</code></pre>
+<span class="lang-tag">${language}</span>
+</div>`;
+                },
+            },
+        });
 
         const logNameProps = sourceFileName.substring(
             0,
@@ -160,6 +196,7 @@ const collectLogItems = () => {
             logIndex,
             logTimestamp,
             logDate,
+            formattedDate: format(logDate, "E, dd MMM yyyy"),
             sourceFileName,
             header,
             contentDjot: parsedContent,
@@ -170,9 +207,15 @@ const collectLogItems = () => {
     return items;
 };
 
-const executeBuildCommand = () => {
+const executeBuildCommand = (opts: { mode: "dev" | "prod" }) => {
     const items = collectLogItems();
     console.log(`Found: ${items.length} items`);
+
+    const buildUid = Math.floor(new Date().getTime() / 1000);
+    const pageGlobal = {
+        title: "/dector/log",
+        buildUid,
+    };
 
     try {
         Deno.removeSync(Dirs.out.root, { recursive: true });
@@ -183,63 +226,57 @@ const executeBuildCommand = () => {
     }
 
     for (const item of items) {
-        const header = item.header;
         //const contentDjot = item.contentDjot;
         const contentHtml = item.contentHtml;
 
         const itemDir = `${Dirs.out.log}/${item.logIndex}`;
         Deno.mkdirSync(itemDir);
-        const file = `${itemDir}/index.html`;
 
-        // TODO
-        const pageHtml = mustache.render(
-            /*html*/ `
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>dector/log ~ {{title}}</title>
-  </head>
-  <body>
-    {{{content}}}
-  </body>
-</html>
-`,
+        const entryHtml = mustache.render(
+            Deno.readTextFileSync(Templates.log.entry),
             {
-                title: header.title,
                 content: contentHtml,
+                title: item.header.title,
+                date: item.formattedDate,
+            },
+        ).trim();
+        const pageHtml = mustache.render(
+            Deno.readTextFileSync(Templates.log.layout),
+            {
+                page: {
+                    ...pageGlobal,
+                    title: `${pageGlobal.title} ~ ${item.header.title}`,
+                    content: entryHtml,
+                },
             },
         ).trim();
 
+        const file = `${itemDir}/index.html`;
         Deno.writeTextFileSync(file, pageHtml);
     }
 
-    // biome-ignore lint/complexity/noUselessLoneBlockStatements:
     {
+        const entryHtml = mustache.render(
+            Deno.readTextFileSync(Templates.log.index),
+            {
+                items: items.map((item) => ({
+                    title: item.header.title,
+                    path: `/log/${item.logIndex}`,
+                })),
+            },
+        ).trim();
+        const pageHtml = mustache.render(
+            Deno.readTextFileSync(Templates.log.layout),
+            {
+                page: {
+                    ...pageGlobal,
+                    content: entryHtml,
+                },
+            },
+        ).trim();
         Deno.writeTextFileSync(
             `${Dirs.out.log}/index.html`,
-            mustache.render(
-                /*html*/ `
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>dector/log</title>
-  </head>
-  <body>
-    <ul>
-      {{#items}}
-      <li><a href="{{{path}}}">{{title}}</a></li>
-      {{/items}}
-    </ul>
-  </body>
-</html>
-`,
-                {
-                    items: items.map((item) => ({
-                        path: `/${item.logIndex}`,
-                        title: item.header.title,
-                    })),
-                },
-            ).trim(),
+            pageHtml,
         );
     }
 

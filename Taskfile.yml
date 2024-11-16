@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 tasks:
   default:
@@ -11,7 +11,31 @@ tasks:
       - ./glow.ts log new
     silent: true
 
-  build:
+  build:log:
     cmds:
       - ./glow.ts build
+
+  build:css:
+    cmds:
+      - npx tailwindcss
+        -c ./src/styles/tailwind.config.js
+        -i ./src/styles/main.css
+        -o ./out/assets/styles.css
+        --minify
+
+  build:copy_assets:
+    cmds:
+      - mkdir -p ./out/assets; true
+      - cp -r ./src/assets/* ./out/assets/
+
+  build:
+    cmds:
+      - task: build:log
+      - task: build:css
+      - task: build:copy_assets
+    silent: true
+
+  serve:
+    cmds:
+      - npx http-server ./out
     silent: true

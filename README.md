@@ -2,6 +2,7 @@
 
 - `go-task` (optional).
 - `deno` (required).
+- `npx` (required).
 
 ---
 
