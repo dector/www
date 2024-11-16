@@ -1,0 +1,12 @@
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - ./glow.ts
+    silent: true
+
+  new:
+    cmds:
+      - ./glow.ts log new
+    silent: true
