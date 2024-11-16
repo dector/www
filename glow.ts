@@ -1,7 +1,9 @@
-#!/usr/bin/env -S deno --allow-read --allow-write=log
+#!/usr/bin/env -S deno --allow-read --allow-write=log --allow-write=out
 
 import djot from "npm:@djot/djot";
-import { format } from "npm:date-fns";
+import { format, parse } from "npm:date-fns";
+import mustache from "npm:mustache";
+import * as yaml from "jsr:@std/yaml";
 
 const main = () => {
     const command = parseCommand(Deno.args);
@@ -15,9 +17,13 @@ const main = () => {
 
 const Dirs = {
     logs: "log",
+    out: {
+        root: "out",
+        log: "out/log",
+    },
 };
 
-type Command = "help" | "version" | "log";
+type Command = "help" | "version" | "log" | "build";
 type SubCommand = string;
 
 const Templates = {
@@ -29,6 +35,15 @@ tags:
 ---
 
 D.\n`,
+};
+
+const printResult = (status: "ok", message?: string) => {
+    console.log();
+    console.log(`%c${status.toUpperCase()}`, "color: green");
+
+    if (message != null) {
+        console.log(`%c${message}`, "color: orange");
+    }
 };
 
 const parseCommand = (
@@ -58,6 +73,9 @@ const executeCommand = (
         //     break;
         case "log":
             executeLogCommand(command.subCommand);
+            break;
+        case "build":
+            executeBuildCommand();
             break;
         default:
             Deno.exit(1);
@@ -90,15 +108,142 @@ const executeLogCommand = (subCommand: SubCommand) => {
                     new TextEncoder().encode(Templates.NewLog),
                 );
 
-                console.log();
-                console.log("%cOK", "color: green");
-                console.log(`%c${fileName}`, "color: orange");
+                printResult("ok", fileName);
             }
             break;
         default:
             Deno.exit(1);
             break;
     }
+};
+
+const collectLogItems = () => {
+    const items = [];
+    for (const f of Deno.readDirSync(Dirs.logs)) {
+        if (!f.isFile) continue;
+        if (!f.name.endsWith(".dj")) continue;
+
+        const sourceFileName = f.name;
+
+        console.log(`Parsing ${sourceFileName}`);
+
+        const file = `${Dirs.logs}/${sourceFileName}`;
+        const content = Deno.readTextFileSync(file);
+        const contentLines = content.split("\n");
+
+        const headerStart = contentLines.findIndex((line) =>
+            line.startsWith("---")
+        ) + 1;
+        const headerEnd = contentLines.slice(headerStart!).findIndex((line) =>
+            line.startsWith("---")
+        );
+
+        const headerContent = contentLines.slice(headerStart!, headerEnd! + 1);
+        const header = yaml.parse(headerContent.join("\n"));
+
+        const djotContent = contentLines.slice(headerEnd! + 2).join("\n")
+            .trim();
+
+        const parsedContent = djot.parse(djotContent);
+        const renderedContent = djot.renderHTML(parsedContent);
+
+        const logNameProps = sourceFileName.substring(
+            0,
+            sourceFileName.lastIndexOf("."),
+        ).split("-");
+        const logIndex = logNameProps[0];
+        const logTimestamp = logNameProps[1];
+        // Timezone: UTC+1
+        const logDate = parse(logTimestamp, "yyyyMMddHHmm", new Date(0));
+
+        items.push({
+            logIndex,
+            logTimestamp,
+            logDate,
+            sourceFileName,
+            header,
+            contentDjot: parsedContent,
+            contentHtml: renderedContent,
+        });
+    }
+    items.sort((a, b) => b.logDate.getTime() - a.logDate.getTime());
+    return items;
+};
+
+const executeBuildCommand = () => {
+    const items = collectLogItems();
+    console.log(`Found: ${items.length} items`);
+
+    try {
+        Deno.removeSync(Dirs.out.root, { recursive: true });
+    } catch {
+    } finally {
+        Deno.mkdirSync(Dirs.out.root);
+        Deno.mkdirSync(Dirs.out.log);
+    }
+
+    for (const item of items) {
+        const header = item.header;
+        //const contentDjot = item.contentDjot;
+        const contentHtml = item.contentHtml;
+
+        const itemDir = `${Dirs.out.log}/${item.logIndex}`;
+        Deno.mkdirSync(itemDir);
+        const file = `${itemDir}/index.html`;
+
+        // TODO
+        const pageHtml = mustache.render(
+            /*html*/ `
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>dector/log ~ {{title}}</title>
+  </head>
+  <body>
+    {{{content}}}
+  </body>
+</html>
+`,
+            {
+                title: header.title,
+                content: contentHtml,
+            },
+        ).trim();
+
+        Deno.writeTextFileSync(file, pageHtml);
+    }
+
+    // biome-ignore lint/complexity/noUselessLoneBlockStatements:
+    {
+        Deno.writeTextFileSync(
+            `${Dirs.out.log}/index.html`,
+            mustache.render(
+                /*html*/ `
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>dector/log</title>
+  </head>
+  <body>
+    <ul>
+      {{#items}}
+      <li><a href="{{{path}}}">{{title}}</a></li>
+      {{/items}}
+    </ul>
+  </body>
+</html>
+`,
+                {
+                    items: items.map((item) => ({
+                        path: `/${item.logIndex}`,
+                        title: item.header.title,
+                    })),
+                },
+            ).trim(),
+        );
+    }
+
+    printResult("ok");
 };
 
 main();

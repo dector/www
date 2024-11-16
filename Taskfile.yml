@@ -10,3 +10,8 @@ tasks:
     cmds:
       - ./glow.ts log new
     silent: true
+
+  build:
+    cmds:
+      - ./glow.ts build
+    silent: true

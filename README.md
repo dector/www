@@ -12,3 +12,9 @@
 ```sh
 task new
 ```
+
+### Build website:
+
+```sh
+task build
+```
