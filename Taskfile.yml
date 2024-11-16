@@ -1,5 +1,8 @@
 version: "3"
 
+env:
+  DEPLOY_DIR: ../dector.github.io/
+
 tasks:
   default:
     cmds:
@@ -34,6 +37,16 @@ tasks:
       - task: build:css
       - task: build:copy_assets
     silent: true
+
+  deploy:copy:
+    deps:
+      - build
+    cmds:
+      - cp -r ./out/* {{.DEPLOY_DIR}}
+
+  deploy:preview:
+    cmds:
+      - npx http-server {{.DEPLOY_DIR}}
 
   serve:
     cmds:

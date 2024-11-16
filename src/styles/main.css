@@ -67,6 +67,10 @@ body.p-log {
 		/* } */
 	}
 
+	article section {
+		@apply flex flex-col gap-4;
+	}
+
 	.nav {
 		a {
 			@apply opacity-90;
