@@ -16,13 +16,13 @@ main {
 	/* @apply w-full; */
 }
 
+article h1 {
+	@apply font-thin text-3xl;
+}
+
 /* article {
 	@apply flex flex-col gap-0;
 } */
-
-h1 {
-	@apply text-3xl;
-}
 
 ul.entries-list {
 	@apply list-none list-outside p-0;
@@ -36,7 +36,6 @@ a {
 .code-block {
 	@apply relative;
 }
-
 
 .code-block pre {
 	@apply p-0 m-0;

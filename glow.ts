@@ -24,6 +24,7 @@ const Dirs = {
     },
 };
 const Templates = {
+    index: "src/templates/index.html",
     log: {
         layout: "src/templates/log/layout.html",
         index: "src/templates/log/index.html",
@@ -277,6 +278,21 @@ const executeBuildCommand = (opts: { mode: "dev" | "prod" }) => {
         Deno.writeTextFileSync(
             `${Dirs.out.log}/index.html`,
             pageHtml,
+        );
+    }
+
+    {
+        const html = mustache.render(
+            Deno.readTextFileSync(Templates.index),
+            {
+                page: {
+                    ...pageGlobal,
+                },
+            },
+        ).trim();
+        Deno.writeTextFileSync(
+            `${Dirs.out.root}/index.html`,
+            html,
         );
     }
 
