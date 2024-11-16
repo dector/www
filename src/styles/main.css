@@ -1,9 +1,19 @@
-/* @tailwind base; */
-/* @tailwind components; */
+@tailwind base;
+@tailwind components;
 @tailwind utilities;
 
+:root {
+	--color-background: #272727;
+	--color-link1-base: #ffe400;
+	--color-link2-base: #14a76c;
+	--color-link3-base: #ff652f;
+	--color-link3-darker: #cc3600;
+	--color-normal: #737373;
+	--color-muted: #595959;
+}
+
 html {
-	@apply bg-neutral-200;
+	@apply bg-background text-normal;
 
 	font-family: "DejaVu Sans", sans-serif;
 }
@@ -16,45 +26,84 @@ main {
 	/* @apply w-full; */
 }
 
-article h1 {
-	@apply font-thin text-3xl;
+body.p-gateway {
+	a {
+		@apply text-link3 no-underline;
+	}
+	a:hover {
+		@apply text-background bg-link3;
+	}
 }
 
-/* article {
-	@apply flex flex-col gap-0;
-} */
+body.p-log {
+	h1 {
+		@apply font-thin text-3xl text-normal;
+	}
 
-ul.entries-list {
-	@apply list-none list-outside p-0;
+	a {
+		@apply no-underline text-link3 px-0.5 opacity-90;
+	}
+
+	a:hover {
+		@apply bg-link3 text-background;
+	}
+
+	main {
+		@apply py-12;
+	}
+
+	article {
+		@apply flex flex-col gap-4;
+	}
+
+	article.content {
+		a {
+			@apply opacity-75;
+		}
+
+		/* a:hover { */
+		/* @apply underline; */
+		/* @apply bg-link3 text-background; */
+		/* } */
+	}
+
+	.nav {
+		a {
+			@apply opacity-90;
+		}
+	}
+
+	/* article {
+		@apply flex flex-col gap-0;
+	} */
+
+	ul.entries-list {
+		@apply list-none list-outside p-0;
+	}
+
+	.code-block {
+		@apply relative;
+	}
+
+	.code-block pre {
+		@apply p-0 m-0;
+	}
+
+	.code-block .lang-tag {
+		@apply absolute inline right-0 top-0;
+		@apply text-muted text-sm p-2 uppercase;
+	}
+
+	.logentry-date {
+		@apply text-normal opacity-75 font-light;
+	}
+
+	/* aside {
+		@apply min-w-[20em] bg-red-200 flex-grow;
+	} */
+
+	/* .page_content {
+		@apply mx-auto max-w-4xl;
+		@apply flex;
+	} */
 }
-
-a {
-	@apply no-underline;
-	@apply text-blue-600 hover:text-purple-500;
-}
-
-.code-block {
-	@apply relative;
-}
-
-.code-block pre {
-	@apply p-0 m-0;
-}
-
-.code-block .lang-tag {
-	@apply absolute inline right-0 top-0;
-	@apply text-neutral-500 text-sm p-2 uppercase;
-}
-
-.logentry-date {
-	@apply text-neutral-400;
-}
-
-/* aside {
-	@apply min-w-[20em] bg-red-200 flex-grow;
-} */
-
-/* .page_content {
-    @apply mx-auto max-w-4xl;
-    @apply flex;
-} */
