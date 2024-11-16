@@ -37,7 +37,9 @@ type SubCommand = string;
 
 const LogTemplates = {
     NewLog: `---
-title: 
+title: {{title}}
+createdAt: {{date}}
+revision: 1
 public: no
 tags:
   - 
@@ -112,12 +114,22 @@ const executeLogCommand = (subCommand: SubCommand) => {
                 }
 
                 const newIndex = String(latestLogIndex + 1).padStart(5, "0");
-                const timestamp = format(new Date(), "yyyyMMddHHmm");
-                const fileName = `${newIndex}-${timestamp}.dj`;
+                const title = prompt("Title:");
+                const slug = (prompt("Slug:") || title)?.replaceAll(" ", "-")
+                    ?.toLowerCase() ?? "";
+                const fileName = `${newIndex}-${slug}.dj`;
                 const file = `${Dirs.logs}/${fileName}`;
-                Deno.writeFileSync(
+
+                const content = mustache.render(
+                    LogTemplates.NewLog,
+                    {
+                        title,
+                        date: format(new Date(), "yyyy-MM-dd'T'HH:mm"),
+                    },
+                );
+                Deno.writeTextFileSync(
                     file,
-                    new TextEncoder().encode(LogTemplates.NewLog),
+                    content,
                 );
 
                 printResult("ok", fileName);
@@ -189,15 +201,13 @@ const collectLogItems = () => {
             sourceFileName.lastIndexOf("."),
         ).split("-");
         const logIndex = logNameProps[0];
-        const logTimestamp = logNameProps[1];
         // Timezone: UTC+1
-        const logDate = parse(logTimestamp, "yyyyMMddHHmm", new Date(0));
+        const logDate = parse(header.createdAt, "yyyy-MM-dd'T'HH:mm", new Date(0));
 
         items.push({
             logIndex,
-            logTimestamp,
             logDate,
-            formattedDate: format(logDate, "E, dd MMM yyyy"),
+            formattedDate: format(logDate, "E, dd MMM yyyy HH:mm"),
             sourceFileName,
             header,
             contentDjot: parsedContent,
