@@ -1,6 +1,10 @@
 <article class="content">
     <h1>{{{title}}}</h1>
     <div class="logentry-date">{{date}}</div>
-    <section>{{{content}}}</section>
+    <div>Tags: <span class="tags-row">
+            {{#tags}}<a href="/log/~/{{.}}/" class="tag">{{{.}}}</a>{{/tags}}
+        </span>
+    </div>
+    <section class="mt-8">{{{content}}}</section>
     <div class="nav"><a href="/log">&LeftArrow; Back</a></div>
 </article>

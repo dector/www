@@ -202,7 +202,11 @@ const collectLogItems = () => {
         ).split("-");
         const logIndex = logNameProps[0];
         // Timezone: UTC+1
-        const logDate = parse(header.createdAt, "yyyy-MM-dd'T'HH:mm", new Date(0));
+        const logDate = parse(
+            header.createdAt,
+            "yyyy-MM-dd'T'HH:mm",
+            new Date(0),
+        );
 
         items.push({
             logIndex,
@@ -249,6 +253,7 @@ const executeBuildCommand = (opts: { mode: "dev" | "prod" }) => {
                 content: contentHtml,
                 title: item.header.title,
                 date: item.formattedDate,
+                tags: item.header.tags,
             },
         ).trim();
         const pageHtml = mustache.render(
