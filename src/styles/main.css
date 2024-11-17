@@ -84,6 +84,10 @@ body.p-log {
 	}
 
 	.nav {
+		@apply mt-4;
+	}
+
+	.nav {
 		a {
 			@apply opacity-90;
 		}

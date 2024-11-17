@@ -222,6 +222,16 @@ const collectLogItems = () => {
     return items;
 };
 
+const collectTags = (items) => {
+    const tags = new Set();
+    for (const item of items) {
+        for (const tag of item.header.tags) {
+            tags.add(tag);
+        }
+    }
+    return [...tags];
+};
+
 const executeBuildCommand = (opts: { mode: "dev" | "prod" }) => {
     const items = collectLogItems();
     console.log(`Found: ${items.length} items`);
@@ -240,12 +250,9 @@ const executeBuildCommand = (opts: { mode: "dev" | "prod" }) => {
         Deno.mkdirSync(Dirs.out.log);
     }
 
-    for (const item of items) {
+    const renderEntryHtml = (item) => {
         //const contentDjot = item.contentDjot;
         const contentHtml = item.contentHtml;
-
-        const itemDir = `${Dirs.out.log}/${item.logIndex}`;
-        Deno.mkdirSync(itemDir);
 
         const entryHtml = mustache.render(
             Deno.readTextFileSync(Templates.log.entry),
@@ -266,19 +273,19 @@ const executeBuildCommand = (opts: { mode: "dev" | "prod" }) => {
                 },
             },
         ).trim();
+        return pageHtml;
+    };
 
-        const file = `${itemDir}/index.html`;
-        Deno.writeTextFileSync(file, pageHtml);
-    }
-
-    {
+    const renderListHtml = (items, title, opts ) => {
         const entryHtml = mustache.render(
             Deno.readTextFileSync(Templates.log.index),
             {
+                pageH1: title,
                 items: items.map((item) => ({
                     title: item.header.title,
                     path: `/log/${item.logIndex}`,
                 })),
+                showBack: opts?.showBack ?? false,
             },
         ).trim();
         const pageHtml = mustache.render(
@@ -290,6 +297,21 @@ const executeBuildCommand = (opts: { mode: "dev" | "prod" }) => {
                 },
             },
         ).trim();
+        return pageHtml;
+    };
+
+    for (const item of items) {
+        const pageHtml = renderEntryHtml(item);
+
+        const itemDir = `${Dirs.out.log}/${item.logIndex}`;
+        Deno.mkdirSync(itemDir);
+
+        const file = `${itemDir}/index.html`;
+        Deno.writeTextFileSync(file, pageHtml);
+    }
+
+    {
+        const pageHtml = renderListHtml(items, "/log");
         Deno.writeTextFileSync(
             `${Dirs.out.log}/index.html`,
             pageHtml,
@@ -305,10 +327,30 @@ const executeBuildCommand = (opts: { mode: "dev" | "prod" }) => {
                 },
             },
         ).trim();
+
         Deno.writeTextFileSync(
             `${Dirs.out.root}/index.html`,
             html,
         );
+    }
+
+    // Render tags
+    {
+        const tags = collectTags(items);
+        for (const tag of tags) {
+            const itemsWithTag = items.filter((item) =>
+                item.header.tags.includes(tag)
+            );
+            const pageHtml = renderListHtml(itemsWithTag, `~ ${tag}`, {
+                showBack: true,
+            });
+
+            const tagDir = `${Dirs.out.log}/~/${tag}`;
+            Deno.mkdirSync(tagDir, { recursive: true });
+
+            const file = `${tagDir}/index.html`;
+            Deno.writeTextFileSync(file, pageHtml);
+        }
     }
 
     printResult("ok");
