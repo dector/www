@@ -341,11 +341,11 @@ const executeBuildCommand = (opts: { mode: "dev" | "prod" }) => {
             const itemsWithTag = items.filter((item) =>
                 item.header.tags.includes(tag)
             );
-            const pageHtml = renderListHtml(itemsWithTag, `~ ${tag}`, {
+            const pageHtml = renderListHtml(itemsWithTag, `t/${tag}`, {
                 showBack: true,
             });
 
-            const tagDir = `${Dirs.out.log}/~/${tag}`;
+            const tagDir = `${Dirs.out.log}/t/${tag}`;
             Deno.mkdirSync(tagDir, { recursive: true });
 
             const file = `${tagDir}/index.html`;
