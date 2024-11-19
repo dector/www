@@ -11,6 +11,7 @@ module.exports = {
                 darker: "var(--color-link3-darker)",
             },
             normal: "var(--color-normal)",
+            "normal-lighter": "var(--color-normal-lighter)",
             muted: "var(--color-muted)",
         },
     },
