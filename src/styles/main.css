@@ -46,6 +46,16 @@ body.p-log {
 		@apply font-thin text-3xl text-normal;
 	}
 
+	li {
+		a {
+			@apply text-link3;
+		}
+
+		a:hover {
+			@apply text-background bg-link3 px-2;
+		}
+	}
+
 	/* a {
 		@apply no-underline text-link3 px-0.5 opacity-90;
 	}
