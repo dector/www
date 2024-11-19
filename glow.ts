@@ -240,6 +240,11 @@ const executeBuildCommand = (opts: { mode: "dev" | "prod" }) => {
     const pageGlobal = {
         title: "/dector/log",
         buildUid,
+        inHead: `
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&display=swap" rel="stylesheet">
+`,
     };
 
     try {
@@ -276,7 +281,7 @@ const executeBuildCommand = (opts: { mode: "dev" | "prod" }) => {
         return pageHtml;
     };
 
-    const renderListHtml = (items, title, opts ) => {
+    const renderListHtml = (items, title, opts) => {
         const entryHtml = mustache.render(
             Deno.readTextFileSync(Templates.log.index),
             {

@@ -28,6 +28,10 @@ main {
 	/* @apply w-full; */
 }
 
+code {
+	font-family: "Noto Mono", DejaVu Sans Mono, monospace;
+}
+
 body.p-gateway {
 	a {
 		@apply text-link3 no-underline;
