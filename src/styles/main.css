@@ -11,6 +11,7 @@
 	--color-normal: #737373;
 	--color-normal-lighter: #878787;
 	--color-normal-lighter2: #949494;
+	--color-normal-lighter3: #a6a6a6;
 	--color-muted: #595959;
 }
 
@@ -30,6 +31,11 @@ main {
 
 code {
 	font-family: "Noto Mono", DejaVu Sans Mono, monospace;
+	@apply text-sm;
+}
+
+code:not(pre code) {
+	@apply bg-muted text-normal-lighter3 px-1;
 }
 
 ul {

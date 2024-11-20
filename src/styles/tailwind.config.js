@@ -13,6 +13,7 @@ module.exports = {
             normal: "var(--color-normal)",
             "normal-lighter": "var(--color-normal-lighter)",
             "normal-lighter2": "var(--color-normal-lighter2)",
+            "normal-lighter3": "var(--color-normal-lighter3)",
             muted: "var(--color-muted)",
         },
     },
