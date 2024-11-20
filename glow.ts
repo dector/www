@@ -189,9 +189,10 @@ const collectLogItems = () => {
                             value,
                             { language: language },
                         ).value;
+                    } else {
+                        value = renderer.escape(value);
                     }
 
-                    value = renderer.escape(value);
                     const langTitle = language != null
                         ? `<span class="lang-tag">${language}</span>`
                         : "";
