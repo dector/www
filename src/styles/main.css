@@ -32,6 +32,14 @@ code {
 	font-family: "Noto Mono", DejaVu Sans Mono, monospace;
 }
 
+ul {
+	@apply list-disc list-inside ps-4;
+}
+
+li p {
+	@apply inline;
+}
+
 body.p-gateway {
 	a {
 		@apply text-link3 no-underline;
@@ -46,7 +54,7 @@ body.p-log {
 		@apply font-thin text-3xl text-normal;
 	}
 
-	li {
+	.entries-list li {
 		a {
 			@apply text-link3;
 		}
