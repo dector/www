@@ -172,7 +172,7 @@ const collectLogItems = () => {
         const renderedContent = djot.renderHTML(parsedContent, {
             overrides: {
                 code_block: (node, renderer) => {
-                    let language = node.lang || "";
+                    let language = node.lang;
 
                     switch (language) {
                         case "ts":
@@ -183,14 +183,22 @@ const collectLogItems = () => {
                             break;
                     }
 
-                    const value = hljs.highlight(
-                        node.text.trim(),
-                        { language: language },
-                    ).value;
+                    let value = node.text.trim();
+                    if (language != null) {
+                        value = hljs.highlight(
+                            value,
+                            { language: language },
+                        ).value;
+                    }
+
+                    value = renderer.escape(value);
+                    const langTitle = language != null
+                        ? `<span class="lang-tag">${language}</span>`
+                        : "";
 
                     return `<div class="code-block">
 <pre><code class="hljs" data-language="${language}">${value}</code></pre>
-<span class="lang-tag">${language}</span>
+${langTitle}
 </div>`;
                 },
             },
