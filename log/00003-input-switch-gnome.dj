@@ -30,14 +30,14 @@ What's wrong with the default `Super+Space`?
 see "switching graphics" in the middle of the screen. And it feels annoying
 (for me).
 
-However, just a few days ago another issue emerged - my `Shift+CapsLock`
-combination was cycling now between two input methods (that are set up) in
-GNOME. But between three. `en_GB` appeared additionally and I'm not really
-aware why. All my keyboard tools (e.g. `cat /etc/default/keyboard` or
+However, just a few days ago another issue emerged: my `Shift+CapsLock`
+combination was cycling not between two input methods (that are set up) in
+GNOME. But between three. Seems like `en_GB` appeared additionally and I'm not
+really aware why. All my keyboard tools (e.g. `cat /etc/default/keyboard` or
 `setxkbmap -print`) report only two input methods (as expected).
 
-So I was looking for a workaround to do it programmatically
-So my current workaround is this (probably not optimal and can be improved):
+So my current workaround is this (not optimal and definitely
+can/should/will be improved):
 
 - Disabled `CapsLock` in GNOME settings and changed its meaning to `HyperL`.
 
@@ -53,7 +53,7 @@ $ gsettings get org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/
 'Toggle Keyboard'
 ```
 
-- So I changed the binding for it:
+- Finally, I've changed the binding for it:
 ```
 $ gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ binding '<Shift>Hyper_L'
 ```
