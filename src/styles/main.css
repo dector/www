@@ -22,7 +22,7 @@ html {
 }
 
 main {
-	@apply mx-auto max-w-4xl;
+	@apply mx-auto max-w-4xl px-3 lg:px-0;
 	@apply text-lg;
 
 	@apply flex flex-col gap-4;
