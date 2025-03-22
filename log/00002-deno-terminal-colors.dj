@@ -1,13 +1,14 @@
 ---
 title: Printing with colors in Deno
-createdAt: 2024-11-16T15:59
+createdAt: 2024-11-16 15:59
 revision: 1
-public: yes
-tags:
-  - lang:ts
-  - lang:js
-  - env:deno
-  - area:programming
+public: true
+tags: [
+  lang:ts
+  lang:js
+  env:deno
+  area:programming
+]
 ---
 
 It's [surprisingly easy](https://docs.deno.com/examples/color-logging/).

@@ -1,11 +1,12 @@
 ---
-title: 'hello :: world'
-createdAt: 2024-11-16T14:31
+title: hello :: world
+createdAt: 2024-11-16 14:31
 revision: 1
-public: yes
-tags:
-  - meta
-  - area:blog
+public: true
+tags: [
+  meta
+  area:blog
+]
 ---
 
 First, in the last few years, I started writing many personal notes in digital format.

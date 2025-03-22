@@ -1,11 +1,13 @@
 ---
 title: Custom input switch button in GNOME 46
-createdAt: 2024-11-20T15:48
-revision: 1
-public: no
-tags:
-  - area:linux
-  - area:gnome 
+createdAt: 2024-11-20 15:48
+updatedAt: 2025-03-22 23:41
+revision: 2
+public: true
+tags: [
+  area:linux
+  area:gnome
+]
 ---
 
 *Status*: workaround.
@@ -48,14 +50,16 @@ can/should/will be improved):
 - Added custom shortcut in GNOME settings that calls this script.
 
 - In my case, it was `custom2` keybinding:
+
 ```
-$ gsettings get org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ name
+gsettings get org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ name
 'Toggle Keyboard'
 ```
 
 - Finally, I've changed the binding for it:
+
 ```
-$ gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ binding '<Shift>Hyper_L'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ binding '<Shift>Hyper_L'
 ```
 
 D.
