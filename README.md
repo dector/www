@@ -1,12 +1,8 @@
 ## Requirements:
 
-- `go-task` (optional).
-- `deno` (required).
-- `npx` (required).
-
----
-
 ## How to:
+
+**! NOT VALID ANYMORE. USE glowx**
 
 ### Create new log:
 
