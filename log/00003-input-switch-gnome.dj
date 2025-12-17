@@ -1,13 +1,12 @@
 ---
-title: Custom input switch button in GNOME 46
-createdAt: 2024-11-20 15:48
-updatedAt: 2025-03-22 23:41
-revision: 2
-public: true
-tags: [
-  area:linux
-  area:gnome
-]
+title "Custom input switch button in GNOME 46"
+createdAt "2024-11-20 15:48"
+updatedAt "2025-03-22 23:41"
+revision 2
+public #true
+
+tag area:linux
+tag area:gnome
 ---
 
 *Status*: workaround.
