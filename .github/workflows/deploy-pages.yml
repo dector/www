@@ -2,6 +2,9 @@ name: Deploy to GitHub Pages
 
 on:
   workflow_dispatch:
+  push:
+    tags:
+      - in-prod
 
 permissions:
   contents: read
