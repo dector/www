@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+    --color-background: #272727;
+    --color-link1: #ffe400;
+    --color-link2: #14a76c;
+    --color-link3: #ff652f;
+    --color-link3-darker: #cc3600;
+    --color-normal: #737373;
+    --color-normal-lighter: #878787;
+    --color-normal-lighter2: #949494;
+    --color-normal-lighter3: #a6a6a6;
+    --color-muted: #595959;
+
+    --font-sans: "DejaVu Sans", sans-serif;
+    --font-mono: "Noto Sans Mono", "DejaVu Sans Mono", monospace;
+}

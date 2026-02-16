@@ -1,0 +1,38 @@
+---
+import PostLayout from "../../layouts/PostLayout.astro";
+import { G } from "../../lib/globals.js";
+import { getPublicNotesPosts } from "../../lib/notes.js";
+
+export async function getStaticPaths() {
+    const posts = await getPublicNotesPosts();
+    return posts.map((post) => ({
+        params: { slug: post.slug },
+        props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+---
+
+<PostLayout
+    title={`${post.title} ~ ${G.BlogTitle}`}
+    heading={post.title}
+    date={post.displayDate}
+>
+    <div slot="meta">
+        Tags:
+        <span class="inline-flex flex-wrap gap-2">
+            {
+                post.tags.map((tag) => (
+                    <a
+                        href={`/notes/t/${tag}/`}
+                        class="rounded-[1px] bg-link3 px-0.5 py-0 text-sm text-background opacity-50 no-underline hover:opacity-90"
+                    >
+                        {tag}
+                    </a>
+                ))
+            }
+        </span>
+    </div>
+    <div set:html={post.html} />
+</PostLayout>

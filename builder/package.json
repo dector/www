@@ -1,0 +1,22 @@
+{
+  "name": "builder",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "bun test",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@djot/djot": "^0.3.2",
+    "astro": "^5.17.1",
+    "highlight.js": "^11.11.1",
+    "hjson": "^3.2.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.18",
+    "tailwindcss": "^4.1.18"
+  }
+}
