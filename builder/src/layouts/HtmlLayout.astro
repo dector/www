@@ -17,6 +17,9 @@ const {
     lang = "en",
     viewport = "width=device-width, initial-scale=1",
 } = Astro.props;
+
+const hasSectionTitleRow = sectionTitle !== undefined;
+const normalizedSectionTitle = sectionTitle?.trim();
 ---
 
 <html lang={lang} class="min-h-full">
@@ -48,15 +51,15 @@ const {
                     {G.BlogTitle}
                 </a>
                 {
-                    sectionTitle && (
-                        <div class="mt-1 font-mono text-xl font-light text-normal-lighter opacity-80">
-                            /{sectionTitle}/
+                    hasSectionTitleRow && (
+                        <div class="mt-1 h-7 font-mono text-xl font-light text-normal-lighter opacity-80">
+                            {normalizedSectionTitle ? `/${normalizedSectionTitle}/` : ""}
                         </div>
                     )
                 }
             </div>
         </header>
-        <div class:list={["pt-10", sectionTitle && "pt-20"]}>
+        <div class:list={["pt-10", hasSectionTitleRow && "pt-20"]}>
             <slot />
         </div>
     </body>

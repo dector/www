@@ -3,13 +3,21 @@ import HtmlLayout from "../layouts/HtmlLayout.astro";
 import { G } from "../lib/globals.js";
 ---
 
-<HtmlLayout title={G.BlogTitle}>
-    <div class="flex min-h-screen items-center justify-center">
-        <a
-            class="flex-none p-4 font-mono text-5xl font-light text-link3 no-underline hover:bg-link3 hover:text-background"
-            href="/notes"
-        >
-            &nbsp;notes&nbsp;
-        </a>
-    </div>
+<HtmlLayout title={G.BlogTitle} sectionTitle="">
+    <main class="mx-auto flex max-w-4xl px-3 py-12 lg:px-0">
+        <section class="relative flex w-full flex-col items-start text-left">
+            <a
+                class="home-link inline-flex items-center font-mono text-4xl font-light text-link3 no-underline hover:text-link1 focus-visible:outline-2 focus-visible:outline-offset-6 focus-visible:outline-link3 md:text-5xl"
+                href="/notes"
+            >
+                Notes
+            </a>
+        </section>
+    </main>
 </HtmlLayout>
+
+<style>
+    .home-link {
+        letter-spacing: 0.015em;
+    }
+</style>
