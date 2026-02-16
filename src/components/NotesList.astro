@@ -1,0 +1,29 @@
+---
+interface PostListItem {
+    slug: string;
+    title: string;
+}
+
+interface Props {
+    posts: PostListItem[];
+}
+
+const { posts } = Astro.props;
+---
+
+<article class="flex flex-col gap-4">
+    <ul class="list-none p-0">
+        {
+            posts.map((post) => (
+                <li>
+                    <a
+                        class="text-link3 hover:bg-link3 hover:px-2 hover:text-background"
+                        href={`/notes/${post.slug}`}
+                    >
+                        {post.title}
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+</article>

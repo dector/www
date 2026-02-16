@@ -1,5 +1,6 @@
 ---
 import HtmlLayout from "../../layouts/HtmlLayout.astro";
+import NotesList from "../../components/NotesList.astro";
 import { G } from "../../lib/globals.js";
 import { getPublicNotesPosts } from "../../lib/notes.js";
 
@@ -10,21 +11,6 @@ const posts = await getPublicNotesPosts();
     <main
         class="mx-auto flex max-w-4xl flex-col gap-4 px-3 py-12 text-lg lg:px-0"
     >
-        <article class="flex flex-col gap-4">
-            <ul class="list-none p-0">
-                {
-                    posts.map((post) => (
-                        <li>
-                            <a
-                                class="text-link3 hover:bg-link3 hover:px-2 hover:text-background"
-                                href={`/notes/${post.slug}`}
-                            >
-                                {post.title}
-                            </a>
-                        </li>
-                    ))
-                }
-            </ul>
-        </article>
+        <NotesList posts={posts} />
     </main>
 </HtmlLayout>

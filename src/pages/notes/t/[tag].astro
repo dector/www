@@ -1,0 +1,75 @@
+---
+import NotesList from "../../../components/NotesList.astro";
+import HtmlLayout from "../../../layouts/HtmlLayout.astro";
+import { G } from "../../../lib/globals.js";
+import { getPublicNotesPosts } from "../../../lib/notes.js";
+
+interface TagPagePost {
+    slug: string;
+    title: string;
+}
+
+interface NoteWithTags extends TagPagePost {
+    tags: string[];
+}
+
+interface Props {
+    tag: string;
+    posts: TagPagePost[];
+}
+
+export async function getStaticPaths() {
+    const posts = (await getPublicNotesPosts()) as NoteWithTags[];
+    const postsByTag = new Map<string, TagPagePost[]>();
+    const paths = [];
+
+    for (const post of posts) {
+        const seenTags = new Set<string>();
+
+        for (const tag of post.tags) {
+            const normalizedTag = tag.trim();
+            if (!normalizedTag || seenTags.has(normalizedTag)) {
+                continue;
+            }
+
+            seenTags.add(normalizedTag);
+
+            if (!postsByTag.has(normalizedTag)) {
+                postsByTag.set(normalizedTag, []);
+            }
+
+            postsByTag.get(normalizedTag)!.push({
+                slug: post.slug,
+                title: post.title,
+            });
+        }
+    }
+
+    for (const [tag, taggedPosts] of postsByTag.entries()) {
+        paths.push({
+            params: { tag },
+            props: { tag, posts: taggedPosts },
+        });
+    }
+
+    return paths.sort((a, b) => a.params.tag.localeCompare(b.params.tag));
+}
+
+const { tag, posts } = Astro.props as Props;
+---
+
+<HtmlLayout title={`Notes tagged ${tag} ~ ${G.BlogTitle}`} sectionTitle="Notes">
+    <main
+        class="mx-auto flex max-w-4xl flex-col gap-4 px-3 py-12 text-lg lg:px-0"
+    >
+        <section class="flex flex-col gap-4">
+            <h1 class="text-3xl font-thin text-normal">
+                Tag:
+                <span class="font-mono">
+                    {tag}
+                </span>
+            </h1>
+            <NotesList posts={posts} />
+        </section>
+    </main>
+</HtmlLayout>

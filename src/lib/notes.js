@@ -58,3 +58,40 @@ export async function getPublicNotesPosts() {
   const posts = await getNotesPosts();
   return posts.filter((post) => post.isPublic);
 }
+
+export function groupPostsByTag(posts) {
+  const postsByTag = new Map();
+
+  for (const post of posts) {
+    const seenTags = new Set();
+
+    for (const tag of post.tags ?? []) {
+      const normalizedTag = String(tag).trim();
+      if (!normalizedTag || seenTags.has(normalizedTag)) {
+        continue;
+      }
+
+      seenTags.add(normalizedTag);
+
+      if (!postsByTag.has(normalizedTag)) {
+        postsByTag.set(normalizedTag, []);
+      }
+
+      postsByTag.get(normalizedTag).push(post);
+    }
+  }
+
+  return postsByTag;
+}
+
+export async function getPublicNotesTagPages() {
+  const posts = await getPublicNotesPosts();
+  const postsByTag = groupPostsByTag(posts);
+
+  return Array.from(postsByTag.entries())
+    .sort(([tagA], [tagB]) => tagA.localeCompare(tagB))
+    .map(([tag, taggedPosts]) => ({
+      tag,
+      posts: taggedPosts.map(({ slug, title }) => ({ slug, title })),
+    }));
+}
