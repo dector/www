@@ -24,16 +24,14 @@ jobs:
 
       - name: Install dependencies
         run: bun install
-        working-directory: builder
 
       - name: Build site
         run: bun run build
-        working-directory: builder
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: builder/dist
+          path: dist
 
   deploy:
     needs: build

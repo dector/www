@@ -1,54 +1,11 @@
 version: "3"
 
-env:
-  DEPLOY_DIR: ../dector.github.io/
-
 tasks:
-  default:
+  dev:
     cmds:
-      - ./glow.ts
-    silent: true
-
-  new:
-    cmds:
-      - ./glow.ts log new
-    silent: true
-
-  build:log:
-    cmds:
-      - ./glow.ts build
-
-  build:css:
-    cmds:
-      - npx tailwindcss
-        -c ./src/styles/tailwind.config.js
-        -i ./src/styles/main.css
-        -o ./out/assets/styles.css
-        --minify
-
-  build:copy_assets:
-    cmds:
-      - mkdir -p ./out/assets; true
-      - cp -r ./src/assets/* ./out/assets/
+      - bun run dev
 
   build:
     cmds:
-      - task: build:log
-      - task: build:css
-      - task: build:copy_assets
-    silent: true
-
-  deploy:copy:
-    deps:
-      - build
-    cmds:
-      - cp -r ./out/* {{.DEPLOY_DIR}}
-
-  deploy:preview:
-    cmds:
-      - npx http-server {{.DEPLOY_DIR}}
-
-  serve:
-    cmds:
-      - npx http-server ./out
+      - bun run build
     silent: true

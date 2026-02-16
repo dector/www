@@ -8,7 +8,7 @@ import {
   parseNotesFileName,
 } from "./notes/file-parse.js";
 
-const NOTES_DIR_URL = new URL("../../../content/notes/", import.meta.url);
+const NOTES_DIR_URL = new URL("../../content/notes/", import.meta.url);
 
 export async function getNotesPosts() {
   const entries = await readdir(NOTES_DIR_URL, { withFileTypes: true });
