@@ -51,14 +51,24 @@ const normalizedSectionTitle = sectionTitle?.trim();
                     >
                         {G.BlogTitle}
                     </a>
-                    <a
-                        href="https://github.com/dector"
-                        class="inline-block font-mono text-sm text-normal-lighter no-underline hover:text-link3"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        github
-                    </a>
+                    <div class="flex items-center gap-4">
+                        <a
+                            href="https://github.com/dector"
+                            class="inline-block font-mono text-sm text-normal-lighter no-underline hover:text-link3"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            github
+                        </a>
+                        <a
+                            href="https://mastodon.online/@dector"
+                            class="inline-block font-mono text-sm text-normal-lighter no-underline hover:text-link3"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            mastodon
+                        </a>
+                    </div>
                 </div>
                 {
                     hasSectionTitleRow && (
