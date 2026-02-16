@@ -44,12 +44,22 @@ const normalizedSectionTitle = sectionTitle?.trim();
     >
         <header class="fixed inset-x-0 top-0 z-10">
             <div class="mx-auto max-w-4xl px-3 py-3 lg:px-0">
-                <a
-                    href="/"
-                    class="inline-block font-mono text-sm text-normal-lighter no-underline hover:text-link3"
-                >
-                    {G.BlogTitle}
-                </a>
+                <div class="flex items-center justify-between">
+                    <a
+                        href="/"
+                        class="inline-block font-mono text-sm text-normal-lighter no-underline hover:text-link3"
+                    >
+                        {G.BlogTitle}
+                    </a>
+                    <a
+                        href="https://github.com/dector"
+                        class="inline-block font-mono text-sm text-normal-lighter no-underline hover:text-link3"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        github
+                    </a>
+                </div>
                 {
                     hasSectionTitleRow && (
                         <div class="mt-1 h-7 font-mono text-xl font-light text-normal-lighter opacity-80">
