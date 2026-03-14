@@ -1,0 +1,49 @@
+---
+public: true
+rev: 1.0.0
+tags: [
+  "coding:tools",
+  "coding:agents",
+]
+createdAt: "2026-03-14 18:49"
+---
+
+# Happy Pi day!
+
+_Note: this post is ugly and not polished. But I will add more details eventually._
+
+A few months ago, I started actively using [pi.dev](https://pi.dev) (also known as [shittycodingagent.io](https://shittycondingagent.io)).
+It's still quite a niche tool, I guess. But once I tried it for the first time, I had this feeling
+that I was sleeping on something that was very cool.
+
+Why? I'm a big fan of customizing things to my liking. I love it when tools adapt to the way
+I work or think, not vice versa. Also it feels extremely good when you can satisfy your natural
+curiosity by learning how things work and how to modify them.
+
+Quite quickly, pi became one of my all-time favourite pieces of software. This thing is not only customizable.
+It knows how to customize itself, and it can talk to me. And it's extremely fun to use.
+
+I started using the agent itself in my pet projects. And I spent lots of time on my phone at night
+building a WebUI wrapper around the Pi SDK so I could build that thing more comfortably. It's a useless effort,
+but it's extremely fun.
+
+I'm exploring other people's creations and slowly building a collection of my [personal extensions](https://github.com/dector/pi-x).
+
+Today is Saturday, and I spent many hours since this morning with pi: coding on a remote machine, configuring zellij, and writing a new pi extension.
+And I certainly didn't expect to find this video (which happens to be the trigger for this post):
+
+```=html
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/emCELbzi0LY"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen
+></iframe>
+```
+
+Happy Pi day, everyone!
+
