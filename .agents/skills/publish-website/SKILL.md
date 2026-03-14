@@ -28,8 +28,13 @@ This project deploys from the `in-prod` git tag (GitHub Actions workflow). This 
 2. Move `in-prod` tag to current `HEAD` (without opening an editor):
    - Run: `git tag -fa in-prod -m "Deploy"`
 
-3. Ask for confirmation:
-   - Prompt: `Tag \'in-prod\' now points to HEAD. Push to origin with force? Type 'yes' to continue.`
+3. Show what is being published, then ask for confirmation:
+   - Run: `git log -1 --format='%H%n%s'`
+   - Prompt format:
+     - `Tag 'in-prod' now points to:`
+     - `<FULL_COMMIT_HASH>`
+     - `<COMMIT_SUBJECT>`
+     - `Push to origin with force? Type 'yes' to continue.`
 
 4. Only if user replies exactly `yes`, push tag:
    - Run: `git push --force origin in-prod`
