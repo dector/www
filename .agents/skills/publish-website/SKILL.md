@@ -25,8 +25,8 @@ This project deploys from the `in-prod` git tag (GitHub Actions workflow). This 
    - If output is non-empty, stop with error:
      - `❌ Publish aborted: uncommitted changes detected. Commit or stash your changes first.`
 
-2. Move `in-prod` tag to current `HEAD`:
-   - Run: `git tag -f in-prod`
+2. Move `in-prod` tag to current `HEAD` (without opening an editor):
+   - Run: `git tag -fa in-prod -m "Deploy"`
 
 3. Ask for confirmation:
    - Prompt: `Tag \'in-prod\' now points to HEAD. Push to origin with force? Type 'yes' to continue.`
