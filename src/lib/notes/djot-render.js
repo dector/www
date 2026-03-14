@@ -46,6 +46,17 @@ const DJOT_RENDER_OPTIONS = {
         : "";
       return `<div class="code-block">${langTag}${renderer.renderTag("pre", node)}<code class="hljs${classAttr}">${highlightedCode}</code>${renderer.renderCloseTag("pre")}</div>\n`;
     },
+    link: (node, renderer) => {
+      const destination = node.destination ?? "";
+      const isExternal = /^https?:\/\//i.test(destination);
+      const href = renderer.escapeAttribute(destination);
+
+      const attrs = isExternal
+        ? ` href="${href}" target="_blank" rel="noopener noreferrer"`
+        : ` href="${href}"`;
+
+      return `<a${attrs}>${renderer.renderChildren(node)}</a>`;
+    },
   },
 };
 

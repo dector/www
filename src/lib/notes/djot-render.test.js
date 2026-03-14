@@ -26,4 +26,17 @@ describe("djot-render", () => {
     expect(html).toContain('<span class="lang-tag">foo</span>');
     expect(html).toContain("&lt;script&gt;alert(1)&lt;/script&gt;");
   });
+
+  test("adds target and rel only for external links", () => {
+    const html = bodyToHtml(
+      "[ext](https://example.com) [int](/notes) [mail](mailto:a@b.c)",
+      "note.dj",
+    );
+
+    expect(html).toContain(
+      '<a href="https://example.com" target="_blank" rel="noopener noreferrer">ext</a>',
+    );
+    expect(html).toContain('<a href="/notes">int</a>');
+    expect(html).toContain('<a href="mailto:a@b.c">mail</a>');
+  });
 });
