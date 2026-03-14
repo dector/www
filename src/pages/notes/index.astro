@@ -7,7 +7,7 @@ import { getPublicNotesPosts } from "../../lib/notes.js";
 const posts = await getPublicNotesPosts();
 ---
 
-<HtmlLayout title={`Notes ~ ${G.BlogTitle}`} sectionTitle="Notes">
+<HtmlLayout title={`Notes ~ ${G.BlogTitle}`} sectionTitle="Notes" sectionHref="/notes">
     <main
         class="mx-auto flex max-w-4xl flex-col gap-4 px-3 py-12 text-lg lg:px-0"
     >

@@ -5,6 +5,7 @@ import { G } from "../lib/globals.js";
 interface Props {
     title: string;
     sectionTitle?: string;
+    sectionHref?: string;
     bodyClass?: string;
     lang?: string;
     viewport?: string;
@@ -13,6 +14,7 @@ interface Props {
 const {
     title,
     sectionTitle,
+    sectionHref,
     bodyClass,
     lang = "en",
     viewport = "width=device-width, initial-scale=1",
@@ -73,7 +75,18 @@ const normalizedSectionTitle = sectionTitle?.trim();
                 {
                     hasSectionTitleRow && (
                         <div class="mt-1 h-7 font-mono text-xl font-light text-normal-lighter opacity-80">
-                            {normalizedSectionTitle ? `/${normalizedSectionTitle}/` : ""}
+                            {normalizedSectionTitle ? (
+                                sectionHref ? (
+                                    <a
+                                        href={sectionHref}
+                                        class="no-underline hover:text-link3"
+                                    >
+                                        {`/${normalizedSectionTitle}/`}
+                                    </a>
+                                ) : (
+                                    `/${normalizedSectionTitle}/`
+                                )
+                            ) : ""}
                         </div>
                     )
                 }
