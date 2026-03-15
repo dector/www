@@ -9,151 +9,56 @@
 - `src/pages/notes/t/[tag].astro`
 - `src/pages/rss.xml.ts`
 - `astro.config.mjs`
+- `public/robots.txt`
 
 ---
 
-## Current Strengths
-- Static prerendered Astro pages (crawl-friendly).
-- Clean page structure with headings on content pages.
-- RSS feed exists at `/rss.xml`.
-
-## Key Gaps Found
-1. No meta descriptions on pages.
-2. No canonical URL tags.
-3. No Open Graph tags (`og:*`).
-4. No Twitter card tags (`twitter:*`).
-5. No JSON-LD structured data.
-6. No sitemap integration.
-7. No `robots.txt`.
-8. RSS autodiscovery tag missing in `<head>`.
-9. `site` URL depends on env var and can be unset.
-10. Homepage has very little indexable descriptive text.
+## Already Implemented (Removed from backlog)
+- Reusable SEO layer in layout (`title`, `description`, `canonical`, `robots`, OG/Twitter tags).
+- Canonical URLs applied on main pages (`/`, `/notes/`, `/notes/[slug]/`, `/notes/t/[tag]/`).
+- Sitemap integration enabled via `@astrojs/sitemap`.
+- `robots.txt` exists with sitemap reference.
+- Global fallback social image exists (`/social-card.svg`).
+- RSS autodiscovery tag exists in `<head>`.
+- Production site URL has a safe default in `astro.config.mjs`.
 
 ---
 
-## Priority 0 (Do First)
+## Remaining Backlog
 
-### 1) Add a reusable SEO layer in layout
-Implement a shared SEO component or expand `HtmlLayout.astro` props to include:
-- `title`
-- `description`
-- `canonical`
-- `robots` (default: `index,follow`)
-- Open Graph fields: `og:title`, `og:description`, `og:type`, `og:url`, `og:image`
-- Twitter fields: `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`
-
-Apply this to all pages:
-- `/`
-- `/notes/`
-- `/notes/[slug]/`
-- `/notes/t/[tag]/`
-
-### 2) Add canonical URLs for every page
-Use absolute canonicals based on site URL:
-- `https://dector.space/`
-- `https://dector.space/notes/`
-- `https://dector.space/notes/<slug>/`
-- `https://dector.space/notes/t/<tag>/`
-
-### 3) Enable sitemap generation
-Use `@astrojs/sitemap` and ensure `site` is always configured in `astro.config.mjs` for production.
-
-### 4) Add `robots.txt`
-Include crawl policy and sitemap location.
-
-### 5) Add social preview images
-- Global fallback OG image (1200×630).
-- Optional per-post social image.
-
----
-
-## Priority 1 (High Value)
-
-### 6) Add JSON-LD structured data
-- Site-level: `WebSite` (optionally `Person`/`Organization`).
+### 1) Add JSON-LD structured data
+- Site-level: `WebSite`.
 - Post-level: `BlogPosting` with:
-  - headline
-  - datePublished
-  - dateModified
-  - author
-  - mainEntityOfPage
-  - image
-  - keywords (tags)
+  - `headline`
+  - `datePublished`
+  - `dateModified`
+  - `author`
+  - `mainEntityOfPage`
+  - `image`
+  - `keywords`
 
-### 7) Expand post front matter for SEO
-Add optional fields in Djot front matter:
+### 2) Add per-post SEO front matter support
+Add optional Djot front matter fields and wire them into rendering:
 - `description`
 - `socialImage`
 - `canonical` (override only when needed)
 
-### 8) Improve text context on listing pages
-- Add short intro copy on homepage and notes index.
-- Add tag page intro text (auto-generated from tag).
+### 3) Improve content context on listing pages
+- Add short descriptive intro copy to homepage and notes index.
+- Add tag intro text (auto-generated from tag).
 
-This improves topical relevance for search engines.
+### 4) Ensure social metadata is post-specific when available
+- Pass per-post `socialImage` into post pages.
+- Use front matter `description` when present; keep excerpt fallback.
 
----
-
-## Priority 2 (Polish)
-
-### 9) Add RSS autodiscovery link in `<head>`
-```html
-<link rel="alternate" type="application/rss+xml" title="Pragmatic Craftsmanship RSS" href="/rss.xml" />
-```
-
-### 10) URL consistency
-Standardize trailing slash strategy for internal links, canonicals, OG URLs, and sitemap entries.
-
-### 11) Media optimization
-For embeds/images in posts:
-- responsive wrappers
-- lazy-loading where possible
-- descriptive surrounding text
-
-### 12) Performance-related SEO support
-Consider self-hosting fonts to reduce third-party dependency and improve render performance metrics.
+### 5) Performance polish that supports SEO
+- Consider self-hosting fonts to reduce third-party dependency and improve render metrics.
 
 ---
 
-## Page-by-Page Checklist
-
-### Homepage (`/`)
-- Unique description
-- OG/Twitter tags + image
-- WebSite JSON-LD
-- Add short descriptive paragraph
-
-### Notes Index (`/notes/`)
-- Collection description
-- Canonical + OG/Twitter
-- Optional `ItemList` JSON-LD
-
-### Note Page (`/notes/[slug]/`)
-- Per-post description
-- Canonical
-- `og:type=article`
-- `article:published_time`
-- `article:modified_time`
-- `article:tag` for each tag
-- `BlogPosting` JSON-LD
-
-### Tag Page (`/notes/t/[tag]/`)
-- Tag-specific description
-- Canonical
-- Optional `noindex,follow` if taxonomy pages are too thin
-
-### RSS (`/rss.xml`)
-- Keep existing generation
-- Ensure production absolute URLs always use real site domain
-
----
-
-## Suggested Implementation Order
-1. Site URL hardening in `astro.config.mjs`.
-2. Shared SEO props/component in `HtmlLayout.astro`.
-3. Canonical + meta descriptions for all pages.
-4. OG/Twitter tags + fallback social image.
-5. Sitemap + robots.txt.
-6. JSON-LD for site and posts.
-7. Front matter extensions (`description`, `socialImage`).
-8. Content intro improvements on home/index/tag pages.
+## Next 5 Improvements (Most Critical First)
+1. **Implement JSON-LD (`WebSite` + `BlogPosting`)** for stronger rich-result eligibility.
+2. **Support post front matter SEO fields** (`description`, `socialImage`, `canonical`) and use them in `[slug].astro`.
+3. **Wire per-post social image and description precedence** (front matter first, generated fallback second).
+4. **Add meaningful intro copy on home/notes/tag pages** to improve topical relevance and thin-page quality.
+5. **Self-host Google font(s)** to improve performance-related SEO signals (LCP/CLS resilience).
