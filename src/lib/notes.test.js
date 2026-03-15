@@ -1,5 +1,9 @@
 import { describe, expect, test } from "bun:test";
-import { groupPostsByTag, sortNotesPosts } from "./notes.js";
+import {
+  getPostTagsWithPhantoms,
+  groupPostsByTag,
+  sortNotesPosts,
+} from "./notes.js";
 
 function post(slug, tags, options = {}) {
   return {
@@ -39,6 +43,36 @@ describe("notes", () => {
       "2026-02-16-first",
     ]);
     expect(grouped.size).toBe(1);
+  });
+
+  test("adds configured phantom tags before first creating tag", () => {
+    const effectiveTags = getPostTagsWithPhantoms(
+      ["coding:tools", "til"],
+      ["coding", "code"],
+    );
+
+    expect(effectiveTags).toEqual(["coding", "coding:tools", "til"]);
+  });
+
+  test("keeps unrelated leading tags before inserted phantom tags", () => {
+    const effectiveTags = getPostTagsWithPhantoms(
+      ["bar", "foo:1"],
+      ["foo"],
+    );
+
+    expect(effectiveTags).toEqual(["bar", "foo", "foo:1"]);
+  });
+
+  test("grouping includes phantom tags", () => {
+    const posts = [post("2026-02-16-first", ["coding:tools"])];
+    const grouped = groupPostsByTag(posts);
+
+    expect(grouped.get("coding:tools")?.map((item) => item.slug)).toEqual([
+      "2026-02-16-first",
+    ]);
+    expect(grouped.get("coding")?.map((item) => item.slug)).toEqual([
+      "2026-02-16-first",
+    ]);
   });
 
   test("sorts pinned posts first by pinned order, then creation date", () => {

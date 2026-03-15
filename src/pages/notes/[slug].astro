@@ -1,7 +1,7 @@
 ---
 import PostLayout from "../../layouts/PostLayout.astro";
 import { G } from "../../lib/globals.js";
-import { getPublicNotesPosts } from "../../lib/notes.js";
+import { getPostTagsWithPhantoms, getPublicNotesPosts } from "../../lib/notes.js";
 
 export async function getStaticPaths() {
     const posts = await getPublicNotesPosts();
@@ -12,6 +12,7 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
+const displayTags = getPostTagsWithPhantoms(post.tags);
 ---
 
 <PostLayout
@@ -23,7 +24,7 @@ const { post } = Astro.props;
         Tags:
         <span class="inline-flex flex-wrap gap-2">
             {
-                post.tags.map((tag) => (
+                displayTags.map((tag) => (
                     <a
                         href={`/notes/t/${tag}/`}
                         class="rounded-[1px] bg-link3 px-0.5 py-0 text-sm text-background opacity-50 no-underline hover:opacity-90"

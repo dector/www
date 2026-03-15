@@ -7,6 +7,7 @@ import {
   parseDjFile,
   parseNotesFileName,
 } from "./notes/file-parse.js";
+import { G } from "./globals.js";
 
 const NOTES_DIR_URL = new URL("../../content/notes/", import.meta.url);
 
@@ -89,25 +90,60 @@ export async function getPublicNotesPosts() {
   return posts.filter((post) => post.isPublic);
 }
 
+export function getPostTagsWithPhantoms(tags, phantomTags = G.PhantomTags) {
+  const effectiveTags = [];
+  const seenTags = new Set();
+
+  for (const tag of tags ?? []) {
+    const normalizedTag = String(tag).trim();
+    if (!normalizedTag || seenTags.has(normalizedTag)) {
+      continue;
+    }
+
+    seenTags.add(normalizedTag);
+    effectiveTags.push(normalizedTag);
+  }
+
+  const phantomInsertions = [];
+
+  for (const phantomTag of phantomTags) {
+    const normalizedPhantomTag = String(phantomTag).trim();
+    if (!normalizedPhantomTag || seenTags.has(normalizedPhantomTag)) {
+      continue;
+    }
+
+    const firstCreatingTagIndex = effectiveTags.findIndex((tag) =>
+      tag.startsWith(`${normalizedPhantomTag}:`),
+    );
+
+    if (firstCreatingTagIndex >= 0) {
+      seenTags.add(normalizedPhantomTag);
+      phantomInsertions.push({
+        tag: normalizedPhantomTag,
+        index: firstCreatingTagIndex,
+      });
+    }
+  }
+
+  phantomInsertions
+    .sort((a, b) => a.index - b.index)
+    .forEach(({ tag, index }, offset) => {
+      effectiveTags.splice(index + offset, 0, tag);
+    });
+
+  return effectiveTags;
+}
+
 export function groupPostsByTag(posts) {
   const postsByTag = new Map();
 
   for (const post of posts) {
-    const seenTags = new Set();
-
-    for (const tag of post.tags ?? []) {
-      const normalizedTag = String(tag).trim();
-      if (!normalizedTag || seenTags.has(normalizedTag)) {
-        continue;
+    for (const tag of getPostTagsWithPhantoms(post.tags)) {
+      if (!postsByTag.has(tag)) {
+        postsByTag.set(tag, []);
       }
 
-      seenTags.add(normalizedTag);
-
-      if (!postsByTag.has(normalizedTag)) {
-        postsByTag.set(normalizedTag, []);
-      }
-
-      postsByTag.get(normalizedTag).push(post);
+      postsByTag.get(tag).push(post);
     }
   }
 

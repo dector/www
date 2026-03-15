@@ -2,16 +2,12 @@
 import NotesList from "../../../components/NotesList.astro";
 import HtmlLayout from "../../../layouts/HtmlLayout.astro";
 import { G } from "../../../lib/globals.js";
-import { getPublicNotesPosts } from "../../../lib/notes.js";
+import { getPublicNotesTagPages } from "../../../lib/notes.js";
 
 interface TagPagePost {
     slug: string;
     title: string;
     pinned: number;
-}
-
-interface NoteWithTags extends TagPagePost {
-    tags: string[];
 }
 
 interface Props {
@@ -20,41 +16,12 @@ interface Props {
 }
 
 export async function getStaticPaths() {
-    const posts = (await getPublicNotesPosts()) as NoteWithTags[];
-    const postsByTag = new Map<string, TagPagePost[]>();
-    const paths = [];
+    const tagPages = await getPublicNotesTagPages();
 
-    for (const post of posts) {
-        const seenTags = new Set<string>();
-
-        for (const tag of post.tags) {
-            const normalizedTag = tag.trim();
-            if (!normalizedTag || seenTags.has(normalizedTag)) {
-                continue;
-            }
-
-            seenTags.add(normalizedTag);
-
-            if (!postsByTag.has(normalizedTag)) {
-                postsByTag.set(normalizedTag, []);
-            }
-
-            postsByTag.get(normalizedTag)!.push({
-                slug: post.slug,
-                title: post.title,
-                pinned: post.pinned,
-            });
-        }
-    }
-
-    for (const [tag, taggedPosts] of postsByTag.entries()) {
-        paths.push({
-            params: { tag },
-            props: { tag, posts: taggedPosts },
-        });
-    }
-
-    return paths.sort((a, b) => a.params.tag.localeCompare(b.params.tag));
+    return tagPages.map(({ tag, posts }) => ({
+        params: { tag },
+        props: { tag, posts },
+    }));
 }
 
 const { tag, posts } = Astro.props as Props;
