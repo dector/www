@@ -7,6 +7,7 @@ import {
   parseDjFile,
   parseNotesFileName,
 } from "./notes/file-parse.js";
+import { getNotesGitHistory } from "./notes/git-history.js";
 import { G } from "./globals.js";
 
 const NOTES_DIR_URL = new URL("../../content/notes/", import.meta.url);
@@ -67,6 +68,7 @@ export async function getNotesPosts() {
     const { header, body } = parseDjFile(raw, entry.name);
     const extracted = extractTopHeading(body);
     const title = extracted.title ?? header.title ?? formatTitleFromSlug(slug);
+    const history = await getNotesGitHistory(entry.name);
 
     posts.push({
       slug,
@@ -79,6 +81,7 @@ export async function getNotesPosts() {
       tags: header.tags,
       pinned: header.pinned,
       html: bodyToHtml(extracted.body, entry.name),
+      history,
     });
   }
 

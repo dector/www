@@ -19,6 +19,8 @@ const displayTags = getPostTagsWithPhantoms(post.tags);
     title={`${post.title} ~ ${G.BlogTitle}`}
     heading={post.title}
     date={post.displayDate}
+    revision={post.revision}
+    history={post.history}
 >
     <div slot="meta">
         Tags:
