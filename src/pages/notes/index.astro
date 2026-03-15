@@ -2,9 +2,10 @@
 import HtmlLayout from "../../layouts/HtmlLayout.astro";
 import NotesList from "../../components/NotesList.astro";
 import { G } from "../../lib/globals.js";
-import { getPublicNotesPosts } from "../../lib/notes.js";
+import { getPublicNotesPosts, getPublicNotesTagPages } from "../../lib/notes.js";
 
 const posts = await getPublicNotesPosts();
+const tags = (await getPublicNotesTagPages()).map(({ tag }) => tag);
 ---
 
 <HtmlLayout title={`Notes ~ ${G.BlogTitle}`} sectionTitle="Notes" sectionHref="/notes">
@@ -12,5 +13,23 @@ const posts = await getPublicNotesPosts();
         class="mx-auto flex max-w-4xl flex-col gap-4 px-3 py-12 text-lg lg:px-0"
     >
         <NotesList posts={posts} />
+
+        {
+            tags.length > 0 && (
+                <section class="mt-10 flex flex-col gap-2">
+                    <h2 class="text-lg font-normal text-normal">or explore tags</h2>
+                    <div class="flex flex-wrap gap-2">
+                        {tags.map((tag) => (
+                            <a
+                                href={`/notes/t/${tag}/`}
+                                class="rounded-[1px] bg-link3 px-0.5 py-0 text-sm text-background opacity-50 no-underline hover:opacity-90"
+                            >
+                                {tag}
+                            </a>
+                        ))}
+                    </div>
+                </section>
+            )
+        }
     </main>
 </HtmlLayout>
