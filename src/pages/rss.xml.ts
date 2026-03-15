@@ -14,7 +14,7 @@ export const GET: APIRoute = async ({ site, url }) => {
     posts,
     site: site ?? url,
     title: `${G.BlogTitle} — Notes`,
-    description: "Latest public notes from Pragmatic Craftsmanship",
+    description: G.BlogDescription,
   });
 
   return new Response(xml, {

@@ -1,9 +1,17 @@
 ---
 import HtmlLayout from "../layouts/HtmlLayout.astro";
 import { G } from "../lib/globals.js";
+
+const pageTitle = G.BlogTitle;
+const pageDescription = G.BlogDescription;
 ---
 
-<HtmlLayout title={G.BlogTitle} sectionTitle="">
+<HtmlLayout
+    title={pageTitle}
+    description={pageDescription}
+    canonical="/"
+    sectionTitle=""
+>
     <main class="mx-auto flex max-w-4xl px-3 py-12 lg:px-0">
         <section class="relative flex w-full flex-col items-start text-left">
             <a

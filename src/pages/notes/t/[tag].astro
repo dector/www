@@ -25,9 +25,17 @@ export async function getStaticPaths() {
 }
 
 const { tag, posts } = Astro.props as Props;
+const pageTitle = `Notes tagged ${tag} ~ ${G.BlogTitle}`;
+const pageDescription = `${G.BlogDescription}. Posts tagged '${tag}'.`;
 ---
 
-<HtmlLayout title={`Notes tagged ${tag} ~ ${G.BlogTitle}`} sectionTitle="Notes" sectionHref="/notes">
+<HtmlLayout
+    title={pageTitle}
+    description={pageDescription}
+    canonical={`/notes/t/${tag}/`}
+    sectionTitle="Notes"
+    sectionHref="/notes"
+>
     <main
         class="mx-auto flex max-w-4xl flex-col gap-4 px-3 py-12 text-lg lg:px-0"
     >
