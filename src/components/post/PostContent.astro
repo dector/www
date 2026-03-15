@@ -1,5 +1,156 @@
-<article
-    class="mt-8 flex flex-col gap-4 [&_a]:text-normal-lighter [&_a]:underline [&_a]:decoration-1 [&_a]:underline-offset-[5px] [&_a:hover]:text-normal-lighter2 [&_a:hover]:decoration-link3 [&_a:hover]:decoration-2 [&_a:hover]:underline-offset-[6px] [&_iframe]:block [&_iframe]:mx-auto [&_iframe]:max-w-full [&_code]:font-mono [&_code]:text-sm [&_code:not(pre_code)]:bg-muted [&_code:not(pre_code)]:px-1 [&_code:not(pre_code)]:text-normal-lighter3 [&_div:not(.code-block)]:flex [&_div:not(.code-block)]:flex-col [&_div:not(.code-block)]:gap-4 [&_li_p]:inline [&_.code-block]:relative [&_.code-block_.lang-tag]:pointer-events-none [&_.code-block_.lang-tag]:absolute [&_.code-block_.lang-tag]:right-0 [&_.code-block_.lang-tag]:top-0 [&_.code-block_.lang-tag]:inline [&_.code-block_.lang-tag]:p-2 [&_.code-block_.lang-tag]:text-sm [&_.code-block_.lang-tag]:uppercase [&_.code-block_.lang-tag]:text-muted [&_pre]:m-0 [&_pre]:overflow-x-auto [&_pre]:p-0 [&_pre]:text-[0.92rem] [&_pre_code.hljs]:block [&_pre_code.hljs]:overflow-x-auto [&_pre_code.hljs]:bg-[#282b2e] [&_pre_code.hljs]:px-4 [&_pre_code.hljs]:py-4 [&_pre_code.hljs]:leading-6 [&_pre_code.hljs]:text-[#e0e2e4] [&_.hljs-keyword]:text-[#93c763] [&_.hljs-literal]:text-[#93c763] [&_.hljs-selector-id]:text-[#93c763] [&_.hljs-selector-tag]:text-[#93c763] [&_.hljs-number]:text-[#ffcd22] [&_.hljs-attribute]:text-[#668bb0] [&_.hljs-link]:text-[#d39745] [&_.hljs-regexp]:text-[#d39745] [&_.hljs-meta]:text-[#557182] [&_.hljs-addition]:text-[#8cbbad] [&_.hljs-built_in]:text-[#8cbbad] [&_.hljs-bullet]:text-[#8cbbad] [&_.hljs-emphasis]:text-[#8cbbad] [&_.hljs-name]:text-[#8cbbad] [&_.hljs-selector-attr]:text-[#8cbbad] [&_.hljs-selector-pseudo]:text-[#8cbbad] [&_.hljs-subst]:text-[#8cbbad] [&_.hljs-tag]:text-[#8cbbad] [&_.hljs-template-tag]:text-[#8cbbad] [&_.hljs-template-variable]:text-[#8cbbad] [&_.hljs-type]:text-[#8cbbad] [&_.hljs-variable]:text-[#8cbbad] [&_.hljs-string]:text-[#ec7600] [&_.hljs-symbol]:text-[#ec7600] [&_.hljs-comment]:text-[#818e96] [&_.hljs-deletion]:text-[#818e96] [&_.hljs-quote]:text-[#818e96] [&_.hljs-selector-class]:text-[#a082bd] [&_.hljs-class_.hljs-title]:text-white [&_.hljs-code]:text-white [&_.hljs-section]:text-white [&_.hljs-doctag]:font-bold [&_.hljs-keyword]:font-bold [&_.hljs-literal]:font-bold [&_.hljs-name]:font-bold [&_.hljs-section]:font-bold [&_.hljs-selector-tag]:font-bold [&_.hljs-strong]:font-bold [&_.hljs-title]:font-bold [&_.hljs-type]:font-bold [&_ul]:list-inside [&_ul]:list-disc [&_ul]:ps-4"
->
+<article class="mt-8 flex flex-col gap-4 post-content">
     <slot />
 </article>
+
+<style>
+    .post-content a {
+        color: var(--color-normal-lighter);
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 5px;
+    }
+
+    .post-content a:hover {
+        color: var(--color-normal-lighter2);
+        text-decoration-color: var(--color-link3);
+        text-decoration-thickness: 2px;
+        text-underline-offset: 6px;
+    }
+
+    .post-content iframe {
+        display: block;
+        max-width: 100%;
+        margin-inline: auto;
+    }
+
+    .post-content code {
+        font-family: var(--font-mono);
+        font-size: 0.875rem;
+    }
+
+    .post-content code:not(pre code) {
+        background: var(--color-muted);
+        padding-inline: 0.25rem;
+        color: var(--color-normal-lighter3);
+    }
+
+    .post-content div:not(.code-block) {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .post-content li p {
+        display: inline;
+    }
+
+    .post-content .code-block {
+        position: relative;
+    }
+
+    .post-content .code-block .lang-tag {
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: inline;
+        padding: 0.5rem;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        color: var(--color-muted);
+    }
+
+    .post-content pre {
+        margin: 0;
+        overflow-x: auto;
+        padding: 0;
+        font-size: 0.92rem;
+    }
+
+    .post-content pre code.hljs {
+        display: block;
+        overflow-x: auto;
+        background: #282b2e;
+        padding: 1rem;
+        line-height: 1.5rem;
+        color: #e0e2e4;
+    }
+
+    .post-content .hljs-keyword,
+    .post-content .hljs-literal,
+    .post-content .hljs-selector-id,
+    .post-content .hljs-selector-tag {
+        color: #93c763;
+    }
+
+    .post-content .hljs-number {
+        color: #ffcd22;
+    }
+
+    .post-content .hljs-attribute {
+        color: #668bb0;
+    }
+
+    .post-content .hljs-link,
+    .post-content .hljs-regexp {
+        color: #d39745;
+    }
+
+    .post-content .hljs-meta {
+        color: #557182;
+    }
+
+    .post-content .hljs-addition,
+    .post-content .hljs-built_in,
+    .post-content .hljs-bullet,
+    .post-content .hljs-emphasis,
+    .post-content .hljs-name,
+    .post-content .hljs-selector-attr,
+    .post-content .hljs-selector-pseudo,
+    .post-content .hljs-subst,
+    .post-content .hljs-tag,
+    .post-content .hljs-template-tag,
+    .post-content .hljs-template-variable,
+    .post-content .hljs-type,
+    .post-content .hljs-variable {
+        color: #8cbbad;
+    }
+
+    .post-content .hljs-string,
+    .post-content .hljs-symbol {
+        color: #ec7600;
+    }
+
+    .post-content .hljs-comment,
+    .post-content .hljs-deletion,
+    .post-content .hljs-quote {
+        color: #818e96;
+    }
+
+    .post-content .hljs-selector-class {
+        color: #a082bd;
+    }
+
+    .post-content .hljs-class .hljs-title,
+    .post-content .hljs-code,
+    .post-content .hljs-section {
+        color: white;
+    }
+
+    .post-content .hljs-doctag,
+    .post-content .hljs-keyword,
+    .post-content .hljs-literal,
+    .post-content .hljs-name,
+    .post-content .hljs-section,
+    .post-content .hljs-selector-tag,
+    .post-content .hljs-strong,
+    .post-content .hljs-title,
+    .post-content .hljs-type {
+        font-weight: 700;
+    }
+
+    .post-content ul {
+        list-style: disc inside;
+        padding-inline-start: 1rem;
+    }
+</style>
