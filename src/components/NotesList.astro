@@ -2,6 +2,7 @@
 interface PostListItem {
     slug: string;
     title: string;
+    pinned?: number;
 }
 
 interface Props {
@@ -9,12 +10,56 @@ interface Props {
 }
 
 const { posts } = Astro.props;
+const pinnedPosts = posts.filter((post) => (post.pinned ?? -1) >= 0);
+const regularPosts = posts.filter((post) => (post.pinned ?? -1) < 0);
 ---
 
 <article class="flex flex-col gap-4">
+    {
+        pinnedPosts.length > 0 && (
+            <ul class="mb-3 list-none p-0">
+                {
+                    pinnedPosts.map((post) => (
+                        <li>
+                            <a
+                                class="group text-link3 hover:bg-link3 hover:px-2 hover:text-background"
+                                href={`/notes/${post.slug}`}
+                            >
+                                <span
+                                    class="mr-2 inline-flex align-middle text-normal/60 group-hover:text-background/80"
+                                    title="Pinned note"
+                                    aria-label="Pinned note"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="lucide lucide-pin-icon lucide-pin h-4 w-4"
+                                        aria-hidden="true"
+                                        focusable="false"
+                                    >
+                                        <path d="M12 17v5"></path>
+                                        <path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"></path>
+                                    </svg>
+                                </span>
+                                {post.title}
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
+        )
+    }
+
     <ul class="list-none p-0">
         {
-            posts.map((post) => (
+            regularPosts.map((post) => (
                 <li>
                     <a
                         class="text-link3 hover:bg-link3 hover:px-2 hover:text-background"

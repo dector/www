@@ -10,6 +10,35 @@ import {
 
 const NOTES_DIR_URL = new URL("../../content/notes/", import.meta.url);
 
+function compareByNewestCreatedAt(a, b) {
+  if (a.createdAt !== b.createdAt) {
+    return b.createdAt.localeCompare(a.createdAt);
+  }
+
+  return b.slug.localeCompare(a.slug);
+}
+
+export function sortNotesPosts(posts) {
+  return [...posts].sort((a, b) => {
+    const aPinned = a.pinned >= 0;
+    const bPinned = b.pinned >= 0;
+
+    if (aPinned && bPinned) {
+      if (a.pinned !== b.pinned) {
+        return a.pinned - b.pinned;
+      }
+
+      return compareByNewestCreatedAt(a, b);
+    }
+
+    if (aPinned !== bPinned) {
+      return aPinned ? -1 : 1;
+    }
+
+    return compareByNewestCreatedAt(a, b);
+  });
+}
+
 export async function getNotesPosts() {
   const entries = await readdir(NOTES_DIR_URL, { withFileTypes: true });
   const slugs = new Map();
@@ -47,11 +76,12 @@ export async function getNotesPosts() {
       revision: header.revision,
       isPublic: header.isPublic,
       tags: header.tags,
+      pinned: header.pinned,
       html: bodyToHtml(extracted.body, entry.name),
     });
   }
 
-  return posts.sort((a, b) => b.slug.localeCompare(a.slug));
+  return sortNotesPosts(posts);
 }
 
 export async function getPublicNotesPosts() {
@@ -92,6 +122,10 @@ export async function getPublicNotesTagPages() {
     .sort(([tagA], [tagB]) => tagA.localeCompare(tagB))
     .map(([tag, taggedPosts]) => ({
       tag,
-      posts: taggedPosts.map(({ slug, title }) => ({ slug, title })),
+      posts: taggedPosts.map(({ slug, title, pinned }) => ({
+        slug,
+        title,
+        pinned,
+      })),
     }));
 }

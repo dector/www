@@ -7,6 +7,7 @@ import { getPublicNotesPosts } from "../../../lib/notes.js";
 interface TagPagePost {
     slug: string;
     title: string;
+    pinned: number;
 }
 
 interface NoteWithTags extends TagPagePost {
@@ -41,6 +42,7 @@ export async function getStaticPaths() {
             postsByTag.get(normalizedTag)!.push({
                 slug: post.slug,
                 title: post.title,
+                pinned: post.pinned,
             });
         }
     }

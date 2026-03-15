@@ -28,6 +28,27 @@ function parseTags(rawTags) {
   return [];
 }
 
+function parsePinned(pinnedRaw, fileName) {
+  if (pinnedRaw === undefined || pinnedRaw === null || pinnedRaw === "") {
+    return -1;
+  }
+
+  const value =
+    typeof pinnedRaw === "number"
+      ? pinnedRaw
+      : typeof pinnedRaw === "string"
+        ? Number(pinnedRaw)
+        : Number.NaN;
+
+  if (!Number.isInteger(value) || value < -1) {
+    throw new Error(
+      `Invalid pinned value in ${fileName}: expected integer >= 0 or -1`,
+    );
+  }
+
+  return value;
+}
+
 export function parseHjsonHeader(headerText, fileName) {
   let meta;
 
@@ -54,5 +75,6 @@ export function parseHjsonHeader(headerText, fileName) {
     revision: parseRevision(meta.revision ?? meta.rev),
     isPublic: Boolean(meta.public),
     tags: parseTags(meta.tags),
+    pinned: parsePinned(meta.pinned, fileName),
   };
 }

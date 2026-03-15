@@ -14,6 +14,7 @@ tags: [
   "meta"
   "area:blog"
 ]
+pinned: 0
 `.trim(),
       "post.dj",
     );
@@ -25,6 +26,7 @@ tags: [
       revision: 12,
       isPublic: true,
       tags: ["meta", "area:blog"],
+      pinned: 0,
     });
   });
 
@@ -41,12 +43,38 @@ tags: meta
     expect(header.revision).toBe("1.0.0");
     expect(header.tags).toEqual(["meta"]);
     expect(header.isPublic).toBe(false);
+    expect(header.pinned).toBe(-1);
   });
 
   test("throws on invalid HJSON", () => {
     expect(() => parseHjsonHeader("{", "broken.dj")).toThrow(
       /Invalid HJSON front-matter in broken\.dj:/,
     );
+  });
+
+  test("supports pinned -1 as not pinned", () => {
+    const header = parseHjsonHeader(
+      `
+createdAt: "2026-02-16 20:40"
+pinned: -1
+`.trim(),
+      "post.dj",
+    );
+
+    expect(header.pinned).toBe(-1);
+  });
+
+  test("throws on invalid pinned", () => {
+    expect(
+      () =>
+        parseHjsonHeader(
+          `
+createdAt: "2026-02-16 20:40"
+pinned: -2
+`.trim(),
+          "broken.dj",
+        ),
+    ).toThrow("Invalid pinned value in broken.dj: expected integer >= 0 or -1");
   });
 
   test("throws when createdAt is missing", () => {
