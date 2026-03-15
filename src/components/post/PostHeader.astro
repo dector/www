@@ -1,0 +1,34 @@
+---
+import PostHistory from "./PostHistory.astro";
+
+interface PostChange {
+    hash: string;
+    message: string;
+    displayDate: string;
+}
+
+interface PostHistoryData {
+    createdAt: string;
+    updatedAt: string;
+    currentVersion: string;
+    changes: PostChange[];
+}
+
+interface Props {
+    heading: string;
+    date: string;
+    revision?: string;
+    history?: PostHistoryData | null;
+}
+
+const { heading, date, revision, history } = Astro.props;
+---
+
+<header class="flex flex-col gap-4">
+    <h1 class="text-3xl font-thin text-normal">{heading}</h1>
+    <div class="text-normal/75 font-light">
+        {date}
+        <PostHistory revision={revision} history={history} />
+    </div>
+    <slot name="meta" />
+</header>

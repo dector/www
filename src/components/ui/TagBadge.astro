@@ -1,0 +1,16 @@
+---
+interface Props {
+    tag: string;
+    href?: string;
+}
+
+const { tag, href } = Astro.props;
+const linkHref = href ?? `/notes/t/${tag}/`;
+---
+
+<a
+    href={linkHref}
+    class="rounded-[1px] bg-link3 px-0.5 py-0 text-sm text-background opacity-50 no-underline hover:opacity-90"
+>
+    {tag}
+</a>
