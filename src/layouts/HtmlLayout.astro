@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { G } from "../lib/globals.js";
+import { buildMeta } from "../lib/build-meta.js";
 
 interface Props {
     title: string;
@@ -44,6 +45,11 @@ const canonicalUrl = canonical
     : new URL(Astro.url.pathname, site).href;
 const socialImageUrl = new URL(socialImage, site).href;
 const rssUrl = new URL("/rss.xml", site).href;
+const commitUrlTemplate = G.CommitUrlTemplate ?? "";
+const buildCommitUrl = commitUrlTemplate.replace(
+    "{{COMMIT}}",
+    encodeURIComponent(buildMeta.fullHash),
+);
 ---
 
 <html lang={lang} class="min-h-full">
@@ -98,7 +104,8 @@ const rssUrl = new URL("/rss.xml", site).href;
 
     <body
         class:list={[
-            "min-h-full bg-background font-sans leading-6 text-normal",
+            "min-h-screen bg-background font-sans leading-6 text-normal",
+            "flex flex-col",
             bodyClass,
         ]}
     >
@@ -156,8 +163,19 @@ const rssUrl = new URL("/rss.xml", site).href;
                 }
             </div>
         </header>
-        <div class:list={["pt-10", hasSectionTitleRow && "pt-20"]}>
+        <div class:list={["pt-10", hasSectionTitleRow && "pt-20", "flex-1"]}>
             <slot />
         </div>
+
+        <footer class="mx-auto w-full max-w-4xl px-3 py-3 text-center lg:px-0">
+            <a
+                href={buildCommitUrl}
+                class="font-mono text-xs text-muted no-underline hover:text-normal-lighter"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {buildMeta.label}
+            </a>
+        </footer>
     </body>
 </html>
