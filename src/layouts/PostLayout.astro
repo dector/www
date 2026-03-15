@@ -17,19 +17,48 @@ interface PostHistory {
 
 interface Props {
     title: string;
+    description?: string;
+    canonical?: string;
+    socialImage?: string;
     heading: string;
     date: string;
+    publishedTime?: string;
+    modifiedTime?: string | null;
+    articleTags?: string[];
     revision?: string;
     history?: PostHistory | null;
 }
 
-const { title, heading, date, revision, history } = Astro.props;
+const {
+    title,
+    description,
+    canonical,
+    socialImage,
+    heading,
+    date,
+    publishedTime,
+    modifiedTime,
+    articleTags = [],
+    revision,
+    history,
+} = Astro.props;
 const commitUrlTemplate = G.CommitUrlTemplate ?? "";
 const getCommitUrl = (hash: string) =>
     commitUrlTemplate.replace("{{COMMIT}}", encodeURIComponent(hash));
 ---
 
-<HtmlLayout title={title} sectionTitle="Notes" sectionHref="/notes">
+<HtmlLayout
+    title={title}
+    description={description}
+    canonical={canonical}
+    socialImage={socialImage}
+    sectionTitle="Notes"
+    sectionHref="/notes"
+    ogType="article"
+    publishedTime={publishedTime}
+    modifiedTime={modifiedTime}
+    articleTags={articleTags}
+>
     <main
         class="mx-auto flex max-w-4xl flex-col gap-4 px-3 py-12 text-lg lg:px-0"
     >

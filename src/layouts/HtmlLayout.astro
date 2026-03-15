@@ -4,30 +4,88 @@ import { G } from "../lib/globals.js";
 
 interface Props {
     title: string;
+    description?: string;
     sectionTitle?: string;
     sectionHref?: string;
     bodyClass?: string;
     lang?: string;
     viewport?: string;
+    canonical?: string;
+    robots?: string;
+    socialImage?: string;
+    ogType?: "website" | "article";
+    publishedTime?: string;
+    modifiedTime?: string | null;
+    articleTags?: string[];
 }
 
 const {
     title,
+    description = G.BlogDescription,
     sectionTitle,
     sectionHref,
     bodyClass,
     lang = "en",
     viewport = "width=device-width, initial-scale=1",
+    canonical,
+    robots = "index,follow",
+    socialImage = "/social-card.svg",
+    ogType = "website",
+    publishedTime,
+    modifiedTime,
+    articleTags = [],
 } = Astro.props;
 
 const hasSectionTitleRow = sectionTitle !== undefined;
 const normalizedSectionTitle = sectionTitle?.trim();
+const site = Astro.site ?? Astro.url;
+const canonicalUrl = canonical
+    ? new URL(canonical, site).href
+    : new URL(Astro.url.pathname, site).href;
+const socialImageUrl = new URL(socialImage, site).href;
+const rssUrl = new URL("/rss.xml", site).href;
 ---
 
 <html lang={lang} class="min-h-full">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content={viewport} />
+        <meta name="description" content={description} />
+        <meta name="robots" content={robots} />
+        <link rel="canonical" href={canonicalUrl} />
+
+        <meta property="og:site_name" content={G.BlogTitle} />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:type" content={ogType} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:image" content={socialImageUrl} />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={socialImageUrl} />
+
+        {
+            ogType === "article" && publishedTime && (
+                <meta property="article:published_time" content={publishedTime} />
+            )
+        }
+        {
+            ogType === "article" && modifiedTime && (
+                <meta property="article:modified_time" content={modifiedTime} />
+            )
+        }
+        {
+            ogType === "article" &&
+                articleTags.map((tag) => (
+                    <meta property="article:tag" content={tag} />
+                ))
+        }
+
+        <link rel="alternate" type="application/rss+xml" title={`${G.BlogTitle} RSS`} href={rssUrl} />
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
