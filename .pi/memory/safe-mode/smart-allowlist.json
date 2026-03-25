@@ -1,0 +1,8 @@
+{
+  "allow": [
+    "bun run astro check",
+    "bun run build",
+    "bun test"
+  ],
+  "deny": []
+}
