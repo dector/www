@@ -3,7 +3,7 @@ import {
   getPostTagsWithPhantoms,
   groupPostsByTag,
   sortNotesPosts,
-} from "./notes.js";
+} from "./notes.ts";
 
 function post(slug, tags, options = {}) {
   return {

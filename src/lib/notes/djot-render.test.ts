@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { bodyToHtml } from "./djot-render.js";
+import { bodyToHtml } from "./djot-render.ts";
 
 describe("djot-render", () => {
   test("renders basic Djot markup", () => {

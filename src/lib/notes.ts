@@ -5,4 +5,4 @@ export {
   getPublicNotesTagPages,
   groupPostsByTag,
   sortNotesPosts,
-} from "./notes/service.js";
+} from "./notes/service.ts";

@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
-import { G } from "../lib/globals.js";
-import { getPublicNotesPosts } from "../lib/notes.js";
+import { G } from "../lib/globals.ts";
+import { getPublicNotesPosts } from "../lib/notes.ts";
 import { generateNotesRss } from "../lib/rss";
 
 // In dev, this endpoint is generated on demand.

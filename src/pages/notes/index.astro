@@ -2,8 +2,8 @@
 import NotesList from "../../components/NotesList.astro";
 import TagBadge from "../../components/ui/TagBadge.astro";
 import HtmlLayout from "../../layouts/HtmlLayout.astro";
-import { G } from "../../lib/globals.js";
-import { getPublicNotesPosts, getPublicNotesTagPages } from "../../lib/notes.js";
+import { G } from "../../lib/globals.ts";
+import { getPublicNotesPosts, getPublicNotesTagPages } from "../../lib/notes.ts";
 
 const posts = await getPublicNotesPosts();
 const tags = (await getPublicNotesTagPages()).map(({ tag }) => tag);

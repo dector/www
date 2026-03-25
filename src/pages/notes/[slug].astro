@@ -1,8 +1,8 @@
 ---
 import TagBadge from "../../components/ui/TagBadge.astro";
 import PostLayout from "../../layouts/PostLayout.astro";
-import { G } from "../../lib/globals.js";
-import { getPostTagsWithPhantoms, getPublicNotesPosts } from "../../lib/notes.js";
+import { G } from "../../lib/globals.ts";
+import { getPostTagsWithPhantoms, getPublicNotesPosts } from "../../lib/notes.ts";
 
 export async function getStaticPaths() {
     const posts = await getPublicNotesPosts();

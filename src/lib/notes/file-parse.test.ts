@@ -4,7 +4,7 @@ import {
   formatTitleFromSlug,
   parseDjFile,
   parseNotesFileName,
-} from "./file-parse.js";
+} from "./file-parse.ts";
 
 describe("file-parse", () => {
   test("parses note file names into slugs", () => {

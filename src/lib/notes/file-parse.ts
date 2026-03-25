@@ -1,4 +1,4 @@
-import { parseHjsonHeader } from "./frontmatter.js";
+import { parseHjsonHeader } from "./frontmatter.ts";
 
 export function parseNotesFileName(name) {
   if (!name.endsWith(".dj")) {

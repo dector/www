@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { parseHjsonHeader } from "./frontmatter.js";
+import { parseHjsonHeader } from "./frontmatter.ts";
 
 describe("frontmatter", () => {
   test("parses valid HJSON front-matter", () => {

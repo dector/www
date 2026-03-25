@@ -2,19 +2,20 @@ import {
   getNotesFileGitHistory,
   listNotesFileNames,
   readNotesFile,
-} from "./repository.js";
+} from "./repository.ts";
 import {
   getPostTagsWithPhantoms,
   getSlugFromNotesFileName,
   groupPostsByTag,
   sortNotesPosts,
   toNotesPost,
-} from "./transformers.js";
+} from "./transformers.ts";
+import type { Post, TagPage } from "./types";
 
-export async function getNotesPosts() {
+export async function getNotesPosts(): Promise<Post[]> {
   const fileNames = await listNotesFileNames();
-  const slugs = new Map();
-  const posts = [];
+  const slugs = new Map<string, string>();
+  const posts: Post[] = [];
 
   for (const fileName of fileNames) {
     const slug = getSlugFromNotesFileName(fileName);
@@ -39,12 +40,12 @@ export async function getNotesPosts() {
   return sortNotesPosts(posts);
 }
 
-export async function getPublicNotesPosts() {
+export async function getPublicNotesPosts(): Promise<Post[]> {
   const posts = await getNotesPosts();
   return posts.filter((post) => post.isPublic);
 }
 
-export async function getPublicNotesTagPages() {
+export async function getPublicNotesTagPages(): Promise<TagPage[]> {
   const posts = await getPublicNotesPosts();
   const postsByTag = groupPostsByTag(posts);
 

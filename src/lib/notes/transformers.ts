@@ -1,14 +1,15 @@
-import { formatDisplayDate } from "./date-format.js";
-import { bodyToHtml } from "./djot-render.js";
+import { formatDisplayDate } from "./date-format.ts";
+import { bodyToHtml } from "./djot-render.ts";
 import {
   extractTopHeading,
   formatTitleFromSlug,
   parseDjFile,
   parseNotesFileName,
-} from "./file-parse.js";
-import { G } from "../globals.js";
+} from "./file-parse.ts";
+import { G } from "../globals.ts";
+import type { Post, PostHistory } from "./types";
 
-function compareByNewestCreatedAt(a, b) {
+function compareByNewestCreatedAt(a: Post, b: Post) {
   if (a.createdAt !== b.createdAt) {
     return b.createdAt.localeCompare(a.createdAt);
   }
@@ -16,11 +17,21 @@ function compareByNewestCreatedAt(a, b) {
   return b.slug.localeCompare(a.slug);
 }
 
-export function getSlugFromNotesFileName(fileName) {
+export function getSlugFromNotesFileName(fileName: string): string | null {
   return parseNotesFileName(fileName);
 }
 
-export function toNotesPost({ fileName, slug, raw, history }) {
+export function toNotesPost({
+  fileName,
+  slug,
+  raw,
+  history,
+}: {
+  fileName: string;
+  slug: string;
+  raw: string;
+  history: PostHistory | null;
+}): Post {
   const { header, body } = parseDjFile(raw, fileName);
   const extracted = extractTopHeading(body);
   const title = extracted.title ?? header.title ?? formatTitleFromSlug(slug);
@@ -40,7 +51,7 @@ export function toNotesPost({ fileName, slug, raw, history }) {
   };
 }
 
-export function sortNotesPosts(posts) {
+export function sortNotesPosts(posts: Post[]): Post[] {
   return [...posts].sort((a, b) => {
     const aPinned = a.pinned >= 0;
     const bPinned = b.pinned >= 0;
@@ -61,9 +72,12 @@ export function sortNotesPosts(posts) {
   });
 }
 
-export function getPostTagsWithPhantoms(tags, phantomTags = G.PhantomTags) {
-  const effectiveTags = [];
-  const seenTags = new Set();
+export function getPostTagsWithPhantoms(
+  tags: string[] | undefined,
+  phantomTags: string[] = G.PhantomTags,
+): string[] {
+  const effectiveTags: string[] = [];
+  const seenTags = new Set<string>();
 
   for (const tag of tags ?? []) {
     const normalizedTag = String(tag).trim();
@@ -75,7 +89,7 @@ export function getPostTagsWithPhantoms(tags, phantomTags = G.PhantomTags) {
     effectiveTags.push(normalizedTag);
   }
 
-  const phantomInsertions = [];
+  const phantomInsertions: { tag: string; index: number }[] = [];
 
   for (const phantomTag of phantomTags) {
     const normalizedPhantomTag = String(phantomTag).trim();
@@ -105,8 +119,8 @@ export function getPostTagsWithPhantoms(tags, phantomTags = G.PhantomTags) {
   return effectiveTags;
 }
 
-export function groupPostsByTag(posts) {
-  const postsByTag = new Map();
+export function groupPostsByTag(posts: Post[]): Map<string, Post[]> {
+  const postsByTag = new Map<string, Post[]>();
 
   for (const post of posts) {
     for (const tag of getPostTagsWithPhantoms(post.tags)) {
@@ -114,7 +128,7 @@ export function groupPostsByTag(posts) {
         postsByTag.set(tag, []);
       }
 
-      postsByTag.get(tag).push(post);
+      postsByTag.get(tag)?.push(post);
     }
   }
 

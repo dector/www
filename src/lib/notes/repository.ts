@@ -1,6 +1,6 @@
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { getNotesGitHistory } from "./git-history.js";
+import { getNotesGitHistory } from "./git-history.ts";
 
 const NOTES_DIR_PATH = join(process.cwd(), "content", "notes");
 

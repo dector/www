@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { formatDisplayDate, parseDateValue } from "./date-format.js";
+import { formatDisplayDate, parseDateValue } from "./date-format.ts";
 
 describe("date-format", () => {
   test("parses UTC date-time string", () => {
