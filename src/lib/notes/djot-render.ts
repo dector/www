@@ -1,7 +1,24 @@
 import { parse, renderHTML } from "@djot/djot";
 import hljs from "highlight.js";
 
-function escapeHtml(value) {
+type DjotRenderer = {
+  escapeAttribute(value: string): string;
+  escape(value: string): string;
+  renderTag(tagName: string, node: unknown): string;
+  renderCloseTag(tagName: string): string;
+  renderChildren(node: unknown): string;
+};
+
+type DjotCodeBlockNode = {
+  text: string;
+  lang?: string | null;
+};
+
+type DjotLinkNode = {
+  destination?: string | null;
+};
+
+function escapeHtml(value: string): string {
   return value
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
@@ -10,7 +27,10 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
-function highlightCodeBlock(rawCode, rawLang) {
+function highlightCodeBlock(
+  rawCode: string,
+  rawLang: string,
+): { highlightedCode: string; language: string } {
   const language = rawLang.trim().toLowerCase();
 
   if (!language || !hljs.getLanguage(language)) {
@@ -33,7 +53,7 @@ function highlightCodeBlock(rawCode, rawLang) {
 
 const DJOT_RENDER_OPTIONS = {
   overrides: {
-    code_block: (node, renderer) => {
+    code_block: (node: DjotCodeBlockNode, renderer: DjotRenderer): string => {
       const { highlightedCode, language } = highlightCodeBlock(
         node.text,
         node.lang ?? "",
@@ -46,7 +66,7 @@ const DJOT_RENDER_OPTIONS = {
         : "";
       return `<div class="code-block">${langTag}${renderer.renderTag("pre", node)}<code class="hljs${classAttr}">${highlightedCode}</code>${renderer.renderCloseTag("pre")}</div>\n`;
     },
-    link: (node, renderer) => {
+    link: (node: DjotLinkNode, renderer: DjotRenderer): string => {
       const destination = node.destination ?? "";
       const isExternal = /^https?:\/\//i.test(destination);
       const href = renderer.escapeAttribute(destination);
@@ -60,7 +80,7 @@ const DJOT_RENDER_OPTIONS = {
   },
 };
 
-export function bodyToHtml(rawBody, fileName) {
+export function bodyToHtml(rawBody: string, fileName: string): string {
   try {
     const ast = parse(rawBody);
     return renderHTML(ast, DJOT_RENDER_OPTIONS);

@@ -1,6 +1,6 @@
-import { parseHjsonHeader } from "./frontmatter.ts";
+import { parseHjsonHeader, type ParsedHeader } from "./frontmatter.ts";
 
-export function parseNotesFileName(name) {
+export function parseNotesFileName(name: string): string | null {
   if (!name.endsWith(".dj")) {
     return null;
   }
@@ -9,7 +9,10 @@ export function parseNotesFileName(name) {
   return slug || null;
 }
 
-export function parseDjFile(content, fileName) {
+export function parseDjFile(
+  content: string,
+  fileName: string,
+): { header: ParsedHeader; body: string } {
   const normalized = content.replace(/\r\n/g, "\n");
   const lines = normalized.split("\n");
 
@@ -18,7 +21,7 @@ export function parseDjFile(content, fileName) {
   }
 
   const endHeader = lines.findIndex(
-    (line, idx) => idx > 0 && line.trim() === "---",
+    (line: string, idx: number) => idx > 0 && line.trim() === "---",
   );
   if (endHeader < 0) {
     throw new Error(`Missing ending header marker in ${fileName}`);
@@ -33,11 +36,14 @@ export function parseDjFile(content, fileName) {
   return { header, body };
 }
 
-export function formatTitleFromSlug(slug) {
+export function formatTitleFromSlug(slug: string): string {
   return slug.replaceAll("-", " ");
 }
 
-export function extractTopHeading(rawBody) {
+export function extractTopHeading(rawBody: string): {
+  title: string | null;
+  body: string;
+} {
   const lines = rawBody.replace(/\r\n/g, "\n").split("\n");
 
   for (let index = 0; index < lines.length; index += 1) {

@@ -1,5 +1,13 @@
-const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-const MONTHS = [
+const WEEKDAYS: readonly string[] = [
+  "Sun",
+  "Mon",
+  "Tue",
+  "Wed",
+  "Thu",
+  "Fri",
+  "Sat",
+];
+const MONTHS: readonly string[] = [
   "Jan",
   "Feb",
   "Mar",
@@ -14,7 +22,7 @@ const MONTHS = [
   "Dec",
 ];
 
-export function parseDateValue(value) {
+export function parseDateValue(value: string): Date {
   const match = value.match(/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})$/);
   if (!match) {
     throw new Error(`Invalid date value: ${value}`);
@@ -26,7 +34,7 @@ export function parseDateValue(value) {
   );
 }
 
-export function formatDisplayDate(value) {
+export function formatDisplayDate(value: string): string {
   const date = parseDateValue(value);
   const weekday = WEEKDAYS[date.getUTCDay()];
   const day = String(date.getUTCDate()).padStart(2, "0");

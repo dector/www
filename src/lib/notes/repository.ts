@@ -1,18 +1,21 @@
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { getNotesGitHistory } from "./git-history.ts";
+import type { PostHistory } from "./types";
 
 const NOTES_DIR_PATH = join(process.cwd(), "content", "notes");
 
-export async function listNotesFileNames() {
+export async function listNotesFileNames(): Promise<string[]> {
   const entries = await readdir(NOTES_DIR_PATH, { withFileTypes: true });
   return entries.filter((entry) => entry.isFile()).map((entry) => entry.name);
 }
 
-export async function readNotesFile(fileName) {
+export async function readNotesFile(fileName: string): Promise<string> {
   return readFile(join(NOTES_DIR_PATH, fileName), "utf8");
 }
 
-export async function getNotesFileGitHistory(fileName) {
+export async function getNotesFileGitHistory(
+  fileName: string,
+): Promise<PostHistory | null> {
   return getNotesGitHistory(fileName);
 }

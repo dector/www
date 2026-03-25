@@ -1,14 +1,15 @@
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
+import type { PostHistory } from "./types";
 
 const execFileAsync = promisify(execFile);
 const COMMIT_FIELD_SEPARATOR = "\u001f";
 const COMMIT_ROW_SEPARATOR = "\u001e";
 const PROJECT_ROOT = fileURLToPath(new URL("../../../", import.meta.url));
-const historyCache = new Map();
+const historyCache = new Map<string, Promise<PostHistory | null>>();
 
-function formatHistoryDate(dateText) {
+function formatHistoryDate(dateText: string): string {
   const date = new Date(`${dateText}T00:00:00Z`);
   if (Number.isNaN(date.getTime())) {
     return dateText;
@@ -22,12 +23,14 @@ function formatHistoryDate(dateText) {
   }).format(date);
 }
 
-export async function getNotesGitHistory(fileName) {
+export async function getNotesGitHistory(
+  fileName: string,
+): Promise<PostHistory | null> {
   if (historyCache.has(fileName)) {
-    return historyCache.get(fileName);
+    return historyCache.get(fileName) as Promise<PostHistory | null>;
   }
 
-  const historyPromise = (async () => {
+  const historyPromise: Promise<PostHistory | null> = (async () => {
     const relativePath = `content/notes/${fileName}`;
 
     try {
@@ -67,14 +70,14 @@ export async function getNotesGitHistory(fileName) {
             message,
           };
         })
-        .filter(Boolean);
+        .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
 
       if (changes.length === 0) {
         return null;
       }
 
       return {
-        createdAt: changes.at(-1).displayDate,
+        createdAt: changes.at(-1)!.displayDate,
         updatedAt: changes[0].displayDate,
         currentVersion: changes[0].hash,
         changes,

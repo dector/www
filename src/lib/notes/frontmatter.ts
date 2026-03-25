@@ -1,6 +1,16 @@
 import Hjson from "hjson";
 
-function parseRevision(revisionRaw) {
+export type ParsedHeader = {
+  title: string | null;
+  createdAt: string;
+  updatedAt: string | null;
+  revision: number | string | null;
+  isPublic: boolean;
+  tags: string[];
+  pinned: number;
+};
+
+function parseRevision(revisionRaw: unknown): number | string | null {
   if (revisionRaw === undefined || revisionRaw === null) {
     return null;
   }
@@ -16,7 +26,7 @@ function parseRevision(revisionRaw) {
   return String(revisionRaw);
 }
 
-function parseTags(rawTags) {
+function parseTags(rawTags: unknown): string[] {
   if (Array.isArray(rawTags)) {
     return rawTags.map((tag) => String(tag));
   }
@@ -28,7 +38,7 @@ function parseTags(rawTags) {
   return [];
 }
 
-function parsePinned(pinnedRaw, fileName) {
+function parsePinned(pinnedRaw: unknown, fileName: string): number {
   if (pinnedRaw === undefined || pinnedRaw === null || pinnedRaw === "") {
     return -1;
   }
@@ -49,19 +59,22 @@ function parsePinned(pinnedRaw, fileName) {
   return value;
 }
 
-export function parseHjsonHeader(headerText, fileName) {
-  let meta;
+export function parseHjsonHeader(
+  headerText: string,
+  fileName: string,
+): ParsedHeader {
+  let meta: Record<string, unknown>;
 
   try {
-    meta = Hjson.parse(headerText);
-  } catch (error) {
-    throw new Error(
-      `Invalid HJSON front-matter in ${fileName}: ${error.message}`,
-    );
-  }
+    const parsed = Hjson.parse(headerText) as unknown;
+    if (!parsed || typeof parsed !== "object") {
+      throw new Error(`Front-matter in ${fileName} must be an object`);
+    }
 
-  if (!meta || typeof meta !== "object") {
-    throw new Error(`Front-matter in ${fileName} must be an object`);
+    meta = parsed as Record<string, unknown>;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    throw new Error(`Invalid HJSON front-matter in ${fileName}: ${message}`);
   }
 
   if (!meta.createdAt) {
