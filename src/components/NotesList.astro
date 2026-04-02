@@ -19,27 +19,30 @@ const regularPosts = posts.filter((post) => (post.pinned ?? -1) < 0);
 <article class="flex flex-col gap-4">
     {
         pinnedPosts.length > 0 && (
-            <ul class="mb-3 list-none p-0">
-                {
-                    pinnedPosts.map((post) => (
-                        <li>
-                            <a
-                                class="group text-link3 hover:bg-link3 hover:px-2 hover:text-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link3"
-                                href={`/notes/${post.slug}`}
-                            >
-                                <span
-                                    class="mr-2 inline-flex align-middle text-normal/60 group-hover:text-background/80"
-                                    title="Pinned note"
-                                    aria-label="Pinned note"
+            <section class="mb-3 py-3">
+                <h2 class="mb-1 font-mono text-xs tracking-wide text-normal-lighter2">Pinned</h2>
+                <ul class="list-none p-0">
+                    {
+                        pinnedPosts.map((post) => (
+                            <li>
+                                <a
+                                    class="group text-link3 hover:bg-link3 hover:px-2 hover:text-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link3"
+                                    href={`/notes/${post.slug}`}
                                 >
-                                    <Pin />
-                                </span>
-                                {post.title}
-                            </a>
-                        </li>
-                    ))
-                }
-            </ul>
+                                    <span
+                                        class="mr-2 inline-flex align-middle text-normal/60 group-hover:text-background/80"
+                                        title="Pinned note"
+                                        aria-label="Pinned note"
+                                    >
+                                        <Pin />
+                                    </span>
+                                    {post.title}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </section>
         )
     }
 
