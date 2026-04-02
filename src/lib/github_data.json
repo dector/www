@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-02T20:58:02Z",
+  "generatedAt": "2026-04-02T21:00:24Z",
   "source": "https://api.github.com/users/dector/repos",
   "projects": [
     {
@@ -215,7 +215,19 @@
       "status": "Stale",
       "repoUrl": "https://github.com/dector/dector",
       "homepageUrl": null,
-      "updatedAt": "2022-03-14T12:48:38Z",
+      "updatedAt": "2022-03-14T12:48:41Z",
+      "isPinned": false
+    },
+    {
+      "name": "things",
+      "summary": "Misc 3D design",
+      "tags": [
+        "OpenSCAD"
+      ],
+      "status": "Stale",
+      "repoUrl": "https://github.com/dector/things",
+      "homepageUrl": null,
+      "updatedAt": "2022-01-01T21:00:47Z",
       "isPinned": false
     },
     {
@@ -227,7 +239,7 @@
       "status": "Stale",
       "repoUrl": "https://github.com/dector/exercism-kotlin",
       "homepageUrl": "http://exercism.io/languages/kotlin",
-      "updatedAt": "2020-01-16T05:49:26Z",
+      "updatedAt": "2020-01-17T03:43:25Z",
       "isPinned": false
     },
     {
@@ -239,7 +251,7 @@
       "status": "Stale",
       "repoUrl": "https://github.com/dector/dead-art-space",
       "homepageUrl": null,
-      "updatedAt": "2019-12-29T20:51:36Z",
+      "updatedAt": "2019-12-29T20:54:58Z",
       "isPinned": false
     },
     {
@@ -257,18 +269,6 @@
       "isPinned": false
     },
     {
-      "name": "things",
-      "summary": "Misc 3D design",
-      "tags": [
-        "OpenSCAD"
-      ],
-      "status": "Stale",
-      "repoUrl": "https://github.com/dector/things",
-      "homepageUrl": null,
-      "updatedAt": "2018-10-28T21:27:23Z",
-      "isPinned": false
-    },
-    {
       "name": "tkgbot",
       "summary": "Telegram bot that sends notifications about new messages on tkg.org.ua.",
       "tags": [
@@ -277,7 +277,7 @@
       "status": "Stale",
       "repoUrl": "https://github.com/dector/tkgbot",
       "homepageUrl": null,
-      "updatedAt": "2018-06-23T07:38:00Z",
+      "updatedAt": "2018-07-13T09:09:55Z",
       "isPinned": false
     },
     {
@@ -289,7 +289,163 @@
       "status": "Stale",
       "repoUrl": "https://github.com/dector/kotlin-guides",
       "homepageUrl": "https://android.github.io/kotlin-guides/",
-      "updatedAt": "2017-11-02T16:36:18Z",
+      "updatedAt": "2017-11-03T01:19:35Z",
+      "isPinned": false
+    },
+    {
+      "name": "CleverBlocks",
+      "summary": "[ABANDONED] Ludum Dare #24 entry",
+      "tags": [
+        "Java"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/CleverBlocks",
+      "homepageUrl": null,
+      "updatedAt": "2023-01-28T21:01:52Z",
+      "isPinned": false
+    },
+    {
+      "name": "scatris",
+      "summary": "[ABANDONED] Scatris - Yet another *tris clone",
+      "tags": [
+        "Scala"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/scatris",
+      "homepageUrl": null,
+      "updatedAt": "2023-01-28T21:01:52Z",
+      "isPinned": false
+    },
+    {
+      "name": "Stackoverflow-answers",
+      "summary": "Code for ansvers on stackoverflow.com",
+      "tags": [
+        "Java"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/Stackoverflow-answers",
+      "homepageUrl": null,
+      "updatedAt": "2023-01-28T21:01:51Z",
+      "isPinned": false
+    },
+    {
+      "name": "kotris",
+      "summary": "[ABANDONED] ",
+      "tags": [
+        "Kotlin"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/kotris",
+      "homepageUrl": null,
+      "updatedAt": "2023-01-28T21:01:48Z",
+      "isPinned": false
+    },
+    {
+      "name": "quotes-clean",
+      "summary": "[ABANDONED] ",
+      "tags": [
+        "Kotlin"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/quotes-clean",
+      "homepageUrl": null,
+      "updatedAt": "2023-01-28T21:01:48Z",
+      "isPinned": false
+    },
+    {
+      "name": "ld29",
+      "summary": "[ABANDONED] Ludum Dare #29 entry",
+      "tags": [
+        "Java"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/ld29",
+      "homepageUrl": null,
+      "updatedAt": "2023-01-28T21:01:47Z",
+      "isPinned": false
+    },
+    {
+      "name": "rkpi",
+      "summary": "[ABANDONED] Radio KPI Android player",
+      "tags": [
+        "Java"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/rkpi",
+      "homepageUrl": null,
+      "updatedAt": "2023-01-28T21:01:47Z",
+      "isPinned": false
+    },
+    {
+      "name": "ld29-haxe",
+      "summary": "[ABANDONED] Ludum Dare #29 entry (HaXe Flixel port)",
+      "tags": [
+        "Haxe"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/ld29-haxe",
+      "homepageUrl": null,
+      "updatedAt": "2023-01-28T21:01:47Z",
+      "isPinned": false
+    },
+    {
+      "name": "snake",
+      "summary": "[ABANDONED] Snake with Luxe",
+      "tags": [
+        "Haxe"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/snake",
+      "homepageUrl": null,
+      "updatedAt": "2023-01-28T12:57:17Z",
+      "isPinned": false
+    },
+    {
+      "name": "personal-notes",
+      "summary": "Personal notes blog (source)",
+      "tags": [
+        "HTML"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/personal-notes",
+      "homepageUrl": null,
+      "updatedAt": "2023-01-28T12:57:17Z",
+      "isPinned": false
+    },
+    {
+      "name": "tlamp",
+      "summary": "[SUSPENDED] Project is not in progress",
+      "tags": [
+        "Kotlin"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/tlamp",
+      "homepageUrl": null,
+      "updatedAt": "2023-01-28T12:23:42Z",
+      "isPinned": false
+    },
+    {
+      "name": "lh2l_project",
+      "summary": "[FINISHED] Final project for Learning How To Learn course on Coursera",
+      "tags": [
+        "HTML"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/lh2l_project",
+      "homepageUrl": "https://dector.github.io/lh2l_project/",
+      "updatedAt": "2023-01-28T12:23:42Z",
+      "isPinned": false
+    },
+    {
+      "name": "social-interaction",
+      "summary": "Set of social interaction thoughts and principles",
+      "tags": [
+        "misc"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/social-interaction",
+      "homepageUrl": null,
+      "updatedAt": "2023-01-27T20:31:54Z",
       "isPinned": false
     },
     {
@@ -301,7 +457,31 @@
       "status": "Archived",
       "repoUrl": "https://github.com/dector/im-sorry-dave",
       "homepageUrl": null,
-      "updatedAt": "2021-06-06T22:02:47Z",
+      "updatedAt": "2023-01-27T20:28:26Z",
+      "isPinned": false
+    },
+    {
+      "name": "plchdr-kt",
+      "summary": ":construction: Simple placeholder generator in Kotlin",
+      "tags": [
+        "Kotlin"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/plchdr-kt",
+      "homepageUrl": null,
+      "updatedAt": "2023-01-27T20:28:25Z",
+      "isPinned": false
+    },
+    {
+      "name": "tuya-lib",
+      "summary": ":bulb: EXPERIMENTAL library to control Tuya devices",
+      "tags": [
+        "Kotlin"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/tuya-lib",
+      "homepageUrl": null,
+      "updatedAt": "2023-01-27T20:28:25Z",
       "isPinned": false
     },
     {
@@ -313,7 +493,21 @@
       "status": "Archived",
       "repoUrl": "https://github.com/dector/ghosty",
       "homepageUrl": null,
-      "updatedAt": "2021-05-22T11:26:07Z",
+      "updatedAt": "2023-01-27T20:28:25Z",
+      "isPinned": false
+    },
+    {
+      "name": "quotes",
+      "summary": "Minimalistic tech showcase app. Version 2 is WIP. :rocket:",
+      "tags": [
+        "android",
+        "kotlin",
+        "kotlin-multiplatform"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/quotes",
+      "homepageUrl": null,
+      "updatedAt": "2023-01-27T20:28:23Z",
       "isPinned": false
     },
     {
@@ -328,164 +522,6 @@
       "repoUrl": "https://github.com/dector/sarif-kotlin",
       "homepageUrl": null,
       "updatedAt": "2021-03-11T10:15:23Z",
-      "isPinned": false
-    },
-    {
-      "name": "quotes",
-      "summary": "Minimalistic tech showcase app. Version 2 is WIP. :rocket:",
-      "tags": [
-        "android",
-        "kotlin",
-        "kotlin-multiplatform"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/quotes",
-      "homepageUrl": null,
-      "updatedAt": "2021-03-06T07:50:41Z",
-      "isPinned": false
-    },
-    {
-      "name": "tuya-lib",
-      "summary": ":bulb: EXPERIMENTAL library to control Tuya devices",
-      "tags": [
-        "Kotlin"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/tuya-lib",
-      "homepageUrl": null,
-      "updatedAt": "2021-02-24T22:52:08Z",
-      "isPinned": false
-    },
-    {
-      "name": "plchdr-kt",
-      "summary": ":construction: Simple placeholder generator in Kotlin",
-      "tags": [
-        "Kotlin"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/plchdr-kt",
-      "homepageUrl": null,
-      "updatedAt": "2021-02-17T18:30:01Z",
-      "isPinned": false
-    },
-    {
-      "name": "personal-notes",
-      "summary": "Personal notes blog (source)",
-      "tags": [
-        "HTML"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/personal-notes",
-      "homepageUrl": null,
-      "updatedAt": "2018-11-13T22:40:35Z",
-      "isPinned": false
-    },
-    {
-      "name": "social-interaction",
-      "summary": "Set of social interaction thoughts and principles",
-      "tags": [
-        "misc"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/social-interaction",
-      "homepageUrl": null,
-      "updatedAt": "2017-04-23T22:51:34Z",
-      "isPinned": false
-    },
-    {
-      "name": "lh2l_project",
-      "summary": "[FINISHED] Final project for Learning How To Learn course on Coursera",
-      "tags": [
-        "HTML"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/lh2l_project",
-      "homepageUrl": "https://dector.github.io/lh2l_project/",
-      "updatedAt": "2017-01-22T00:00:11Z",
-      "isPinned": false
-    },
-    {
-      "name": "tlamp",
-      "summary": "[SUSPENDED] Project is not in progress",
-      "tags": [
-        "Kotlin"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/tlamp",
-      "homepageUrl": null,
-      "updatedAt": "2016-12-13T21:38:21Z",
-      "isPinned": false
-    },
-    {
-      "name": "snake",
-      "summary": "[ABANDONED] Snake with Luxe",
-      "tags": [
-        "Haxe"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/snake",
-      "homepageUrl": null,
-      "updatedAt": "2016-03-26T03:15:59Z",
-      "isPinned": false
-    },
-    {
-      "name": "quotes-clean",
-      "summary": "[ABANDONED] ",
-      "tags": [
-        "Kotlin"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/quotes-clean",
-      "homepageUrl": null,
-      "updatedAt": "2016-02-14T21:04:18Z",
-      "isPinned": false
-    },
-    {
-      "name": "kotris",
-      "summary": "[ABANDONED] ",
-      "tags": [
-        "Kotlin"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/kotris",
-      "homepageUrl": null,
-      "updatedAt": "2016-02-10T22:41:52Z",
-      "isPinned": false
-    },
-    {
-      "name": "rkpi",
-      "summary": "[ABANDONED] Radio KPI Android player",
-      "tags": [
-        "Java"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/rkpi",
-      "homepageUrl": null,
-      "updatedAt": "2014-12-16T14:11:45Z",
-      "isPinned": false
-    },
-    {
-      "name": "ld29-haxe",
-      "summary": "[ABANDONED] Ludum Dare #29 entry (HaXe Flixel port)",
-      "tags": [
-        "Haxe"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/ld29-haxe",
-      "homepageUrl": null,
-      "updatedAt": "2014-05-01T12:18:55Z",
-      "isPinned": false
-    },
-    {
-      "name": "ld29",
-      "summary": "[ABANDONED] Ludum Dare #29 entry",
-      "tags": [
-        "Java"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/ld29",
-      "homepageUrl": null,
-      "updatedAt": "2014-04-28T01:20:36Z",
       "isPinned": false
     },
     {
@@ -525,18 +561,6 @@
       "isPinned": false
     },
     {
-      "name": "CleverBlocks",
-      "summary": "[ABANDONED] Ludum Dare #24 entry",
-      "tags": [
-        "Java"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/CleverBlocks",
-      "homepageUrl": null,
-      "updatedAt": "2012-09-01T13:52:44Z",
-      "isPinned": false
-    },
-    {
       "name": "ludum-dare",
       "summary": "My Ludum Dare 48 hours Compo entries",
       "tags": [
@@ -561,18 +585,6 @@
       "isPinned": false
     },
     {
-      "name": "scatris",
-      "summary": "[ABANDONED] Scatris - Yet another *tris clone",
-      "tags": [
-        "Scala"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/scatris",
-      "homepageUrl": null,
-      "updatedAt": "2012-05-26T09:44:25Z",
-      "isPinned": false
-    },
-    {
       "name": "pustomario",
       "summary": "[ABANDONED] Simple 2D platformer game.",
       "tags": [
@@ -594,18 +606,6 @@
       "repoUrl": "https://github.com/dector/uCompiler",
       "homepageUrl": null,
       "updatedAt": "2011-11-29T20:18:19Z",
-      "isPinned": false
-    },
-    {
-      "name": "Stackoverflow-answers",
-      "summary": "Code for ansvers on stackoverflow.com",
-      "tags": [
-        "Java"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/Stackoverflow-answers",
-      "homepageUrl": null,
-      "updatedAt": "2011-06-21T16:27:28Z",
       "isPinned": false
     }
   ]
