@@ -24,7 +24,7 @@ const regularPosts = posts.filter((post) => (post.pinned ?? -1) < 0);
                     pinnedPosts.map((post) => (
                         <li>
                             <a
-                                class="group text-link3 hover:bg-link3 hover:px-2 hover:text-background"
+                                class="group text-link3 hover:bg-link3 hover:px-2 hover:text-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link3"
                                 href={`/notes/${post.slug}`}
                             >
                                 <span
@@ -48,7 +48,7 @@ const regularPosts = posts.filter((post) => (post.pinned ?? -1) < 0);
             regularPosts.map((post) => (
                 <li>
                     <a
-                        class="text-link3 hover:bg-link3 hover:px-2 hover:text-background"
+                        class="text-link3 hover:bg-link3 hover:px-2 hover:text-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link3"
                         href={`/notes/${post.slug}`}
                     >
                         {post.title}
