@@ -11,6 +11,8 @@ STALE_AFTER_DAYS = 365
 # Persistent config: repos we want to show first with a pin.
 PINNED_REPOS = [
     "www",
+    "dotfiles",
+    "pi-x",
 ]
 
 # Persistent config: repos we want to include on /projects.
@@ -80,31 +82,71 @@ def _http_get_text(url: str) -> str:
         return resp.read().decode("utf-8")
 
 
-def _fetch_page(page: int) -> list[dict]:
-    api_url = (
-        f"https://api.github.com/users/{USERNAME}/repos"
-        f"?per_page=100&page={page}&type=public&sort=updated"
-    )
+def _json_from_text(text: str):
+    first_object = text.find("{")
+    first_array = text.find("[")
 
+    starts = [i for i in (first_object, first_array) if i != -1]
+    if not starts:
+        raise RuntimeError("Could not parse JSON from response")
+
+    start = min(starts)
+    return json.loads(text[start:])
+
+
+def _github_get_json(url: str):
     try:
-        return json.loads(_http_get_text(api_url))
+        return _json_from_text(_http_get_text(url))
     except urllib.error.HTTPError as err:
         if err.code != 403:
             raise
 
         # Fallback for unauthenticated API limits.
-        mirror_text = _http_get_text(f"https://r.jina.ai/http://api.github.com/users/{USERNAME}/repos?per_page=100&page={page}&type=public&sort=updated")
-        start = mirror_text.find("[")
-        if start == -1:
-            raise RuntimeError("Could not parse fallback response")
-        return json.loads(mirror_text[start:])
+        mirror_text = _http_get_text(f"https://r.jina.ai/http://{url.removeprefix('https://')}")
+        return _json_from_text(mirror_text)
 
 
-def _project_status(repo: dict, stale_before: dt.datetime) -> str:
+def _fetch_page(page: int) -> list[dict]:
+    api_url = (
+        f"https://api.github.com/users/{USERNAME}/repos"
+        f"?per_page=100&page={page}&type=public&sort=updated"
+    )
+    return _github_get_json(api_url)
+
+
+def _latest_commit_at(repo: dict) -> str:
+    default_branch = repo.get("default_branch")
+    if not default_branch:
+        return repo["updated_at"]
+
+    commits_url = (
+        f"https://api.github.com/repos/{USERNAME}/{repo['name']}/commits"
+        f"?per_page=1&sha={default_branch}"
+    )
+
+    try:
+        commits = _github_get_json(commits_url)
+    except urllib.error.HTTPError as err:
+        # 409 can happen for empty repositories.
+        # 403/429 can happen when we hit API or mirror limits.
+        if err.code in {403, 409, 429}:
+            return repo["updated_at"]
+        raise
+
+    if not isinstance(commits, list) or not commits:
+        return repo["updated_at"]
+
+    head = (commits[0] or {}).get("commit") or {}
+    author = head.get("author") or {}
+    committer = head.get("committer") or {}
+    return author.get("date") or committer.get("date") or repo["updated_at"]
+
+
+def _project_status(repo: dict, latest_commit_at: str, stale_before: dt.datetime) -> str:
     if repo.get("archived"):
         return "Archived"
 
-    updated = dt.datetime.fromisoformat(repo["updated_at"].replace("Z", "+00:00"))
+    updated = dt.datetime.fromisoformat(latest_commit_at.replace("Z", "+00:00"))
     return "Stale" if updated < stale_before else "Active"
 
 
@@ -113,7 +155,7 @@ def main() -> None:
     page = 1
     while True:
         chunk = _fetch_page(page)
-        if not chunk:
+        if not isinstance(chunk, list) or not chunk:
             break
         repos.extend(chunk)
         if len(chunk) < 100:
@@ -125,11 +167,19 @@ def main() -> None:
     pin_order = {name: i for i, name in enumerate(PINNED_REPOS)}
 
     filtered = [r for r in repos if r["name"] in INCLUDED_REPOS]
+
+    latest_commit_by_repo: dict[str, str] = {}
+    for repo in filtered:
+        latest_commit_by_repo[repo["name"]] = _latest_commit_at(repo)
+
     filtered.sort(
         key=lambda r: (
+            1 if r.get("archived") else 0,
             0 if r["name"] in pin_order else 1,
             pin_order.get(r["name"], 9999),
-            -dt.datetime.fromisoformat(r["updated_at"].replace("Z", "+00:00")).timestamp(),
+            -dt.datetime.fromisoformat(
+                latest_commit_by_repo[r["name"]].replace("Z", "+00:00")
+            ).timestamp(),
         )
     )
 
@@ -138,16 +188,17 @@ def main() -> None:
         topics = repo.get("topics") or []
         language = repo.get("language")
         tags = topics if topics else ([language] if language else ["misc"])
+        latest_commit_at = latest_commit_by_repo[repo["name"]]
 
         projects.append(
             {
                 "name": repo["name"],
                 "summary": repo.get("description") or "No description provided.",
                 "tags": tags,
-                "status": _project_status(repo, stale_before),
+                "status": _project_status(repo, latest_commit_at, stale_before),
                 "repoUrl": repo["html_url"],
                 "homepageUrl": repo.get("homepage") or None,
-                "updatedAt": repo["updated_at"],
+                "updatedAt": latest_commit_at,
                 "isPinned": repo["name"] in pin_order,
             }
         )

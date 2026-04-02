@@ -1,17 +1,41 @@
 {
-  "generatedAt": "2026-04-02T20:32:55Z",
+  "generatedAt": "2026-04-02T20:58:02Z",
   "source": "https://api.github.com/users/dector/repos",
   "projects": [
     {
       "name": "www",
       "summary": "No description provided.",
       "tags": [
-        "TypeScript"
+        "Astro"
       ],
       "status": "Active",
       "repoUrl": "https://github.com/dector/www",
       "homepageUrl": null,
-      "updatedAt": "2026-03-25T19:12:27Z",
+      "updatedAt": "2026-04-02T20:35:37Z",
+      "isPinned": true
+    },
+    {
+      "name": "dotfiles",
+      "summary": "Dotfiles backup",
+      "tags": [
+        "dotfiles"
+      ],
+      "status": "Active",
+      "repoUrl": "https://github.com/dector/dotfiles",
+      "homepageUrl": null,
+      "updatedAt": "2026-04-01T22:26:13Z",
+      "isPinned": true
+    },
+    {
+      "name": "pi-x",
+      "summary": "Extensions for pi.dev",
+      "tags": [
+        "TypeScript"
+      ],
+      "status": "Active",
+      "repoUrl": "https://github.com/dector/pi-x",
+      "homepageUrl": null,
+      "updatedAt": "2026-03-29T15:40:26Z",
       "isPinned": true
     },
     {
@@ -23,43 +47,7 @@
       "status": "Active",
       "repoUrl": "https://github.com/dector/config-astronvim",
       "homepageUrl": null,
-      "updatedAt": "2026-04-02T18:40:31Z",
-      "isPinned": false
-    },
-    {
-      "name": "dotfiles",
-      "summary": "Dotfiles backup",
-      "tags": [
-        "dotfiles"
-      ],
-      "status": "Active",
-      "repoUrl": "https://github.com/dector/dotfiles",
-      "homepageUrl": null,
-      "updatedAt": "2026-04-01T22:27:00Z",
-      "isPinned": false
-    },
-    {
-      "name": "pi-x",
-      "summary": "Extensions for pi.dev",
-      "tags": [
-        "TypeScript"
-      ],
-      "status": "Active",
-      "repoUrl": "https://github.com/dector/pi-x",
-      "homepageUrl": null,
-      "updatedAt": "2026-03-29T15:41:03Z",
-      "isPinned": false
-    },
-    {
-      "name": "serv",
-      "summary": "Expose folder/file via HTTP Server",
-      "tags": [
-        "Go"
-      ],
-      "status": "Active",
-      "repoUrl": "https://github.com/dector/serv",
-      "homepageUrl": null,
-      "updatedAt": "2026-02-18T09:25:58Z",
+      "updatedAt": "2026-04-02T18:38:32Z",
       "isPinned": false
     },
     {
@@ -71,7 +59,7 @@
       "status": "Active",
       "repoUrl": "https://github.com/dector/kdly",
       "homepageUrl": null,
-      "updatedAt": "2026-02-16T08:53:14Z",
+      "updatedAt": "2026-02-15T20:12:25Z",
       "isPinned": false
     },
     {
@@ -83,7 +71,7 @@
       "status": "Active",
       "repoUrl": "https://github.com/dector/paper-toolkit",
       "homepageUrl": "https://dector.space/paper-toolkit/",
-      "updatedAt": "2026-02-13T01:01:15Z",
+      "updatedAt": "2026-02-13T01:01:00Z",
       "isPinned": false
     },
     {
@@ -95,7 +83,7 @@
       "status": "Active",
       "repoUrl": "https://github.com/dector/awesome-organic-writing",
       "homepageUrl": null,
-      "updatedAt": "2026-02-10T09:37:42Z",
+      "updatedAt": "2026-02-10T09:37:07Z",
       "isPinned": false
     },
     {
@@ -107,7 +95,7 @@
       "status": "Active",
       "repoUrl": "https://github.com/dector/hata",
       "homepageUrl": null,
-      "updatedAt": "2026-02-09T00:24:58Z",
+      "updatedAt": "2026-02-09T00:24:44Z",
       "isPinned": false
     },
     {
@@ -119,7 +107,7 @@
       "status": "Active",
       "repoUrl": "https://github.com/dector/lampa",
       "homepageUrl": null,
-      "updatedAt": "2026-01-18T16:33:46Z",
+      "updatedAt": "2026-01-18T15:55:04Z",
       "isPinned": false
     },
     {
@@ -131,7 +119,7 @@
       "status": "Active",
       "repoUrl": "https://github.com/dector/respect-busy-maintainers",
       "homepageUrl": null,
-      "updatedAt": "2025-11-10T13:14:50Z",
+      "updatedAt": "2025-11-10T11:44:29Z",
       "isPinned": false
     },
     {
@@ -155,7 +143,7 @@
       "status": "Active",
       "repoUrl": "https://github.com/dector/authie",
       "homepageUrl": null,
-      "updatedAt": "2025-09-30T09:34:29Z",
+      "updatedAt": "2025-08-13T11:53:31Z",
       "isPinned": false
     },
     {
@@ -167,7 +155,19 @@
       "status": "Active",
       "repoUrl": "https://github.com/dector/bang",
       "homepageUrl": null,
-      "updatedAt": "2025-07-18T20:12:35Z",
+      "updatedAt": "2025-07-18T20:12:12Z",
+      "isPinned": false
+    },
+    {
+      "name": "serv",
+      "summary": "Expose folder/file via HTTP Server",
+      "tags": [
+        "Go"
+      ],
+      "status": "Active",
+      "repoUrl": "https://github.com/dector/serv",
+      "homepageUrl": null,
+      "updatedAt": "2025-07-15T19:06:43Z",
       "isPinned": false
     },
     {
@@ -191,7 +191,7 @@
       "status": "Active",
       "repoUrl": "https://github.com/dector/run-lampa",
       "homepageUrl": "https://github.com/dector/lampa",
-      "updatedAt": "2025-07-06T21:44:58Z",
+      "updatedAt": "2025-07-06T21:44:13Z",
       "isPinned": false
     },
     {
@@ -203,57 +203,43 @@
       "status": "Active",
       "repoUrl": "https://github.com/dector/tg-bumblebee-bot",
       "homepageUrl": null,
-      "updatedAt": "2025-06-27T17:11:07Z",
+      "updatedAt": "2025-06-27T17:10:54Z",
       "isPinned": false
     },
     {
-      "name": "pustomario",
-      "summary": "[ABANDONED] Simple 2D platformer game.",
+      "name": "dector",
+      "summary": "No description provided.",
       "tags": [
-        "Java"
+        "misc"
       ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/pustomario",
+      "status": "Stale",
+      "repoUrl": "https://github.com/dector/dector",
       "homepageUrl": null,
-      "updatedAt": "2025-01-13T11:05:40Z",
+      "updatedAt": "2022-03-14T12:48:38Z",
       "isPinned": false
     },
     {
-      "name": "moon_lander",
-      "summary": "[ABANDONED] Land rocket onto the platform",
+      "name": "exercism-kotlin",
+      "summary": "Exercism exercises in Kotlin.",
       "tags": [
-        "Java"
+        "Kotlin"
       ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/moon_lander",
-      "homepageUrl": "http://dector.github.com/moon_lander",
-      "updatedAt": "2025-01-03T01:27:27Z",
+      "status": "Stale",
+      "repoUrl": "https://github.com/dector/exercism-kotlin",
+      "homepageUrl": "http://exercism.io/languages/kotlin",
+      "updatedAt": "2020-01-16T05:49:26Z",
       "isPinned": false
     },
     {
-      "name": "sarif-kotlin",
-      "summary": ":construction: Kotlin bindings for SARIF file format (NOT READY YET)",
+      "name": "dead-art-space",
+      "summary": "No description provided.",
       "tags": [
-        "kotlin",
-        "sarif",
-        "static-analysis"
+        "misc"
       ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/sarif-kotlin",
+      "status": "Stale",
+      "repoUrl": "https://github.com/dector/dead-art-space",
       "homepageUrl": null,
-      "updatedAt": "2024-05-02T11:59:06Z",
-      "isPinned": false
-    },
-    {
-      "name": "light-map",
-      "summary": "[ABANDONED] Simple tile-based light map",
-      "tags": [
-        "Java"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/light-map",
-      "homepageUrl": null,
-      "updatedAt": "2024-05-01T07:10:20Z",
+      "updatedAt": "2019-12-29T20:51:36Z",
       "isPinned": false
     },
     {
@@ -267,211 +253,43 @@
       "status": "Stale",
       "repoUrl": "https://github.com/dector/pipes.kt",
       "homepageUrl": null,
-      "updatedAt": "2023-02-07T22:50:09Z",
+      "updatedAt": "2019-11-10T09:14:18Z",
       "isPinned": false
     },
     {
-      "name": "processing-fun",
-      "summary": "Experiments with Processing",
+      "name": "things",
+      "summary": "Misc 3D design",
       "tags": [
-        "Processing"
+        "OpenSCAD"
       ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/processing-fun",
+      "status": "Stale",
+      "repoUrl": "https://github.com/dector/things",
       "homepageUrl": null,
-      "updatedAt": "2023-01-28T21:01:53Z",
+      "updatedAt": "2018-10-28T21:27:23Z",
       "isPinned": false
     },
     {
-      "name": "uCompiler",
-      "summary": "[ABANDONED] University labworks",
-      "tags": [
-        "Java"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/uCompiler",
-      "homepageUrl": null,
-      "updatedAt": "2023-01-28T21:01:52Z",
-      "isPinned": false
-    },
-    {
-      "name": "space-lander",
-      "summary": "[ABANDONED] Very cool! Lunar Lander remix",
-      "tags": [
-        "Java"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/space-lander",
-      "homepageUrl": null,
-      "updatedAt": "2023-01-28T21:01:52Z",
-      "isPinned": false
-    },
-    {
-      "name": "ludum-dare",
-      "summary": "My Ludum Dare 48 hours Compo entries",
-      "tags": [
-        "Java"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/ludum-dare",
-      "homepageUrl": null,
-      "updatedAt": "2023-01-28T21:01:52Z",
-      "isPinned": false
-    },
-    {
-      "name": "CleverBlocks",
-      "summary": "[ABANDONED] Ludum Dare #24 entry",
-      "tags": [
-        "Java"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/CleverBlocks",
-      "homepageUrl": null,
-      "updatedAt": "2023-01-28T21:01:52Z",
-      "isPinned": false
-    },
-    {
-      "name": "scatris",
-      "summary": "[ABANDONED] Scatris - Yet another *tris clone",
-      "tags": [
-        "Scala"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/scatris",
-      "homepageUrl": null,
-      "updatedAt": "2023-01-28T21:01:52Z",
-      "isPinned": false
-    },
-    {
-      "name": "Stackoverflow-answers",
-      "summary": "Code for ansvers on stackoverflow.com",
-      "tags": [
-        "Java"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/Stackoverflow-answers",
-      "homepageUrl": null,
-      "updatedAt": "2023-01-28T21:01:51Z",
-      "isPinned": false
-    },
-    {
-      "name": "kotris",
-      "summary": "[ABANDONED] ",
-      "tags": [
-        "Kotlin"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/kotris",
-      "homepageUrl": null,
-      "updatedAt": "2023-01-28T21:01:48Z",
-      "isPinned": false
-    },
-    {
-      "name": "quotes-clean",
-      "summary": "[ABANDONED] ",
-      "tags": [
-        "Kotlin"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/quotes-clean",
-      "homepageUrl": null,
-      "updatedAt": "2023-01-28T21:01:48Z",
-      "isPinned": false
-    },
-    {
-      "name": "ld29",
-      "summary": "[ABANDONED] Ludum Dare #29 entry",
-      "tags": [
-        "Java"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/ld29",
-      "homepageUrl": null,
-      "updatedAt": "2023-01-28T21:01:47Z",
-      "isPinned": false
-    },
-    {
-      "name": "rkpi",
-      "summary": "[ABANDONED] Radio KPI Android player",
-      "tags": [
-        "Java"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/rkpi",
-      "homepageUrl": null,
-      "updatedAt": "2023-01-28T21:01:47Z",
-      "isPinned": false
-    },
-    {
-      "name": "ld29-haxe",
-      "summary": "[ABANDONED] Ludum Dare #29 entry (HaXe Flixel port)",
-      "tags": [
-        "Haxe"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/ld29-haxe",
-      "homepageUrl": null,
-      "updatedAt": "2023-01-28T21:01:47Z",
-      "isPinned": false
-    },
-    {
-      "name": "snake",
-      "summary": "[ABANDONED] Snake with Luxe",
-      "tags": [
-        "Haxe"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/snake",
-      "homepageUrl": null,
-      "updatedAt": "2023-01-28T12:57:17Z",
-      "isPinned": false
-    },
-    {
-      "name": "personal-notes",
-      "summary": "Personal notes blog (source)",
+      "name": "tkgbot",
+      "summary": "Telegram bot that sends notifications about new messages on tkg.org.ua.",
       "tags": [
         "HTML"
       ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/personal-notes",
+      "status": "Stale",
+      "repoUrl": "https://github.com/dector/tkgbot",
       "homepageUrl": null,
-      "updatedAt": "2023-01-28T12:57:17Z",
+      "updatedAt": "2018-06-23T07:38:00Z",
       "isPinned": false
     },
     {
-      "name": "tlamp",
-      "summary": "[SUSPENDED] Project is not in progress",
+      "name": "kotlin-guides",
+      "summary": "A set of guides for writing Kotlin for Android.",
       "tags": [
-        "Kotlin"
+        "CSS"
       ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/tlamp",
-      "homepageUrl": null,
-      "updatedAt": "2023-01-28T12:23:42Z",
-      "isPinned": false
-    },
-    {
-      "name": "lh2l_project",
-      "summary": "[FINISHED] Final project for Learning How To Learn course on Coursera",
-      "tags": [
-        "HTML"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/lh2l_project",
-      "homepageUrl": "https://dector.github.io/lh2l_project/",
-      "updatedAt": "2023-01-28T12:23:42Z",
-      "isPinned": false
-    },
-    {
-      "name": "social-interaction",
-      "summary": "Set of social interaction thoughts and principles",
-      "tags": [
-        "misc"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/social-interaction",
-      "homepageUrl": null,
-      "updatedAt": "2023-01-27T20:31:54Z",
+      "status": "Stale",
+      "repoUrl": "https://github.com/dector/kotlin-guides",
+      "homepageUrl": "https://android.github.io/kotlin-guides/",
+      "updatedAt": "2017-11-02T16:36:18Z",
       "isPinned": false
     },
     {
@@ -483,31 +301,7 @@
       "status": "Archived",
       "repoUrl": "https://github.com/dector/im-sorry-dave",
       "homepageUrl": null,
-      "updatedAt": "2023-01-27T20:28:26Z",
-      "isPinned": false
-    },
-    {
-      "name": "plchdr-kt",
-      "summary": ":construction: Simple placeholder generator in Kotlin",
-      "tags": [
-        "Kotlin"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/plchdr-kt",
-      "homepageUrl": null,
-      "updatedAt": "2023-01-27T20:28:25Z",
-      "isPinned": false
-    },
-    {
-      "name": "tuya-lib",
-      "summary": ":bulb: EXPERIMENTAL library to control Tuya devices",
-      "tags": [
-        "Kotlin"
-      ],
-      "status": "Archived",
-      "repoUrl": "https://github.com/dector/tuya-lib",
-      "homepageUrl": null,
-      "updatedAt": "2023-01-27T20:28:25Z",
+      "updatedAt": "2021-06-06T22:02:47Z",
       "isPinned": false
     },
     {
@@ -519,7 +313,21 @@
       "status": "Archived",
       "repoUrl": "https://github.com/dector/ghosty",
       "homepageUrl": null,
-      "updatedAt": "2023-01-27T20:28:25Z",
+      "updatedAt": "2021-05-22T11:26:07Z",
+      "isPinned": false
+    },
+    {
+      "name": "sarif-kotlin",
+      "summary": ":construction: Kotlin bindings for SARIF file format (NOT READY YET)",
+      "tags": [
+        "kotlin",
+        "sarif",
+        "static-analysis"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/sarif-kotlin",
+      "homepageUrl": null,
+      "updatedAt": "2021-03-11T10:15:23Z",
       "isPinned": false
     },
     {
@@ -533,79 +341,271 @@
       "status": "Archived",
       "repoUrl": "https://github.com/dector/quotes",
       "homepageUrl": null,
-      "updatedAt": "2023-01-27T20:28:23Z",
+      "updatedAt": "2021-03-06T07:50:41Z",
       "isPinned": false
     },
     {
-      "name": "dector",
-      "summary": "No description provided.",
-      "tags": [
-        "misc"
-      ],
-      "status": "Stale",
-      "repoUrl": "https://github.com/dector/dector",
-      "homepageUrl": null,
-      "updatedAt": "2022-03-14T12:48:41Z",
-      "isPinned": false
-    },
-    {
-      "name": "things",
-      "summary": "Misc 3D design",
-      "tags": [
-        "OpenSCAD"
-      ],
-      "status": "Stale",
-      "repoUrl": "https://github.com/dector/things",
-      "homepageUrl": null,
-      "updatedAt": "2022-01-01T21:00:47Z",
-      "isPinned": false
-    },
-    {
-      "name": "exercism-kotlin",
-      "summary": "Exercism exercises in Kotlin.",
+      "name": "tuya-lib",
+      "summary": ":bulb: EXPERIMENTAL library to control Tuya devices",
       "tags": [
         "Kotlin"
       ],
-      "status": "Stale",
-      "repoUrl": "https://github.com/dector/exercism-kotlin",
-      "homepageUrl": "http://exercism.io/languages/kotlin",
-      "updatedAt": "2020-01-17T03:43:25Z",
-      "isPinned": false
-    },
-    {
-      "name": "dead-art-space",
-      "summary": "No description provided.",
-      "tags": [
-        "misc"
-      ],
-      "status": "Stale",
-      "repoUrl": "https://github.com/dector/dead-art-space",
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/tuya-lib",
       "homepageUrl": null,
-      "updatedAt": "2019-12-29T20:54:58Z",
+      "updatedAt": "2021-02-24T22:52:08Z",
       "isPinned": false
     },
     {
-      "name": "tkgbot",
-      "summary": "Telegram bot that sends notifications about new messages on tkg.org.ua.",
+      "name": "plchdr-kt",
+      "summary": ":construction: Simple placeholder generator in Kotlin",
+      "tags": [
+        "Kotlin"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/plchdr-kt",
+      "homepageUrl": null,
+      "updatedAt": "2021-02-17T18:30:01Z",
+      "isPinned": false
+    },
+    {
+      "name": "personal-notes",
+      "summary": "Personal notes blog (source)",
       "tags": [
         "HTML"
       ],
-      "status": "Stale",
-      "repoUrl": "https://github.com/dector/tkgbot",
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/personal-notes",
       "homepageUrl": null,
-      "updatedAt": "2018-07-13T09:09:55Z",
+      "updatedAt": "2018-11-13T22:40:35Z",
       "isPinned": false
     },
     {
-      "name": "kotlin-guides",
-      "summary": "A set of guides for writing Kotlin for Android.",
+      "name": "social-interaction",
+      "summary": "Set of social interaction thoughts and principles",
       "tags": [
-        "CSS"
+        "misc"
       ],
-      "status": "Stale",
-      "repoUrl": "https://github.com/dector/kotlin-guides",
-      "homepageUrl": "https://android.github.io/kotlin-guides/",
-      "updatedAt": "2017-11-03T01:19:35Z",
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/social-interaction",
+      "homepageUrl": null,
+      "updatedAt": "2017-04-23T22:51:34Z",
+      "isPinned": false
+    },
+    {
+      "name": "lh2l_project",
+      "summary": "[FINISHED] Final project for Learning How To Learn course on Coursera",
+      "tags": [
+        "HTML"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/lh2l_project",
+      "homepageUrl": "https://dector.github.io/lh2l_project/",
+      "updatedAt": "2017-01-22T00:00:11Z",
+      "isPinned": false
+    },
+    {
+      "name": "tlamp",
+      "summary": "[SUSPENDED] Project is not in progress",
+      "tags": [
+        "Kotlin"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/tlamp",
+      "homepageUrl": null,
+      "updatedAt": "2016-12-13T21:38:21Z",
+      "isPinned": false
+    },
+    {
+      "name": "snake",
+      "summary": "[ABANDONED] Snake with Luxe",
+      "tags": [
+        "Haxe"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/snake",
+      "homepageUrl": null,
+      "updatedAt": "2016-03-26T03:15:59Z",
+      "isPinned": false
+    },
+    {
+      "name": "quotes-clean",
+      "summary": "[ABANDONED] ",
+      "tags": [
+        "Kotlin"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/quotes-clean",
+      "homepageUrl": null,
+      "updatedAt": "2016-02-14T21:04:18Z",
+      "isPinned": false
+    },
+    {
+      "name": "kotris",
+      "summary": "[ABANDONED] ",
+      "tags": [
+        "Kotlin"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/kotris",
+      "homepageUrl": null,
+      "updatedAt": "2016-02-10T22:41:52Z",
+      "isPinned": false
+    },
+    {
+      "name": "rkpi",
+      "summary": "[ABANDONED] Radio KPI Android player",
+      "tags": [
+        "Java"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/rkpi",
+      "homepageUrl": null,
+      "updatedAt": "2014-12-16T14:11:45Z",
+      "isPinned": false
+    },
+    {
+      "name": "ld29-haxe",
+      "summary": "[ABANDONED] Ludum Dare #29 entry (HaXe Flixel port)",
+      "tags": [
+        "Haxe"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/ld29-haxe",
+      "homepageUrl": null,
+      "updatedAt": "2014-05-01T12:18:55Z",
+      "isPinned": false
+    },
+    {
+      "name": "ld29",
+      "summary": "[ABANDONED] Ludum Dare #29 entry",
+      "tags": [
+        "Java"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/ld29",
+      "homepageUrl": null,
+      "updatedAt": "2014-04-28T01:20:36Z",
+      "isPinned": false
+    },
+    {
+      "name": "light-map",
+      "summary": "[ABANDONED] Simple tile-based light map",
+      "tags": [
+        "Java"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/light-map",
+      "homepageUrl": null,
+      "updatedAt": "2013-07-28T18:05:42Z",
+      "isPinned": false
+    },
+    {
+      "name": "processing-fun",
+      "summary": "Experiments with Processing",
+      "tags": [
+        "Processing"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/processing-fun",
+      "homepageUrl": null,
+      "updatedAt": "2013-07-08T03:58:53Z",
+      "isPinned": false
+    },
+    {
+      "name": "moon_lander",
+      "summary": "[ABANDONED] Land rocket onto the platform",
+      "tags": [
+        "Java"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/moon_lander",
+      "homepageUrl": "http://dector.github.com/moon_lander",
+      "updatedAt": "2012-11-28T11:13:36Z",
+      "isPinned": false
+    },
+    {
+      "name": "CleverBlocks",
+      "summary": "[ABANDONED] Ludum Dare #24 entry",
+      "tags": [
+        "Java"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/CleverBlocks",
+      "homepageUrl": null,
+      "updatedAt": "2012-09-01T13:52:44Z",
+      "isPinned": false
+    },
+    {
+      "name": "ludum-dare",
+      "summary": "My Ludum Dare 48 hours Compo entries",
+      "tags": [
+        "Java"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/ludum-dare",
+      "homepageUrl": null,
+      "updatedAt": "2012-08-27T01:14:27Z",
+      "isPinned": false
+    },
+    {
+      "name": "space-lander",
+      "summary": "[ABANDONED] Very cool! Lunar Lander remix",
+      "tags": [
+        "Java"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/space-lander",
+      "homepageUrl": null,
+      "updatedAt": "2012-07-21T11:12:01Z",
+      "isPinned": false
+    },
+    {
+      "name": "scatris",
+      "summary": "[ABANDONED] Scatris - Yet another *tris clone",
+      "tags": [
+        "Scala"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/scatris",
+      "homepageUrl": null,
+      "updatedAt": "2012-05-26T09:44:25Z",
+      "isPinned": false
+    },
+    {
+      "name": "pustomario",
+      "summary": "[ABANDONED] Simple 2D platformer game.",
+      "tags": [
+        "Java"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/pustomario",
+      "homepageUrl": null,
+      "updatedAt": "2011-11-30T21:11:15Z",
+      "isPinned": false
+    },
+    {
+      "name": "uCompiler",
+      "summary": "[ABANDONED] University labworks",
+      "tags": [
+        "Java"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/uCompiler",
+      "homepageUrl": null,
+      "updatedAt": "2011-11-29T20:18:19Z",
+      "isPinned": false
+    },
+    {
+      "name": "Stackoverflow-answers",
+      "summary": "Code for ansvers on stackoverflow.com",
+      "tags": [
+        "Java"
+      ],
+      "status": "Archived",
+      "repoUrl": "https://github.com/dector/Stackoverflow-answers",
+      "homepageUrl": null,
+      "updatedAt": "2011-06-21T16:27:28Z",
       "isPinned": false
     }
   ]
