@@ -37,11 +37,6 @@ const projects = githubData.projects as Project[];
     sectionHref="/projects"
 >
     <main class="mx-auto flex max-w-4xl flex-col gap-6 px-3 py-12 lg:px-0">
-        <p class="max-w-2xl text-normal-lighter2">
-            All public repositories from <a href="https://github.com/dector">github.com/dector</a>,
-            shown as projects.
-        </p>
-
         <section class="grid grid-cols-1 gap-4 md:grid-cols-2">
             {
                 projects.map((project) => (
