@@ -122,7 +122,13 @@ const buildCommitUrl = commitUrlTemplate.replace(
                         class="inline-flex items-center gap-2 font-mono text-sm text-normal-lighter no-underline hover:text-link3"
                     >
                         <span>{G.BlogTitle}</span>
-                        {currentSection && <span class="text-link3">{currentSection}</span>}
+                        {
+                            currentSection && (
+                                <span class:list={[isProjectsSection ? "text-link2" : "text-link3"]}>
+                                    {currentSection}
+                                </span>
+                            )
+                        }
                     </a>
                     <div class="flex items-center gap-4">
                         <div class="flex items-center gap-3 border-r border-muted/70 pr-4">
