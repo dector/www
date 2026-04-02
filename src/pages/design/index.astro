@@ -1,0 +1,98 @@
+---
+import HtmlLayout from "../../layouts/HtmlLayout.astro";
+import TagBadge from "../../components/ui/TagBadge.astro";
+import Pin from "../../components/icons/Pin.astro";
+import { G } from "../../lib/globals.ts";
+
+const pageTitle = `Design ~ ${G.BlogTitle}`;
+const pageDescription = "Design system playground: colors, typography, and UI components.";
+
+const colors = [
+    { name: "background", className: "bg-background", textClass: "text-normal-lighter", hex: "#272727" },
+    { name: "link1", className: "bg-link1", textClass: "text-background", hex: "#ffe400" },
+    { name: "link2", className: "bg-link2", textClass: "text-background", hex: "#14a76c" },
+    { name: "link3", className: "bg-link3", textClass: "text-background", hex: "#ff652f" },
+    { name: "link3-darker", className: "bg-link3-darker", textClass: "text-background", hex: "#cc3600" },
+    { name: "normal", className: "bg-normal", textClass: "text-background", hex: "#878787" },
+    { name: "normal-lighter", className: "bg-normal-lighter", textClass: "text-background", hex: "#959595" },
+    { name: "normal-lighter2", className: "bg-normal-lighter2", textClass: "text-background", hex: "#a3a3a3" },
+    { name: "normal-lighter3", className: "bg-normal-lighter3", textClass: "text-background", hex: "#b2b2b2" },
+    { name: "muted", className: "bg-muted", textClass: "text-normal-lighter3", hex: "#595959" },
+];
+---
+
+<HtmlLayout
+    title={pageTitle}
+    description={pageDescription}
+    canonical="/design/"
+    sectionTitle="Design"
+    sectionHref="/design"
+>
+    <main class="mx-auto flex max-w-4xl flex-col gap-12 px-3 py-12 lg:px-0">
+        <section class="space-y-3">
+            <h1 class="font-mono text-3xl font-light text-normal-lighter3">Design playground</h1>
+            <p class="max-w-2xl text-normal-lighter2">
+                One-page overview of color tokens, typography, and reusable UI pieces.
+            </p>
+        </section>
+
+        <section class="space-y-4">
+            <h2 class="font-mono text-2xl font-light text-link3">Colors</h2>
+            <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+                {
+                    colors.map((color) => (
+                        <article class="rounded border border-muted/60 p-3">
+                            <div class:list={["mb-3 h-14 rounded border border-black/20", color.className]} />
+                            <div class="flex items-center justify-between font-mono text-sm">
+                                <span class={color.textClass}>{color.name}</span>
+                                <span class="text-normal-lighter2">{color.hex}</span>
+                            </div>
+                        </article>
+                    ))
+                }
+            </div>
+        </section>
+
+        <section class="space-y-4">
+            <h2 class="font-mono text-2xl font-light text-link3">Typography</h2>
+            <div class="space-y-4 rounded border border-muted/60 p-4">
+                <p class="text-4xl text-normal-lighter3">Sans 4xl — quick brown fox jumps.</p>
+                <p class="text-2xl text-normal-lighter2">Sans 2xl — quick brown fox jumps.</p>
+                <p class="text-lg text-normal-lighter">Sans lg — quick brown fox jumps.</p>
+                <p class="font-mono text-xl text-normal-lighter3">Mono xl — quick brown fox jumps.</p>
+                <p class="font-mono text-sm text-normal-lighter">Mono sm — quick brown fox jumps.</p>
+            </div>
+        </section>
+
+        <section class="space-y-4">
+            <h2 class="font-mono text-2xl font-light text-link3">Components</h2>
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <article class="space-y-3 rounded border border-muted/60 p-4">
+                    <h3 class="font-mono text-lg text-normal-lighter3">Links & badges</h3>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <a href="#" class="font-mono text-link3 no-underline hover:text-link3-darker">Primary link</a>
+                        <a href="#" class="font-mono text-link2 no-underline hover:text-link1">Secondary link</a>
+                        <TagBadge tag="astro" href="#" />
+                        <TagBadge tag="design" href="#" />
+                    </div>
+                </article>
+
+                <article class="space-y-3 rounded border border-muted/60 p-4">
+                    <h3 class="font-mono text-lg text-normal-lighter3">Card pattern</h3>
+                    <div class="rounded border border-muted/70 bg-black/10 p-3">
+                        <div class="mb-2 flex items-center justify-between">
+                            <span class="font-mono text-normal-lighter3">Pinned note</span>
+                            <span class="inline-flex items-center gap-1 font-mono text-xs text-link1">
+                                <Pin />
+                                featured
+                            </span>
+                        </div>
+                        <p class="text-sm text-normal-lighter2">
+                            This is a sample content card that can be reused for projects or posts.
+                        </p>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+</HtmlLayout>

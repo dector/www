@@ -23,8 +23,6 @@ interface Props {
 const {
     title,
     description = G.BlogDescription,
-    sectionTitle,
-    sectionHref,
     bodyClass,
     lang = "en",
     viewport = "width=device-width, initial-scale=1",
@@ -37,8 +35,6 @@ const {
     articleTags = [],
 } = Astro.props;
 
-const hasSectionTitleRow = sectionTitle !== undefined;
-const normalizedSectionTitle = sectionTitle?.trim();
 const site = Astro.site ?? Astro.url;
 const canonicalUrl = canonical
     ? new URL(canonical, site).href
@@ -49,6 +45,11 @@ const currentPath = Astro.url.pathname;
 const isNotesSection = currentPath === "/notes" || currentPath.startsWith("/notes/");
 const isProjectsSection =
     currentPath === "/projects" || currentPath.startsWith("/projects/");
+const currentSection = (() => {
+    if (currentPath === "/") return null;
+    const [firstPart] = currentPath.split("/").filter(Boolean);
+    return firstPart ? `/${firstPart}` : null;
+})();
 const commitUrlTemplate = G.CommitUrlTemplate ?? "";
 const buildCommitUrl = commitUrlTemplate.replace(
     "{{COMMIT}}",
@@ -118,12 +119,19 @@ const buildCommitUrl = commitUrlTemplate.replace(
                 <div class="flex items-center justify-between gap-4">
                     <a
                         href="/"
-                        class="inline-block font-mono text-sm text-normal-lighter no-underline hover:text-link3"
+                        class="inline-flex items-center gap-2 font-mono text-sm text-normal-lighter no-underline hover:text-link3"
                     >
-                        {G.BlogTitle}
+                        <span>{G.BlogTitle}</span>
+                        {currentSection && <span class="text-link3">{currentSection}</span>}
                     </a>
                     <div class="flex items-center gap-4">
                         <div class="flex items-center gap-3 border-r border-muted/70 pr-4">
+                            <a
+                                href="/"
+                                class="inline-block font-mono text-sm text-normal-lighter no-underline hover:text-normal-lighter3"
+                            >
+                                /
+                            </a>
                             <a
                                 href="/notes"
                                 class:list={[
@@ -173,37 +181,9 @@ const buildCommitUrl = commitUrlTemplate.replace(
                         </div>
                     </div>
                 </div>
-                {
-                    hasSectionTitleRow && (
-                        <div
-                            class:list={[
-                                "mt-1 h-7 font-mono text-xl font-light opacity-90",
-                                isProjectsSection ? "text-link2" : "text-link3",
-                            ]}
-                        >
-                            {normalizedSectionTitle ? (
-                                sectionHref ? (
-                                    <a
-                                        href={sectionHref}
-                                        class:list={[
-                                            "no-underline",
-                                            isProjectsSection
-                                                ? "hover:text-link1"
-                                                : "hover:text-link3",
-                                        ]}
-                                    >
-                                        {`/${normalizedSectionTitle}/`}
-                                    </a>
-                                ) : (
-                                    `/${normalizedSectionTitle}/`
-                                )
-                            ) : ""}
-                        </div>
-                    )
-                }
             </div>
         </header>
-        <div class:list={["pt-10", hasSectionTitleRow && "pt-20", "flex-1"]}>
+        <div class="pt-10 flex-1">
             <slot />
         </div>
 
