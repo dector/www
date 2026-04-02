@@ -1,6 +1,5 @@
 ---
 import NotesList from "../../components/NotesList.astro";
-import TagBadge from "../../components/ui/TagBadge.astro";
 import HtmlLayout from "../../layouts/HtmlLayout.astro";
 import { G } from "../../lib/globals.ts";
 import { getPublicNotesPosts, getPublicNotesTagPages } from "../../lib/notes.ts";
@@ -25,10 +24,21 @@ const pageDescription = `${G.BlogDescription}. Notes archive.`;
 
         {
             tags.length > 0 && (
-                <section class="mt-10 flex flex-col gap-2">
-                    <h2 class="text-lg font-normal text-normal">or explore tags</h2>
+                <section class="mt-10 flex flex-col gap-3 rounded border border-muted/50 bg-black/10 p-4">
+                    <h2 class="font-mono text-sm tracking-wide text-normal-lighter2">
+                        explore by tags
+                    </h2>
                     <div class="flex flex-wrap gap-2">
-                        {tags.map((tag) => <TagBadge tag={tag} />)}
+                        {
+                            tags.map((tag) => (
+                                <a
+                                    href={`/notes/t/${tag}/`}
+                                    class="rounded bg-muted/25 px-2 py-0.5 font-mono text-xs text-normal-lighter2 no-underline hover:bg-muted/40 hover:text-normal-lighter3"
+                                >
+                                    {tag}
+                                </a>
+                            ))
+                        }
                     </div>
                 </section>
             )

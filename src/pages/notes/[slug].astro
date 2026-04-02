@@ -34,8 +34,8 @@ const seoDescription =
     revision={post.revision}
     history={post.history}
 >
-    <div slot="meta">
-        Tags:
+    <div slot="meta" class="flex flex-wrap items-center gap-2 text-sm text-normal-lighter">
+        <span class="font-mono">tags:</span>
         <span class="inline-flex flex-wrap gap-2">
             {displayTags.map((tag) => <TagBadge tag={tag} />)}
         </span>

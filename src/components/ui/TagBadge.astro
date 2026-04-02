@@ -10,7 +10,7 @@ const linkHref = href ?? `/notes/t/${tag}/`;
 
 <a
     href={linkHref}
-    class="rounded-[1px] bg-link3 px-0.5 py-0 text-sm text-background opacity-50 no-underline hover:opacity-90"
+    class="inline-flex items-center rounded-full border border-link3/50 bg-link3/10 px-2 py-0.5 font-mono text-xs text-link3 no-underline transition-colors hover:border-link3 hover:bg-link3 hover:text-background"
 >
-    {tag}
+    #{tag}
 </a>
