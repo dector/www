@@ -2,69 +2,102 @@
 import HtmlLayout from "../../layouts/HtmlLayout.astro";
 import { G } from "../../lib/globals.ts";
 
+type GithubRepo = {
+    name: string;
+    description: string | null;
+    html_url: string;
+    homepage: string | null;
+    topics?: string[];
+    language: string | null;
+    archived: boolean;
+    stargazers_count: number;
+    forks_count: number;
+    updated_at: string;
+};
+
 type Project = {
     name: string;
     summary: string;
     tags: string[];
-    status: "Live" | "In Progress" | "Paused";
-    links: {
-        label: string;
-        href: string;
-    }[];
+    status: "Active" | "Archived";
+    repoUrl: string;
+    homepageUrl: string | null;
+    stars: number;
+    forks: number;
+    updatedAt: string;
 };
 
-const projects: Project[] = [
-    {
-        name: "Atlas Notes",
-        summary:
-            "A personal knowledge base with markdown syncing, full-text search, and clean reading mode.",
-        tags: ["TypeScript", "Astro", "SQLite"],
-        status: "Live",
-        links: [
-            { label: "Demo", href: "#" },
-            { label: "GitHub", href: "#" },
-        ],
-    },
-    {
-        name: "Pocket Budget",
-        summary:
-            "A minimal budget tracker focused on recurring expenses and monthly planning.",
-        tags: ["React", "Bun", "PostgreSQL"],
-        status: "In Progress",
-        links: [
-            { label: "Roadmap", href: "#" },
-            { label: "GitHub", href: "#" },
-        ],
-    },
-    {
-        name: "Habit Garden",
-        summary:
-            "Gamified habit tracking where completed streaks grow your virtual garden.",
-        tags: ["Svelte", "Supabase", "PWA"],
-        status: "Paused",
-        links: [{ label: "Case Study", href: "#" }],
-    },
-    {
-        name: "Tiny Ops",
-        summary:
-            "A tiny dashboard to monitor deploy status, uptime checks, and alerts in one view.",
-        tags: ["Go", "Docker", "Prometheus"],
-        status: "Live",
-        links: [
-            { label: "Docs", href: "#" },
-            { label: "GitHub", href: "#" },
-        ],
-    },
-];
+async function fetchAllPublicRepos(username: string): Promise<Project[]> {
+    const allRepos: GithubRepo[] = [];
+    let page = 1;
+
+    while (true) {
+        const response = await fetch(
+            `https://api.github.com/users/${username}/repos?per_page=100&page=${page}&type=public&sort=updated`,
+            {
+                headers: {
+                    Accept: "application/vnd.github+json",
+                    "User-Agent": "dector-www-projects-page",
+                },
+            },
+        );
+
+        if (!response.ok) {
+            throw new Error(`GitHub API responded with ${response.status}`);
+        }
+
+        const repos = (await response.json()) as GithubRepo[];
+        if (repos.length === 0) break;
+
+        allRepos.push(...repos);
+
+        if (repos.length < 100) break;
+        page += 1;
+    }
+
+    return allRepos
+        .sort(
+            (a, b) =>
+                new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
+        )
+        .map((repo) => {
+            const tags = repo.topics?.length
+                ? repo.topics
+                : repo.language
+                  ? [repo.language]
+                  : ["misc"];
+
+            return {
+                name: repo.name,
+                summary: repo.description ?? "No description provided.",
+                tags,
+                status: repo.archived ? "Archived" : "Active",
+                repoUrl: repo.html_url,
+                homepageUrl: repo.homepage,
+                stars: repo.stargazers_count,
+                forks: repo.forks_count,
+                updatedAt: repo.updated_at,
+            };
+        });
+}
 
 const pageTitle = `Projects ~ ${G.BlogTitle}`;
-const pageDescription = "A curated showcase of projects and experiments.";
+const pageDescription = "Public repositories from github.com/dector.";
 
 const statusClass: Record<Project["status"], string> = {
-    Live: "border-link2 text-link2",
-    "In Progress": "border-link1 text-link1",
-    Paused: "border-link3 text-link3",
+    Active: "border-link2 text-link2",
+    Archived: "border-link3 text-link3",
 };
+
+let projects: Project[] = [];
+let fetchError: string | null = null;
+
+try {
+    projects = await fetchAllPublicRepos("dector");
+} catch (error) {
+    console.error("Failed to fetch public repositories", error);
+    fetchError = "Could not load repositories from GitHub right now.";
+}
 ---
 
 <HtmlLayout
@@ -76,9 +109,17 @@ const statusClass: Record<Project["status"], string> = {
 >
     <main class="mx-auto flex max-w-4xl flex-col gap-6 px-3 py-12 lg:px-0">
         <p class="max-w-2xl text-normal-lighter2">
-            A small selection of things I’ve been building. This page currently uses
-            mock data and layout placeholders.
+            All public repositories from <a href="https://github.com/dector">github.com/dector</a>,
+            shown as projects.
         </p>
+
+        {
+            fetchError && (
+                <p class="rounded border border-link3/40 bg-link3/10 px-3 py-2 text-sm text-link3">
+                    {fetchError}
+                </p>
+            )
+        }
 
         <section class="grid grid-cols-1 gap-4 md:grid-cols-2">
             {
@@ -110,15 +151,32 @@ const statusClass: Record<Project["status"], string> = {
                             ))}
                         </div>
 
+                        <p class="mb-3 font-mono text-xs text-normal-lighter2">
+                            ★ {project.stars} · forks {project.forks} · updated{" "}
+                            {new Date(project.updatedAt).toLocaleDateString("en-GB", {
+                                year: "numeric",
+                                month: "short",
+                                day: "numeric",
+                            })}
+                        </p>
+
                         <div class="flex flex-wrap items-center gap-3">
-                            {project.links.map((link) => (
-                                <a
-                                    href={link.href}
-                                    class="font-mono text-sm text-link3 no-underline hover:text-link3-darker"
-                                >
-                                    {link.label}
-                                </a>
-                            ))}
+                            <a
+                                href={project.repoUrl}
+                                class="font-mono text-sm text-link3 no-underline hover:text-link3-darker"
+                            >
+                                GitHub
+                            </a>
+                            {
+                                project.homepageUrl && (
+                                    <a
+                                        href={project.homepageUrl}
+                                        class="font-mono text-sm text-link2 no-underline hover:text-link2-darker"
+                                    >
+                                        Live
+                                    </a>
+                                )
+                            }
                         </div>
                     </article>
                 ))
