@@ -4,17 +4,7 @@ import GitHub from "../../components/icons/GitHub.astro";
 import Globe from "../../components/icons/Globe.astro";
 import Pin from "../../components/icons/Pin.astro";
 import { G } from "../../lib/globals.ts";
-
-type GithubRepo = {
-    name: string;
-    description: string | null;
-    html_url: string;
-    homepage: string | null;
-    topics?: string[];
-    language: string | null;
-    archived: boolean;
-    updated_at: string;
-};
+import githubData from "../../lib/github_data.json";
 
 type Project = {
     name: string;
@@ -24,128 +14,8 @@ type Project = {
     repoUrl: string;
     homepageUrl: string | null;
     updatedAt: string;
+    isPinned: boolean;
 };
-
-const PINNED_REPO = "www";
-
-const INCLUDED_REPOS = new Set([
-    "www",
-    "config-astronvim",
-    "dotfiles",
-    "pi-x",
-    "serv",
-    "kdly",
-    "paper-toolkit",
-    "awesome-organic-writing",
-    "hata",
-    "lampa",
-    "respect-busy-maintainers",
-    "authie",
-    "homelab-public",
-    "bang",
-    "engbook",
-    "run-lampa",
-    "tg-bumblebee-bot",
-    "moon_lander",
-    "pustomario",
-    "sarif-kotlin",
-    "light-map",
-    "pipes.kt",
-    "processing-fun",
-    "uCompiler",
-    "space-lander",
-    "ludum-dare",
-    "CleverBlocks",
-    "scatris",
-    "Stackoverflow-answers",
-    "quotes-clean",
-    "kotris",
-    "rkpi",
-    "ld29",
-    "ld29-haxe",
-    "snake",
-    "personal-notes",
-    "tlamp",
-    "lh2l_project",
-    "social-interaction",
-    "im-sorry-dave",
-    "plchdr-kt",
-    "tuya-lib",
-    "ghosty",
-    "quotes",
-    "things",
-    "dector",
-    "dead-art-space",
-    "exercism-kotlin",
-    "tkgbot",
-    "kotlin-guides",
-]);
-
-const STALE_AFTER_DAYS = 365;
-
-function getProjectStatus(repo: GithubRepo): Project["status"] {
-    if (repo.archived) return "Archived";
-
-    const updatedAt = new Date(repo.updated_at).getTime();
-    const staleThreshold = Date.now() - STALE_AFTER_DAYS * 24 * 60 * 60 * 1000;
-
-    return updatedAt < staleThreshold ? "Stale" : "Active";
-}
-
-async function fetchAllPublicRepos(username: string): Promise<Project[]> {
-    const allRepos: GithubRepo[] = [];
-    let page = 1;
-
-    while (true) {
-        const response = await fetch(
-            `https://api.github.com/users/${username}/repos?per_page=100&page=${page}&type=public&sort=updated`,
-            {
-                headers: {
-                    Accept: "application/vnd.github+json",
-                    "User-Agent": "dector-www-projects-page",
-                },
-            },
-        );
-
-        if (!response.ok) {
-            throw new Error(`GitHub API responded with ${response.status}`);
-        }
-
-        const repos = (await response.json()) as GithubRepo[];
-        if (repos.length === 0) break;
-
-        allRepos.push(...repos);
-
-        if (repos.length < 100) break;
-        page += 1;
-    }
-
-    return allRepos
-        .filter((repo) => INCLUDED_REPOS.has(repo.name))
-        .sort((a, b) => {
-            if (a.name === PINNED_REPO && b.name !== PINNED_REPO) return -1;
-            if (b.name === PINNED_REPO && a.name !== PINNED_REPO) return 1;
-
-            return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
-        })
-        .map((repo) => {
-            const tags = repo.topics?.length
-                ? repo.topics
-                : repo.language
-                  ? [repo.language]
-                  : ["misc"];
-
-            return {
-                name: repo.name,
-                summary: repo.description ?? "No description provided.",
-                tags,
-                status: getProjectStatus(repo),
-                repoUrl: repo.html_url,
-                homepageUrl: repo.homepage,
-                updatedAt: repo.updated_at,
-            };
-        });
-}
 
 const pageTitle = `Projects ~ ${G.BlogTitle}`;
 const pageDescription = "Public repositories from github.com/dector.";
@@ -156,15 +26,7 @@ const statusClass: Record<Project["status"], string> = {
     Archived: "border-link3 text-link3",
 };
 
-let projects: Project[] = [];
-let fetchError: string | null = null;
-
-try {
-    projects = await fetchAllPublicRepos("dector");
-} catch (error) {
-    console.error("Failed to fetch public repositories", error);
-    fetchError = "Could not load repositories from GitHub right now.";
-}
+const projects = githubData.projects as Project[];
 ---
 
 <HtmlLayout
@@ -180,14 +42,6 @@ try {
             shown as projects.
         </p>
 
-        {
-            fetchError && (
-                <p class="rounded border border-link3/40 bg-link3/10 px-3 py-2 text-sm text-link3">
-                    {fetchError}
-                </p>
-            )
-        }
-
         <section class="grid grid-cols-1 gap-4 md:grid-cols-2">
             {
                 projects.map((project) => (
@@ -197,7 +51,7 @@ try {
                                 {project.name}
                             </h2>
                             <div class="inline-flex items-center gap-1">
-                                {project.name === PINNED_REPO && project.status === "Active" && <Pin />}
+                                {project.isPinned && project.status === "Active" && <Pin />}
                                 <span
                                     class:list={[
                                         "rounded border px-2 py-0.5 font-mono text-xs",

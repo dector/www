@@ -7,7 +7,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "test": "bun test",
-    "astro": "astro"
+    "astro": "astro",
+    "refresh:github-data": "uv run python scripts/update_github_data.py"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.6.0",
