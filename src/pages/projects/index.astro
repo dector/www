@@ -1,0 +1,128 @@
+---
+import HtmlLayout from "../../layouts/HtmlLayout.astro";
+import { G } from "../../lib/globals.ts";
+
+type Project = {
+    name: string;
+    summary: string;
+    tags: string[];
+    status: "Live" | "In Progress" | "Paused";
+    links: {
+        label: string;
+        href: string;
+    }[];
+};
+
+const projects: Project[] = [
+    {
+        name: "Atlas Notes",
+        summary:
+            "A personal knowledge base with markdown syncing, full-text search, and clean reading mode.",
+        tags: ["TypeScript", "Astro", "SQLite"],
+        status: "Live",
+        links: [
+            { label: "Demo", href: "#" },
+            { label: "GitHub", href: "#" },
+        ],
+    },
+    {
+        name: "Pocket Budget",
+        summary:
+            "A minimal budget tracker focused on recurring expenses and monthly planning.",
+        tags: ["React", "Bun", "PostgreSQL"],
+        status: "In Progress",
+        links: [
+            { label: "Roadmap", href: "#" },
+            { label: "GitHub", href: "#" },
+        ],
+    },
+    {
+        name: "Habit Garden",
+        summary:
+            "Gamified habit tracking where completed streaks grow your virtual garden.",
+        tags: ["Svelte", "Supabase", "PWA"],
+        status: "Paused",
+        links: [{ label: "Case Study", href: "#" }],
+    },
+    {
+        name: "Tiny Ops",
+        summary:
+            "A tiny dashboard to monitor deploy status, uptime checks, and alerts in one view.",
+        tags: ["Go", "Docker", "Prometheus"],
+        status: "Live",
+        links: [
+            { label: "Docs", href: "#" },
+            { label: "GitHub", href: "#" },
+        ],
+    },
+];
+
+const pageTitle = `Projects ~ ${G.BlogTitle}`;
+const pageDescription = "A curated showcase of projects and experiments.";
+
+const statusClass: Record<Project["status"], string> = {
+    Live: "border-link2 text-link2",
+    "In Progress": "border-link1 text-link1",
+    Paused: "border-link3 text-link3",
+};
+---
+
+<HtmlLayout
+    title={pageTitle}
+    description={pageDescription}
+    canonical="/projects/"
+    sectionTitle="Projects"
+    sectionHref="/projects"
+>
+    <main class="mx-auto flex max-w-4xl flex-col gap-6 px-3 py-12 lg:px-0">
+        <p class="max-w-2xl text-normal-lighter2">
+            A small selection of things I’ve been building. This page currently uses
+            mock data and layout placeholders.
+        </p>
+
+        <section class="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {
+                projects.map((project) => (
+                    <article class="flex h-full flex-col rounded border border-muted/60 bg-black/10 p-4">
+                        <div class="mb-2 flex items-start justify-between gap-3">
+                            <h2 class="font-mono text-xl font-light text-normal-lighter3">
+                                {project.name}
+                            </h2>
+                            <span
+                                class:list={[
+                                    "rounded border px-2 py-0.5 font-mono text-xs",
+                                    statusClass[project.status],
+                                ]}
+                            >
+                                {project.status}
+                            </span>
+                        </div>
+
+                        <p class="mb-4 flex-1 text-sm text-normal-lighter2">
+                            {project.summary}
+                        </p>
+
+                        <div class="mb-4 flex flex-wrap gap-2">
+                            {project.tags.map((tag) => (
+                                <span class="rounded bg-muted/25 px-2 py-0.5 font-mono text-xs text-normal-lighter2">
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
+
+                        <div class="flex flex-wrap items-center gap-3">
+                            {project.links.map((link) => (
+                                <a
+                                    href={link.href}
+                                    class="font-mono text-sm text-link3 no-underline hover:text-link3-darker"
+                                >
+                                    {link.label}
+                                </a>
+                            ))}
+                        </div>
+                    </article>
+                ))
+            }
+        </section>
+    </main>
+</HtmlLayout>

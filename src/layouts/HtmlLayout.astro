@@ -45,6 +45,10 @@ const canonicalUrl = canonical
     : new URL(Astro.url.pathname, site).href;
 const socialImageUrl = new URL(socialImage, site).href;
 const rssUrl = new URL("/rss.xml", site).href;
+const currentPath = Astro.url.pathname;
+const isNotesSection = currentPath === "/notes" || currentPath.startsWith("/notes/");
+const isProjectsSection =
+    currentPath === "/projects" || currentPath.startsWith("/projects/");
 const commitUrlTemplate = G.CommitUrlTemplate ?? "";
 const buildCommitUrl = commitUrlTemplate.replace(
     "{{COMMIT}}",
@@ -111,7 +115,7 @@ const buildCommitUrl = commitUrlTemplate.replace(
     >
         <header class="fixed inset-x-0 top-0 z-10 bg-background">
             <div class="mx-auto max-w-4xl px-3 py-3 lg:px-0">
-                <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between gap-4">
                     <a
                         href="/"
                         class="inline-block font-mono text-sm text-normal-lighter no-underline hover:text-link3"
@@ -119,38 +123,74 @@ const buildCommitUrl = commitUrlTemplate.replace(
                         {G.BlogTitle}
                     </a>
                     <div class="flex items-center gap-4">
-                        <a
-                            href="https://github.com/dector"
-                            class="inline-block font-mono text-sm text-normal-lighter no-underline hover:text-link3"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            github
-                        </a>
-                        <a
-                            href="https://mastodon.online/@dector"
-                            class="inline-block font-mono text-sm text-normal-lighter no-underline hover:text-link3"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            mastodon
-                        </a>
-                        <a
-                            href="/rss.xml"
-                            class="inline-block font-mono text-sm text-normal-lighter no-underline hover:text-link3"
-                        >
-                            rss
-                        </a>
+                        <div class="flex items-center gap-3 border-r border-muted/70 pr-4">
+                            <a
+                                href="/notes"
+                                class:list={[
+                                    "inline-block font-mono text-sm no-underline",
+                                    isNotesSection
+                                        ? "text-white font-bold"
+                                        : "text-normal-lighter hover:text-normal-lighter3",
+                                ]}
+                            >
+                                /notes
+                            </a>
+                            <a
+                                href="/projects"
+                                class:list={[
+                                    "inline-block font-mono text-sm no-underline",
+                                    isProjectsSection
+                                        ? "text-white font-bold"
+                                        : "text-normal-lighter hover:text-normal-lighter3",
+                                ]}
+                            >
+                                /projects
+                            </a>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <a
+                                href="https://github.com/dector"
+                                class="inline-block font-mono text-sm text-normal-lighter no-underline hover:text-link3"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                github
+                            </a>
+                            <a
+                                href="https://mastodon.online/@dector"
+                                class="inline-block font-mono text-sm text-normal-lighter no-underline hover:text-link3"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                mastodon
+                            </a>
+                            <a
+                                href="/rss.xml"
+                                class="inline-block font-mono text-sm text-normal-lighter no-underline hover:text-link3"
+                            >
+                                rss
+                            </a>
+                        </div>
                     </div>
                 </div>
                 {
                     hasSectionTitleRow && (
-                        <div class="mt-1 h-7 font-mono text-xl font-light text-normal-lighter opacity-80">
+                        <div
+                            class:list={[
+                                "mt-1 h-7 font-mono text-xl font-light opacity-90",
+                                isProjectsSection ? "text-link2" : "text-link3",
+                            ]}
+                        >
                             {normalizedSectionTitle ? (
                                 sectionHref ? (
                                     <a
                                         href={sectionHref}
-                                        class="no-underline hover:text-link3"
+                                        class:list={[
+                                            "no-underline",
+                                            isProjectsSection
+                                                ? "hover:text-link1"
+                                                : "hover:text-link3",
+                                        ]}
                                     >
                                         {`/${normalizedSectionTitle}/`}
                                     </a>
