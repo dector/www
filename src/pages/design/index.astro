@@ -68,12 +68,28 @@ const colors = [
             <h2 class="font-mono text-2xl font-light text-link3">Components</h2>
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <article class="space-y-3 rounded border border-muted/60 p-4">
-                    <h3 class="font-mono text-lg text-normal-lighter3">Links & badges</h3>
+                    <h3 class="font-mono text-lg text-normal-lighter3">Links & tags</h3>
                     <div class="flex flex-wrap items-center gap-3">
                         <a href="#" class="font-mono text-link3 no-underline hover:text-link3-darker">Primary link</a>
                         <a href="#" class="font-mono text-link2 no-underline hover:text-link1">Secondary link</a>
-                        <TagBadge tag="astro" href="#" />
-                        <TagBadge tag="design" href="#" />
+                    </div>
+                    <div class="space-y-2">
+                        <p class="font-mono text-xs text-normal-lighter2">Note/Post tag style</p>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <TagBadge tag="astro" href="#" />
+                            <TagBadge tag="design" href="#" />
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <p class="font-mono text-xs text-normal-lighter2">Project tag style</p>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="rounded bg-muted/25 px-2 py-0.5 font-mono text-xs text-normal-lighter2">
+                                TypeScript
+                            </span>
+                            <span class="rounded bg-muted/25 px-2 py-0.5 font-mono text-xs text-normal-lighter2">
+                                Astro
+                            </span>
+                        </div>
                     </div>
                 </article>
 
