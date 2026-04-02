@@ -19,6 +19,12 @@ const colors = [
     { name: "normal-lighter3", className: "bg-normal-lighter3", textClass: "text-background", hex: "#b2b2b2" },
     { name: "muted", className: "bg-muted", textClass: "text-normal-lighter3", hex: "#595959" },
 ];
+
+const projectStatusClass = {
+    Live: "border-link2 text-link2",
+    "In Progress": "border-link1 text-link1",
+    Paused: "border-link3 text-link3",
+};
 ---
 
 <HtmlLayout
@@ -91,6 +97,21 @@ const colors = [
                             </span>
                         </div>
                     </div>
+                    <div class="space-y-2">
+                        <p class="font-mono text-xs text-normal-lighter2">Project state style</p>
+                        <div class="flex flex-wrap items-center gap-2">
+                            {(["Live", "In Progress", "Paused"] as const).map((status) => (
+                                <span
+                                    class:list={[
+                                        "rounded border px-2 py-0.5 font-mono text-xs",
+                                        projectStatusClass[status],
+                                    ]}
+                                >
+                                    {status}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
                 </article>
 
                 <article class="space-y-3 rounded border border-muted/60 p-4">
@@ -106,6 +127,30 @@ const colors = [
                         <p class="text-sm text-normal-lighter2">
                             This is a sample content card that can be reused for projects or posts.
                         </p>
+                    </div>
+
+                    <div class="rounded border border-muted/70 bg-black/10 p-3">
+                        <div class="mb-2 flex items-start justify-between gap-3">
+                            <span class="font-mono text-normal-lighter3">Sample project</span>
+                            <span class:list={["rounded border px-2 py-0.5 font-mono text-xs", projectStatusClass["In Progress"]]}>
+                                In Progress
+                            </span>
+                        </div>
+                        <p class="mb-3 text-sm text-normal-lighter2">
+                            Mirrors the `/projects` card with summary text, tags, state, and links.
+                        </p>
+                        <div class="mb-3 flex flex-wrap gap-2">
+                            <span class="rounded bg-muted/25 px-2 py-0.5 font-mono text-xs text-normal-lighter2">
+                                Bun
+                            </span>
+                            <span class="rounded bg-muted/25 px-2 py-0.5 font-mono text-xs text-normal-lighter2">
+                                Astro
+                            </span>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <a href="#" class="font-mono text-sm text-link3 no-underline hover:text-link3-darker">Demo</a>
+                            <a href="#" class="font-mono text-sm text-link3 no-underline hover:text-link3-darker">GitHub</a>
+                        </div>
                     </div>
                 </article>
             </div>
