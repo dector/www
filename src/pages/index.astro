@@ -1,4 +1,5 @@
 ---
+import HomeLink from "../components/HomeLink.astro";
 import HtmlLayout from "../layouts/HtmlLayout.astro";
 import { G } from "../lib/globals.ts";
 
@@ -14,24 +15,9 @@ const pageDescription = G.BlogDescription;
 >
     <main class="mx-auto flex max-w-4xl px-3 py-12 lg:px-0">
         <section class="relative flex w-full flex-col items-start gap-3 text-left">
-            <a
-                class="home-link inline-flex items-center font-mono text-4xl font-light text-link3 hover:bg-link3 hover:px-2 hover:text-background focus-visible:outline-2 focus-visible:outline-offset-6 focus-visible:outline-link3 md:text-5xl"
-                href="/notes"
-            >
-                /Notes
-            </a>
-            <a
-                class="home-link inline-flex items-center font-mono text-4xl font-light text-link2 hover:bg-link2 hover:px-2 hover:text-background focus-visible:outline-2 focus-visible:outline-offset-6 focus-visible:outline-link2 md:text-5xl"
-                href="/projects"
-            >
-                /Projects
-            </a>
+            <HomeLink href="/notes" label="/Notes" color="link3" />
+            <HomeLink href="/projects" label="/Projects" color="link2" />
         </section>
     </main>
 </HtmlLayout>
 
-<style>
-    .home-link {
-        letter-spacing: 0.015em;
-    }
-</style>

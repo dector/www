@@ -1,0 +1,23 @@
+---
+interface Props {
+    href: string;
+    label: string;
+    color: "link2" | "link3";
+}
+
+const { href, label, color } = Astro.props as Props;
+const colorClass = `text-${color} hover:bg-${color} focus-visible:outline-${color}`;
+---
+
+<a
+    class={`home-link inline-flex items-center font-mono text-4xl font-light hover:px-2 hover:text-background focus-visible:outline-2 focus-visible:outline-offset-6 md:text-5xl ${colorClass}`}
+    href={href}
+>
+    {label}
+</a>
+
+<style>
+    .home-link {
+        letter-spacing: 0.015em;
+    }
+</style>
