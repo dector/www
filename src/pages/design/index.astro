@@ -1,5 +1,6 @@
 ---
 import HtmlLayout from "../../layouts/HtmlLayout.astro";
+import GitHub from "../../components/icons/GitHub.astro";
 import TagBadge from "../../components/ui/TagBadge.astro";
 import Pin from "../../components/icons/Pin.astro";
 import { G } from "../../lib/globals.ts";
@@ -21,9 +22,9 @@ const colors = [
 ];
 
 const projectStatusClass = {
-    Live: "border-link2 text-link2",
-    "In Progress": "border-link1 text-link1",
-    Paused: "border-link3 text-link3",
+    Active: "border-link2 text-link2",
+    Stale: "border-link1 text-link1",
+    Archived: "border-link3 text-link3",
 };
 ---
 
@@ -100,7 +101,7 @@ const projectStatusClass = {
                     <div class="space-y-2">
                         <p class="font-mono text-xs text-normal-lighter2">Project state style</p>
                         <div class="flex flex-wrap items-center gap-2">
-                            {(["Live", "In Progress", "Paused"] as const).map((status) => (
+                            {(["Active", "Stale", "Archived"] as const).map((status) => (
                                 <span
                                     class:list={[
                                         "rounded border px-2 py-0.5 font-mono text-xs",
@@ -132,13 +133,14 @@ const projectStatusClass = {
                     <div class="rounded border border-muted/70 bg-black/10 p-3">
                         <div class="mb-2 flex items-start justify-between gap-3">
                             <span class="font-mono text-normal-lighter3">Sample project</span>
-                            <span class:list={["rounded border px-2 py-0.5 font-mono text-xs", projectStatusClass["In Progress"]]}>
-                                In Progress
+                            <span class:list={["rounded border px-2 py-0.5 font-mono text-xs", projectStatusClass["Stale"]]}>
+                                Stale
                             </span>
                         </div>
                         <p class="mb-3 text-sm text-normal-lighter2">
                             Mirrors the `/projects` card with summary text, tags, state, and links.
                         </p>
+                        <p class="mb-3 font-mono text-xs text-normal-lighter2">updated 02 Apr 2026</p>
                         <div class="mb-3 flex flex-wrap gap-2">
                             <span class="rounded bg-muted/25 px-2 py-0.5 font-mono text-xs text-normal-lighter2">
                                 Bun
@@ -149,7 +151,10 @@ const projectStatusClass = {
                         </div>
                         <div class="flex flex-wrap items-center gap-3">
                             <a href="#" class="font-mono text-sm text-link3 no-underline hover:text-link3-darker">Demo</a>
-                            <a href="#" class="font-mono text-sm text-link3 no-underline hover:text-link3-darker">GitHub</a>
+                            <a href="#" class="inline-flex items-center gap-1 font-mono text-sm text-link3 no-underline hover:text-link3-darker">
+                                <GitHub />
+                                GitHub
+                            </a>
                         </div>
                     </div>
                 </article>

@@ -1,5 +1,8 @@
 ---
 import HtmlLayout from "../../layouts/HtmlLayout.astro";
+import GitHub from "../../components/icons/GitHub.astro";
+import Globe from "../../components/icons/Globe.astro";
+import Pin from "../../components/icons/Pin.astro";
 import { G } from "../../lib/globals.ts";
 
 type GithubRepo = {
@@ -10,8 +13,6 @@ type GithubRepo = {
     topics?: string[];
     language: string | null;
     archived: boolean;
-    stargazers_count: number;
-    forks_count: number;
     updated_at: string;
 };
 
@@ -19,13 +20,77 @@ type Project = {
     name: string;
     summary: string;
     tags: string[];
-    status: "Active" | "Archived";
+    status: "Active" | "Stale" | "Archived";
     repoUrl: string;
     homepageUrl: string | null;
-    stars: number;
-    forks: number;
     updatedAt: string;
 };
+
+const PINNED_REPO = "www";
+
+const INCLUDED_REPOS = new Set([
+    "www",
+    "config-astronvim",
+    "dotfiles",
+    "pi-x",
+    "serv",
+    "kdly",
+    "paper-toolkit",
+    "awesome-organic-writing",
+    "hata",
+    "lampa",
+    "respect-busy-maintainers",
+    "authie",
+    "homelab-public",
+    "bang",
+    "engbook",
+    "run-lampa",
+    "tg-bumblebee-bot",
+    "moon_lander",
+    "pustomario",
+    "sarif-kotlin",
+    "light-map",
+    "pipes.kt",
+    "processing-fun",
+    "uCompiler",
+    "space-lander",
+    "ludum-dare",
+    "CleverBlocks",
+    "scatris",
+    "Stackoverflow-answers",
+    "quotes-clean",
+    "kotris",
+    "rkpi",
+    "ld29",
+    "ld29-haxe",
+    "snake",
+    "personal-notes",
+    "tlamp",
+    "lh2l_project",
+    "social-interaction",
+    "im-sorry-dave",
+    "plchdr-kt",
+    "tuya-lib",
+    "ghosty",
+    "quotes",
+    "things",
+    "dector",
+    "dead-art-space",
+    "exercism-kotlin",
+    "tkgbot",
+    "kotlin-guides",
+]);
+
+const STALE_AFTER_DAYS = 365;
+
+function getProjectStatus(repo: GithubRepo): Project["status"] {
+    if (repo.archived) return "Archived";
+
+    const updatedAt = new Date(repo.updated_at).getTime();
+    const staleThreshold = Date.now() - STALE_AFTER_DAYS * 24 * 60 * 60 * 1000;
+
+    return updatedAt < staleThreshold ? "Stale" : "Active";
+}
 
 async function fetchAllPublicRepos(username: string): Promise<Project[]> {
     const allRepos: GithubRepo[] = [];
@@ -56,10 +121,13 @@ async function fetchAllPublicRepos(username: string): Promise<Project[]> {
     }
 
     return allRepos
-        .sort(
-            (a, b) =>
-                new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
-        )
+        .filter((repo) => INCLUDED_REPOS.has(repo.name))
+        .sort((a, b) => {
+            if (a.name === PINNED_REPO && b.name !== PINNED_REPO) return -1;
+            if (b.name === PINNED_REPO && a.name !== PINNED_REPO) return 1;
+
+            return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
+        })
         .map((repo) => {
             const tags = repo.topics?.length
                 ? repo.topics
@@ -71,11 +139,9 @@ async function fetchAllPublicRepos(username: string): Promise<Project[]> {
                 name: repo.name,
                 summary: repo.description ?? "No description provided.",
                 tags,
-                status: repo.archived ? "Archived" : "Active",
+                status: getProjectStatus(repo),
                 repoUrl: repo.html_url,
                 homepageUrl: repo.homepage,
-                stars: repo.stargazers_count,
-                forks: repo.forks_count,
                 updatedAt: repo.updated_at,
             };
         });
@@ -86,6 +152,7 @@ const pageDescription = "Public repositories from github.com/dector.";
 
 const statusClass: Record<Project["status"], string> = {
     Active: "border-link2 text-link2",
+    Stale: "border-link1 text-link1",
     Archived: "border-link3 text-link3",
 };
 
@@ -129,14 +196,17 @@ try {
                             <h2 class="font-mono text-xl font-light text-normal-lighter3">
                                 {project.name}
                             </h2>
-                            <span
-                                class:list={[
-                                    "rounded border px-2 py-0.5 font-mono text-xs",
-                                    statusClass[project.status],
-                                ]}
-                            >
-                                {project.status}
-                            </span>
+                            <div class="inline-flex items-center gap-1">
+                                {project.name === PINNED_REPO && project.status === "Active" && <Pin />}
+                                <span
+                                    class:list={[
+                                        "rounded border px-2 py-0.5 font-mono text-xs",
+                                        statusClass[project.status],
+                                    ]}
+                                >
+                                    {project.status}
+                                </span>
+                            </div>
                         </div>
 
                         <p class="mb-4 flex-1 text-sm text-normal-lighter2">
@@ -152,7 +222,7 @@ try {
                         </div>
 
                         <p class="mb-3 font-mono text-xs text-normal-lighter2">
-                            ★ {project.stars} · forks {project.forks} · updated{" "}
+                            updated{" "}
                             {new Date(project.updatedAt).toLocaleDateString("en-GB", {
                                 year: "numeric",
                                 month: "short",
@@ -163,16 +233,18 @@ try {
                         <div class="flex flex-wrap items-center gap-3">
                             <a
                                 href={project.repoUrl}
-                                class="font-mono text-sm text-link3 no-underline hover:text-link3-darker"
+                                class="inline-flex items-center gap-1 font-mono text-sm text-link3 no-underline hover:text-link3-darker"
                             >
+                                <GitHub />
                                 GitHub
                             </a>
                             {
                                 project.homepageUrl && (
                                     <a
                                         href={project.homepageUrl}
-                                        class="font-mono text-sm text-link2 no-underline hover:text-link2-darker"
+                                        class="inline-flex items-center gap-1 font-mono text-sm text-link2 no-underline hover:text-link2-darker"
                                     >
+                                        <Globe />
                                         Live
                                     </a>
                                 )
