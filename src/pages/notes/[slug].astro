@@ -31,7 +31,7 @@ const seoDescription =
     publishedTime={post.createdAt}
     modifiedTime={post.updatedAt}
     articleTags={displayTags}
-    revision={post.revision}
+    revision={post.revision != null ? String(post.revision) : undefined}
     history={post.history}
 >
     <div slot="meta" class="flex flex-wrap items-center gap-2 text-sm text-normal-lighter">
