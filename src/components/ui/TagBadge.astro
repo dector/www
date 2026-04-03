@@ -2,15 +2,19 @@
 interface Props {
     tag: string;
     href?: string;
+    class?: string;
 }
 
-const { tag, href } = Astro.props;
+const { tag, href, class: className } = Astro.props;
 const linkHref = href ?? `/notes/t/${tag}/`;
 ---
 
 <a
     href={linkHref}
-    class="inline-flex items-center rounded border border-link3/50 bg-link3/10 px-2 py-0.5 font-mono text-xs text-link3 no-underline transition-colors hover:border-link3 hover:bg-link3 hover:text-background"
+    class:list={[
+        "inline-flex items-center rounded border border-link3/50 bg-link3/10 px-2 py-0.5 font-mono text-xs text-link3 no-underline transition-colors hover:border-link3 hover:bg-link3 hover:text-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link3",
+        className,
+    ]}
 >
     {tag}
 </a>
