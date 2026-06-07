@@ -1,0 +1,18 @@
+FROM docker.io/oven/bun:1.3.14 AS deps
+WORKDIR /site
+
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile
+
+FROM deps AS build
+WORKDIR /site
+
+COPY astro.config.mjs ./
+COPY src ./src
+COPY public ./public
+COPY content ./content
+
+RUN bun run build
+
+FROM scratch AS static
+COPY --from=build /site/dist /dist
