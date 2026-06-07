@@ -6,7 +6,10 @@ interface Props {
 }
 
 const { href, label, color } = Astro.props as Props;
-const colorClass = `text-${color} hover:bg-${color} focus-visible:outline-${color}`;
+const colorClass = {
+    link2: "text-link2 hover:bg-link2 focus-visible:outline-link2",
+    link3: "text-link3 hover:bg-link3 focus-visible:outline-link3",
+}[color];
 ---
 
 <a
