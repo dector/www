@@ -11,14 +11,14 @@
     "refresh:github-data": "uv run python scripts/update_github_data.py"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.6.0",
+    "@astrojs/sitemap": "^3.7.3",
     "@djot/djot": "^0.3.2",
-    "astro": "^5.18.2",
+    "astro": "^6",
     "highlight.js": "^11.11.1",
     "hjson": "^3.2.2"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.1.18",
-    "tailwindcss": "^4.1.18"
+    "@tailwindcss/vite": "^4.3.3",
+    "tailwindcss": "^4.3.3"
   }
 }
