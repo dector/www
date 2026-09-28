@@ -1,0 +1,15 @@
+---
+const homeUrl = new URL("/", Astro.site ?? Astro.url).href;
+---
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="refresh" content={`0; url=${homeUrl}`} />
+        <link rel="canonical" href={homeUrl} />
+        <title>Redirecting · dector.space</title>
+    </head>
+    <body>
+        <p>Redirecting to <a href={homeUrl}>home</a>.</p>
+    </body>
+</html>

@@ -1,0 +1,37 @@
+---
+import type { GetStaticPaths } from "astro";
+import { goLibraries } from "../../../lib/go-libraries.ts";
+
+export const getStaticPaths = (() =>
+    goLibraries.map((library) => ({
+        params: { library: library.name },
+        props: { library },
+    }))) satisfies GetStaticPaths;
+
+const { library } = Astro.props;
+const repoUrl = `https://github.com/dector/${library.name}`;
+const title = `${library.name} · dector.space`;
+const canonicalUrl = new URL(`/go/${library.name}/`, Astro.site ?? Astro.url).href;
+// Go reads this tag from /go/<name>?go-get=1 to locate the repository.
+---
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="go-import" content={`dector.space/go/${library.name} git ${repoUrl}`} />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content={library.description} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={library.description} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={library.description} />
+        <title>{title}</title>
+    </head>
+    <body>
+        <p>{library.name} is hosted at <a href={repoUrl}>github.com/dector/{library.name}</a>.</p>
+    </body>
+</html>
