@@ -1,0 +1,33 @@
+---
+public: true
+rev: 1.0.0
+tags: [
+  "meta",
+]
+createdAt: "2026-09-07 15:00"
+pinned: 1
+---
+
+# No AI (AI Policy)
+
+Since LLM/AI tools are part of our reality for quite a while already,
+here is my AI policy:
+
+**I don't use LLMs for writing**. Neither in this blog, nor in other
+written personal or work forms. Writing is about communication.
+Communication is about trust. If you recieve ideas/messages/email from me -
+it was not composed or edited by LLM.
+
+I might use LLMs for generating some parts of the description or
+fact-based tables but those parts will always be marked as AI-generated.
+
+I might use LLMs for fixing grammar in the future. I think it's a valid
+and useful case. However, I'm not sure if it might push me to the slippery
+slope so I'm still hesitating to do it personally. But this might change.
+
+If you are texting me - please consider writing it by yourself even if your
+writing skills are not that fancy comparing to some GPT-3000-Universe
+(or whatever version is out there). Send me ideas composed in your voice.
+Or just mark generated content. I would really appreciate that. Otherwise
+I'm not sure I want to read what you put very little effort writing.
+
