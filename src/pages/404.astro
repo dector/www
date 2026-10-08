@@ -1,0 +1,20 @@
+---
+import GoLibraryPage from "../components/GoLibraryPage.astro";
+
+// GitHub Pages serves this page for unknown paths, including future gox modules.
+// Go accepts discovery metadata from a 404 response. The prefix limits this
+// mapping to dector.space/gox; unrelated paths do not match it.
+---
+<GoLibraryPage
+    name="gox"
+    importPath="dector.space/gox"
+    repoUrl="https://github.com/dector/gox"
+    title="Page not found · dector.space"
+    robots="noindex"
+    canonical={false}
+>
+    <h1>Page not found</h1>
+    <p>The page you requested does not exist.</p>
+    <p>Looking for a Go module? Visit the <a href="https://github.com/dector/gox">gox repository</a>.</p>
+    <p><a href="/">Back to home</a></p>
+</GoLibraryPage>

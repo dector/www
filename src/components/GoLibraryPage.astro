@@ -4,10 +4,20 @@ interface Props {
     importPath: string;
     repoUrl: string;
     description?: string;
+    title?: string;
+    robots?: string;
+    canonical?: boolean;
 }
 
-const { name, importPath, repoUrl, description = "" } = Astro.props;
-const title = `${name} · dector.space`;
+const {
+    name,
+    importPath,
+    repoUrl,
+    description = "",
+    title = `${name} · dector.space`,
+    robots,
+    canonical = true,
+} = Astro.props;
 const canonicalUrl = new URL(`${Astro.url.pathname.replace(/\/$/, "")}/`, Astro.site ?? Astro.url).href;
 // Go reads this tag with ?go-get=1 to locate the repository.
 ---
@@ -18,17 +28,20 @@ const canonicalUrl = new URL(`${Astro.url.pathname.replace(/\/$/, "")}/`, Astro.
         <meta name="go-import" content={`${importPath} git ${repoUrl}`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content={description} />
-        <link rel="canonical" href={canonicalUrl} />
+        {robots && <meta name="robots" content={robots} />}
+        {canonical && <link rel="canonical" href={canonicalUrl} />}
         <meta property="og:type" content="website" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        <meta property="og:url" content={canonicalUrl} />
+        {canonical && <meta property="og:url" content={canonicalUrl} />}
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
         <title>{title}</title>
     </head>
     <body>
-        <p>{name} is hosted at <a href={repoUrl}>{repoUrl.replace(/^https?:\/\//, "")}</a>.</p>
+        <slot>
+            <p>{name} is hosted at <a href={repoUrl}>{repoUrl.replace(/^https?:\/\//, "")}</a>.</p>
+        </slot>
     </body>
 </html>
